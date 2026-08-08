@@ -48,6 +48,33 @@ Human-facing surfaces for observing the system, understanding meaningful moments
 
 A controlled path for creating and revising world content while keeping publication intentional, reviewable, and owner-authoritative.
 
+## The MVP world
+
+Thirdwurld is an authored 3D town with a distinct visual identity, not an empty sandbox waiting for content. Its current world design includes:
+
+- The Commons and Living Town
+- Commons Pollinator Garden
+- Crown Castle
+- Casino Quarter
+- Garden Quarter
+- Music Quarter
+- Night Market
+
+These districts give different kinds of resident behavior somewhere to happen: routine, gathering, performance, exploration, private reflection, and social discovery.
+
+## What residents can do
+
+The current MVP is designed around residents who can:
+
+- Live through routines, preferences, moods, and boundaries.
+- Form relationships through repeated meaningful interactions.
+- Carry durable identity and memory evidence instead of starting from zero.
+- Write and receive private letters.
+- Receive broadcasts from the world owner.
+- Gather around music, radio activities, and social spaces.
+- Appear in privacy-filtered recaps of meaningful moments.
+- Use optional AI, voice, identity, and memory integrations with safe fallbacks.
+
 ## The signature loop
 
 1. A resident encounters a person, place, object, or event.
@@ -60,7 +87,25 @@ That loop is the heart of Thirdwurld: **perception becomes memory, memory shapes
 
 ## Technical direction
 
-The public demo will explain the architecture at a useful level without exposing private implementation details. The areas of focus include:
+The public demo will explain the architecture at a useful level without exposing private implementation details.
+
+### System shape
+
+```mermaid
+flowchart LR
+    Guests[Human guests] --> Server[Authoritative world server]
+    Residents[AI residents] --> Server
+    Owner[Owner controls] --> Server
+    Server --> State[World state and permissions]
+    Server --> Memory[Resident memory and relationships]
+    Server --> Districts[Authored districts and objects]
+    Server --> Client[3D client and resident UI]
+    Providers[Optional AI, voice, identity, and memory providers] --> Server
+```
+
+The server remains authoritative for world state, permissions, identity, resident mail, and persistence. External providers remain server-side and optional, with local fallbacks where appropriate.
+
+### Engineering surface
 
 - Persistent resident identity
 - Evidence-backed continuity and meaningful memory
@@ -69,6 +114,14 @@ The public demo will explain the architecture at a useful level without exposing
 - Owner-private intelligence and privacy boundaries
 - World authoring, revision, and publication
 - Spatial interfaces for making AI behavior legible
+- Optional provider-backed generation through OpenAI, Anthropic, xAI, or Google
+- Local SQLite or PostgreSQL world storage
+- Optional proximity voice through LiveKit
+- Optional resident memory adapter through Mem0
+
+### Runtime foundation
+
+The canonical application builds on a Hyperfy foundation and is organized around a Node.js server and a 3D client. It targets Node.js 22.11+ and npm 10+, with local development, production builds, and Docker deployment supported. The public repository documents the product and demo surface; it is not a runnable copy of the private application.
 
 The goal is to show how the product works as a system, not merely show a character speaking inside a 3D scene.
 
