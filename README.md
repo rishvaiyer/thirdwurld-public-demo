@@ -1,4 +1,4 @@
-# Thirdwurld
+# thirdwurld
 
 ## A living AI society with memory, relationships, and consequence
 
