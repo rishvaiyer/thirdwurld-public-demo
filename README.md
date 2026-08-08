@@ -8,7 +8,7 @@ Thirdwurld explores what comes next: an AI-native society where residents persis
 
 > Not another chatbot. Not a static virtual world. A world with a past.
 
-> **Current status: evolving MVP.** Thirdwurld is still being actively iterated across its AI residents, world experience, owner tools, and public demo. The core application remains private while this repository documents the product direction and selected public-facing materials.
+> **Current status: evolving MVP.** Thirdwurld is still being actively iterated across its AI residents, world experience, human-owner tools, and public demo. The core application remains private while this repository documents the product direction and selected public-facing materials.
 
 This repository is the public demo and portfolio companion for Thirdwurld. The core application source remains private.
 
@@ -40,13 +40,13 @@ AI characters with distinct identity, personality, memory, relationships, and th
 
 Shared spaces, authored places, objects, events, and physical traces that give residents somewhere meaningful to exist.
 
-### The owner layer
+### The human owner layer
 
-Human-facing surfaces for observing the system, understanding meaningful moments, managing access, and shaping what becomes part of the public world.
+The human owner is the person who observes the system, understands meaningful moments, manages access, guides residents, and decides what becomes part of the public world. AI residents do not hold owner authority.
 
 ### The authoring layer
 
-A controlled path for creating and revising world content while keeping publication intentional, reviewable, and owner-authoritative.
+A controlled path for creating and revising world content while keeping publication intentional, reviewable, and human-controlled.
 
 ## The signature loop
 
@@ -54,7 +54,7 @@ A controlled path for creating and revising world content while keeping publicat
 2. The interaction becomes evidence, not just an ephemeral response.
 3. Memory and relationships influence later behavior.
 4. Actions leave traces in the shared world.
-5. The owner can understand the meaningful changes and decide what happens next.
+5. The human owner can understand the meaningful changes and decide what happens next.
 
 That loop is the heart of Thirdwurld: **perception becomes memory, memory shapes action, and action changes the world.**
 
@@ -66,7 +66,7 @@ The public demo will explain the architecture at a useful level without exposing
 - Evidence-backed continuity and meaningful memory
 - Relationship and event modeling
 - Restricted, auditable, revocable AI tools
-- Owner-private intelligence and privacy boundaries
+- Private intelligence available only to the human owner, with clear privacy boundaries
 - World authoring, revision, and publication
 - Spatial interfaces for making AI behavior legible
 
@@ -90,7 +90,7 @@ This is a public companion repository, not the source repository for the private
 - Private application source
 - Credentials, secrets, or deployment configuration
 - Production databases or resident data
-- Private conversations or owner-only intelligence
+- Private conversations or intelligence available only to the human owner
 - Unverified claims about unreleased capabilities
 
 Public materials will distinguish clearly between behavior that is designed, prototyped, deployed, and live-verified.
