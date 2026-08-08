@@ -8,6 +8,8 @@ Thirdwurld explores what comes next: an AI-native society where residents persis
 
 > Not another chatbot. Not a static virtual world. A world with a past.
 
+> **Status: MVP in active iteration.** Thirdwurld is an evolving product, and this public demo is being continuously refined as the resident systems, world experience, and portfolio presentation develop.
+
 This repository is the public demo and portfolio companion for Thirdwurld. The core application source remains private.
 
 ## The premise
