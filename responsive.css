@@ -426,7 +426,7 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 .scrapbook-controls { display: flex; justify-content: space-between; gap: .75rem; margin-top: clamp(1.5rem, 3vw, 2.5rem); }
 .scrapbook-controls button { min-height: 46px; padding: 0 13px; border: 1px solid var(--tw-line); background: rgba(255, 255, 255, .025); color: var(--tw-paper); cursor: pointer; font: 700 .72rem/1 var(--tw-mono); letter-spacing: .08em; text-transform: uppercase; }
 .scrapbook-controls button:hover, .scrapbook-controls button:focus-visible { border-color: var(--tw-amber); color: var(--tw-amber-bright); }
-.scrapbook-pages { display: grid; grid-template-columns: repeat(9, 1fr); gap: 7px; margin-top: 14px; }
+.scrapbook-pages { display: grid; grid-template-columns: repeat(11, 1fr); gap: 7px; margin-top: 14px; }
 .scrapbook-pages button { min-height: 42px; border: 1px solid var(--tw-line); background: rgba(13, 25, 21, .45); color: var(--tw-muted); cursor: pointer; font: 700 .72rem/1 var(--tw-mono); }
 .scrapbook-pages button:is(:hover, :focus-visible, .is-active) { border-color: var(--tw-amber); background: rgba(216, 168, 95, .12); color: var(--tw-amber-bright); }
 
@@ -447,7 +447,7 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
   .scrapbook-folio small { display: block; margin-top: 4px; text-align: left; }
   .scrapbook-controls span { display: none; }
   .scrapbook-controls button { min-width: 58px; }
-  .scrapbook-pages { grid-template-columns: repeat(5, 1fr); }
+  .scrapbook-pages { grid-template-columns: repeat(6, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
   .scrapbook-paper { transform: none; }

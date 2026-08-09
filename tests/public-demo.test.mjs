@@ -124,7 +124,7 @@ test('includes a truthfully labeled scrapbook gallery', () => {
   assert.match(script, /galleryLightbox/)
 })
 
-test('ships a twelve-page scrapbook with direct and accessible navigation', () => {
+test('ships an eleven-page scrapbook with direct and accessible navigation', () => {
   for (const selector of [
     'data-scrapbook',
     'data-scrapbook-image',
@@ -132,7 +132,7 @@ test('ships a twelve-page scrapbook with direct and accessible navigation', () =
     'data-scrapbook-next',
     'data-scrapbook-count',
   ]) assert.match(html, new RegExp(selector))
-  assert.equal((html.match(/data-scrapbook-page=/g) || []).length, 12)
+  assert.equal((html.match(/data-scrapbook-page=/g) || []).length, 11)
   for (const asset of ['resident-diary-real.png', 'world-moment-real.png']) {
     assert.match(`${html}\n${script}`, new RegExp(asset.replaceAll('.', '\\.')))
   }
@@ -141,6 +141,12 @@ test('ships a twelve-page scrapbook with direct and accessible navigation', () =
   assert.match(script, /ArrowRight/)
   assert.match(script, /touchstart/)
   assert.match(script, /touchend/)
+})
+
+test('keeps the scrapbook free of duplicate frames', () => {
+  const sources = [...script.matchAll(/\['(assets\/(?:gallery|game)\/[^']+)'/g)].map(match => match[1])
+  const scrapbookSources = sources.slice(sources.indexOf('assets/gallery/town-overview.png'), sources.indexOf('assets/game/resident-diary-real.png') + 2)
+  assert.equal(new Set(scrapbookSources).size, scrapbookSources.length)
 })
 
 test('links the pitch flow to the playable capsule and human member walkthrough', () => {
