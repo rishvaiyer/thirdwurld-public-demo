@@ -123,27 +123,19 @@ document.querySelector('[data-scrapbook-open]')?.addEventListener('click', () =>
 document.querySelector('[data-gallery-close]')?.addEventListener('click', () => galleryLightbox.close())
 galleryLightbox?.addEventListener('click', event => { if (event.target === galleryLightbox) galleryLightbox.close() })
 
-const galleryVideos = {
-  'capture-one': ['assets/videos/world-capture-01.webm', '', 'World capture · 01', 'A fresh capture from inside the world, cut into short moments so you can move through it like a field reel.'],
-  'capture-two': ['assets/videos/world-capture-02.webm', '', 'World capture · 02', 'Another route through the world, with a different rhythm of movement and place.'],
-  'capture-three': ['assets/videos/world-capture-03.webm', '', 'World capture · 03', 'A longer passage through the world, kept here as a moving proof of the places residents inhabit.'],
-  'capture-four': ['assets/videos/world-capture-04.webm', '', 'World capture · 04', 'The final cut in this first gallery reel, ready to play, pause, and revisit.'],
+const galleryPlayer = document.querySelector('[data-gallery-video-player]')
+const galleryStartSeconds = Number(galleryPlayer?.dataset.galleryVideoStart || 0)
+if (galleryPlayer) {
+  const seekToCut = () => {
+    if (Number.isFinite(galleryPlayer.duration) && galleryPlayer.duration > galleryStartSeconds) galleryPlayer.currentTime = galleryStartSeconds
+  }
+  galleryPlayer.addEventListener('loadedmetadata', seekToCut, { once: true })
+  galleryPlayer.addEventListener('timeupdate', () => {
+    if (galleryPlayer.currentTime > 0 && galleryPlayer.currentTime < galleryStartSeconds) galleryPlayer.currentTime = galleryStartSeconds
+  })
+  galleryPlayer.addEventListener('ended', () => { seekToCut(); galleryPlayer.play().catch(() => {}) })
+  galleryPlayer.play().catch(() => {})
 }
-function showGalleryVideo(id) {
-  const [src, poster, label, copy] = galleryVideos[id]
-  const player = document.querySelector('[data-gallery-video-player]')
-  if (!player) return
-  player.pause()
-  player.src = src
-  if (poster) player.poster = poster
-  else player.removeAttribute('poster')
-  player.load()
-  player.play().catch(() => {})
-  document.querySelector('[data-gallery-video-label]').textContent = label
-  document.querySelector('[data-gallery-video-copy]').textContent = copy
-  document.querySelectorAll('[data-gallery-video]').forEach(button => button.classList.toggle('is-active', button.dataset.galleryVideo === id))
-}
-document.querySelectorAll('[data-gallery-video]').forEach(button => button.addEventListener('click', () => showGalleryVideo(button.dataset.galleryVideo)))
 
 const techLayers = {
   world: ['World record', 'The shared place stays authoritative.', 'Locations, people, objects, mail, and meaningful events come from the world record.', 'Why it matters: residents act from what happened here.'],
