@@ -7,7 +7,7 @@ const html = readFileSync(new URL('next.html', root), 'utf8')
 
 test('ships an honest capability ledger and next-build sequence', () => {
   assert.match(html, /Working now/i)
-  assert.match(html, /Shown here/i)
+  assert.match(html, /Explore here/i)
   assert.match(html, /Next build/i)
   assert.match(html, /Depth before/i)
   assert.match(html, /We do not call a concept/i)

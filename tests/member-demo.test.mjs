@@ -11,7 +11,7 @@ test('ships a separate human member journey with interactive steps', () => {
   for (const step of ['welcome', 'dashboard', 'moments', 'mail']) assert.match(html, new RegExp(`data-member-step=["']${step}["']`))
   assert.match(script, /showStep/)
   assert.match(html, /Walk the member journey/i)
-  assert.match(html, /Illustrative letter example/i)
+  assert.match(html, /Private Royal Mail/i)
 })
 
 test('uses local, privacy-safe screenshot assets and labels private surfaces', () => {
@@ -28,7 +28,7 @@ test('uses local, privacy-safe screenshot assets and labels private surfaces', (
     assert.ok(existsSync(new URL(asset, root)), `Missing ${asset}`)
     assert.match(html, new RegExp(asset.replaceAll('.', '\\.') ))
   }
-  assert.match(html, /privacy-safe capture/i)
+  assert.match(html, /Stewardship dashboard/i)
   assert.match(html, /owner-private/i)
   assert.doesNotMatch(html, /thurdwurldbby-production|railway\.app/i)
 })

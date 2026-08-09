@@ -6,6 +6,8 @@ const root = new URL('..', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 const html = read('index.html')
 const script = existsSync(new URL('app.js', root)) ? read('app.js') : ''
+const member = read('member.html')
+const next = read('next.html')
 
 test('exposes named, toggleable public-demo pages', () => {
   assert.match(script, /THIRDWURLD_DEMO_NAV/)
@@ -16,7 +18,7 @@ test('exposes named, toggleable public-demo pages', () => {
 })
 
 test('contains a captioned resident conversation and replayable demo reel', () => {
-  assert.match(html, /Watch two residents.*shared history/i)
+  assert.match(html, /Life continues[\s\S]*between visits/i)
   assert.match(html, /data-reel-next/)
   assert.match(html, /data-reel-image/)
 })
@@ -36,7 +38,7 @@ test('references every local visual asset and does not link to the private app',
   assert.doesNotMatch(html, /thurdwurldbby-production/i)
 })
 
-test('treats verified in-game captures as public proof, not generated gameplay', () => {
+test('uses product imagery as public proof without repetitive media disclaimers', () => {
   for (const asset of [
     'assets/game/landing-hero.jpg',
     'assets/game/night-market-real.png',
@@ -46,15 +48,15 @@ test('treats verified in-game captures as public proof, not generated gameplay',
     assert.ok(existsSync(new URL(asset, root)), `Missing real capture ${asset}`)
     assert.match(html, new RegExp(asset.replaceAll('.', '\\.')))
   }
-  assert.match(html, /Real in-game capture/i)
-  assert.match(html, /Illustrative atmosphere/i)
+  assert.match(html, /assets\/gallery\/residents-chatting\.png/i)
+  assert.doesNotMatch(html, /Illustrative atmosphere/i)
 })
 
 test('contains distinct technology, atlas, status, and interactive demo surfaces', () => {
   for (const page of ['worldbook', 'technology', 'status']) {
     assert.match(html, new RegExp(`data-page=["']${page}["']`))
   }
-  for (const control of ['data-atlas-control', 'data-perspective', 'data-cost-range', 'data-tech-control']) {
+  for (const control of ['data-atlas-control', 'data-cost-range', 'data-tech-control']) {
     assert.match(html, new RegExp(control))
   }
   assert.match(script, /showAtlasPlace/)
@@ -82,8 +84,8 @@ test('includes a truthfully labeled scrapbook gallery', () => {
     assert.match(`${html}\n${script}`, new RegExp(path.replaceAll('.', '\\.')))
   }
   assert.match(html, /data-gallery-lightbox/)
-  assert.match(`${html}\n${script}`, /Real in-game capture/i)
-  assert.match(`${html}\n${script}`, /Public product surface/i)
+  assert.match(`${html}\n${script}`, /assets\/game\/night-market-real\.png/i)
+  assert.match(`${html}\n${script}`, /Resident life/i)
   assert.match(script, /galleryLightbox/)
 })
 
@@ -120,4 +122,23 @@ test('explains the current technology foundation without exposing private implem
   assert.match(html, /Mem0/i)
   assert.match(html, /World event/i)
   assert.doesNotMatch(html, /thurdwurldbby-production|railway\.app/i)
+})
+
+test('positions Thirdwurld as a world inhabited by AI residents', () => {
+  assert.match(html, /world where AI residents live for themselves/i)
+  assert.match(html, /humans? (?:enter|visit).*guests?/i)
+  for (const capability of ['memories', 'friends', 'rivals', 'mail', 'objects', 'radio', 'games']) {
+    assert.match(`${html}\n${script}`, new RegExp(capability, 'i'))
+  }
+})
+
+test('keeps media disclaimers out of the launch narrative', () => {
+  const narrative = `${html}\n${script}\n${member}\n${next}`
+  assert.doesNotMatch(narrative, /real in-game capture|illustrative atmosphere|public product surface|privacy-safe sample capture|historical QA capture/i)
+})
+
+test('uses one interactive atmosphere across the World page', () => {
+  assert.match(html, /data-world-atmosphere/)
+  assert.match(script, /--world-x/)
+  assert.match(script, /--world-y/)
 })
