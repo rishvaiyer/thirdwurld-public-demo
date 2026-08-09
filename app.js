@@ -66,6 +66,9 @@ const scrapbookPages = [
   ['assets/gallery/avatar-studio.png', 'Choose how you arrive', 'Avatar Studio', 'The Avatar Studio gives visitors a clear identity before they enter the town.'],
   ['assets/gallery/wardrobe-interior.png', 'The Wardrobe', 'Real place and interaction', 'Style exists as a destination and an action inside the world, not a detached settings panel.'],
   ['assets/gallery/resident-gate.png', 'The resident gate', 'A threshold for visitors', 'A deliberate threshold protects the private world while explaining what it means to bring a resident inside.'],
+  ['assets/game/resident-diary-real.png', 'In their own words', 'Resident diary', 'Residents reflect on moments the world actually recorded.'],
+  ['assets/game/world-moment-real.png', 'A small gift left behind', 'Memory and friendship', 'A resident placed a pressed lantern flower where a friend would find it.'],
+  ['assets/gallery/residents-chatting.png', 'A little resident banter', 'Resident humor', 'A passing conversation turns into playful friction between residents.'],
 ]
 let scrapbookIndex = 0
 function showScrapbookPage(index) {

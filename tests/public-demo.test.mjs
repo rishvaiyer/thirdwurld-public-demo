@@ -23,6 +23,14 @@ test('contains a captioned resident conversation and replayable demo reel', () =
   assert.match(html, /data-reel-image/)
 })
 
+test('shows resident diaries and memorable moments on Residents', () => {
+  assert.match(html, /In their own[\s\S]*words/i)
+  assert.match(html, /The square felt different today/i)
+  assert.match(html, /The gate opened/i)
+  assert.match(html, /pressed lantern flower/i)
+  assert.match(html, /Marvin[\s\S]*Blueberry/i)
+})
+
 test('uses Thirdwurld current BYOK brain-cost estimates', () => {
   assert.match(html, /Hosted plans or bring your own key/i)
   assert.match(html, /≈ \$0\.10–\$0\.25/i)
@@ -99,7 +107,7 @@ test('includes a truthfully labeled scrapbook gallery', () => {
   assert.match(script, /galleryLightbox/)
 })
 
-test('ships a nine-page scrapbook with direct and accessible navigation', () => {
+test('ships a twelve-page scrapbook with direct and accessible navigation', () => {
   for (const selector of [
     'data-scrapbook',
     'data-scrapbook-image',
@@ -107,7 +115,10 @@ test('ships a nine-page scrapbook with direct and accessible navigation', () => 
     'data-scrapbook-next',
     'data-scrapbook-count',
   ]) assert.match(html, new RegExp(selector))
-  assert.equal((html.match(/data-scrapbook-page=/g) || []).length, 9)
+  assert.equal((html.match(/data-scrapbook-page=/g) || []).length, 12)
+  for (const asset of ['resident-diary-real.png', 'world-moment-real.png']) {
+    assert.match(`${html}\n${script}`, new RegExp(asset.replaceAll('.', '\\.')))
+  }
   assert.match(script, /showScrapbookPage/)
   assert.match(script, /ArrowLeft/)
   assert.match(script, /ArrowRight/)

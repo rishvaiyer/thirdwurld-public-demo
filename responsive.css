@@ -471,9 +471,30 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 .resident-life-proof figcaption { display: grid; gap: 8px; padding: 18px 20px; border-top: 1px solid var(--tw-line); }
 .resident-life-proof figcaption span { color: var(--tw-amber-bright); font: 700 .72rem/1.4 var(--tw-mono); letter-spacing: .09em; text-transform: uppercase; }
 .resident-life-proof figcaption b { color: var(--tw-paper-soft); font-size: 1rem; font-weight: 400; line-height: 1.55; }
+.resident-journal { padding-block: clamp(5rem, 10vw, 9rem); }
+.resident-journal > header { display: grid; grid-template-columns: minmax(0, .7fr) minmax(300px, 1fr); gap: 0 7vw; align-items: end; margin-bottom: 38px; }
+.resident-journal > header .eyebrow { grid-column: 1 / -1; }
+.resident-journal > header h2 { margin: 12px 0 0; font-size: clamp(2.6rem, 5.3vw, 5.25rem) !important; }
+.resident-journal > header > p:last-child { max-width: 590px; margin: 0 0 8px; color: var(--tw-paper-soft); font-size: clamp(1rem, .96rem + .18vw, 1.12rem); line-height: 1.72; }
+.journal-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.journal-track > article { min-width: 0; min-height: 390px; padding: clamp(24px, 3.5vw, 40px); border: 1px solid rgba(241,234,219,.14); background: linear-gradient(145deg, rgba(24,42,35,.92), rgba(10,19,16,.96)); box-shadow: 0 22px 65px rgba(0,0,0,.18); }
+.diary-entry > div { display: flex; justify-content: space-between; gap: 16px; color: var(--tw-muted); font: 700 .66rem/1.4 var(--tw-mono); letter-spacing: .07em; text-transform: uppercase; }
+.diary-entry > div span { padding: 5px 8px; border-radius: 999px; background: rgba(143,188,135,.08); color: var(--tw-sage); }
+.journal-track h3 { margin: 34px 0 18px; color: var(--tw-paper); font: 400 clamp(1.75rem, 3vw, 2.65rem)/1.05 var(--tw-serif); letter-spacing: -.04em; }
+.diary-entry blockquote { margin: 0; color: var(--tw-paper-soft); font: italic 400 clamp(1.05rem, 1rem + .3vw, 1.25rem)/1.7 var(--tw-serif); }
+.journal-track article > small { display: block; margin-top: 28px; color: var(--tw-muted); font: 700 .64rem/1.5 var(--tw-mono); letter-spacing: .08em; text-transform: uppercase; }
+.resident-moment-card { position: relative; overflow: hidden; }
+.resident-moment-card::after { position: absolute; width: 240px; height: 240px; border-radius: 50%; background: rgba(216,168,95,.11); filter: blur(55px); content: ""; right: -90px; bottom: -120px; pointer-events: none; }
+.moment-symbol { display: grid; width: 56px; height: 56px; place-items: center; margin-bottom: 42px; border: 1px solid rgba(245,215,157,.34); color: var(--tw-amber-bright); font-size: 32px; transform: rotate(45deg); }
+.moment-symbol::first-letter { transform: rotate(-45deg); }
+.resident-moment-card > p:not(.eyebrow) { max-width: 560px; color: var(--tw-paper-soft); font-size: 1.05rem; line-height: 1.7; }
+.banter-moment blockquote { margin: 16px 0 0; padding: 16px 18px; border-left: 2px solid rgba(245,215,157,.46); background: rgba(7,15,12,.48); color: var(--tw-paper-soft); font-size: 1.02rem; line-height: 1.65; }
+.banter-moment blockquote b { display: block; margin-bottom: 4px; color: var(--tw-amber-bright); font-family: var(--tw-serif); font-size: 1.12rem; }
 @keyframes worldAtmosphereDrift { from { transform: scale(1.035) translate3d(-.5%, 0, 0); } to { transform: scale(1.075) translate3d(.7%, -.5%, 0); } }
 @media (max-width: 700px) { .residents-page .resident-story { padding-top: 72px !important; } .world-atmosphere img { opacity: .5; } }
 @media (prefers-reduced-motion: reduce) { .world-atmosphere img { animation: none; } .world-atmosphere i { transition: none; } }
+@media (max-width: 850px) { .resident-journal > header { grid-template-columns: 1fr; gap: 18px; } .resident-journal > header .eyebrow { grid-column: auto; } .journal-track { display: flex; width: calc(100vw - 16px); margin-left: calc((100vw - 100%) / -2 + 8px); padding: 0 16px 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .journal-track::-webkit-scrollbar { display: none; } .journal-track > article { flex: 0 0 min(84vw, 500px); min-height: 420px; scroll-snap-align: center; } }
+@media (max-width: 560px) { .resident-journal { padding-block: 72px; } .journal-track > article { flex-basis: 86vw; padding: 24px 22px; } .diary-entry > div { align-items: flex-start; flex-direction: column; } .journal-track h3 { margin-top: 28px; } }
 
 /* Actual Thirdwurld costs page */
 .economics-page { background: radial-gradient(circle at 82% 8%, rgba(216,168,95,.11), transparent 28%), #0c1513; }
