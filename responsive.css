@@ -661,3 +661,59 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
   .thirdwurld-page::after, .world-atmosphere img, .world-atmosphere::before { animation: none !important; }
   .world-atmosphere i { transition: none !important; }
 }
+
+/* Living light is shared by every route, not only the World page. */
+.thirdwurld-page::after {
+  z-index: 0;
+  opacity: .86;
+  background:
+    radial-gradient(circle at var(--pointer-x, 18%) var(--pointer-y, 24%), rgba(245,205,125,.22) 0 4px, rgba(245,205,125,.09) 26px, transparent 145px),
+    radial-gradient(circle at calc(var(--pointer-x, 18%) + 20%) calc(var(--pointer-y, 24%) + 26%), rgba(143,188,135,.12) 0 3px, transparent 125px),
+    radial-gradient(circle at 86% 12%, rgba(216,168,95,.13), transparent 26rem),
+    radial-gradient(circle at 10% 74%, rgba(95,148,121,.12), transparent 32rem),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.012) 0 1px, transparent 1px 5px);
+  mix-blend-mode: screen;
+}
+.thirdwurld-page > * { position: relative; z-index: 1; }
+.thirdwurld-page > .world-atmosphere { z-index: 0; }
+.world-page.is-active { animation: none; }
+.world-atmosphere img { opacity: 1; filter: saturate(1.16) brightness(1.18) contrast(1.05); mix-blend-mode: screen; }
+.world-atmosphere::after { background: linear-gradient(180deg, rgba(5,12,10,.08), rgba(5,12,10,.26)), linear-gradient(90deg, rgba(5,12,10,.26), transparent 48%, rgba(5,12,10,.12)); }
+.world-atmosphere::before { opacity: .66; }
+
+/* Gallery opening reel. One strong moving proof before the scrapbook. */
+.gallery-reel {
+  display: grid;
+  grid-template-columns: minmax(240px, .68fr) minmax(0, 1.32fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+  padding-block: clamp(2.5rem, 7vw, 6rem);
+  border-bottom: 1px solid var(--tw-line);
+}
+.gallery-reel-copy h2 { margin: .65rem 0 1rem; }
+.gallery-reel-copy > p:not(.eyebrow) { max-width: 32rem; color: var(--tw-paper-soft); font-size: var(--tw-body-lg); line-height: 1.65; }
+.gallery-video-controls { display: grid; gap: 8px; margin-top: 2rem; }
+.gallery-video-controls button { display: flex; align-items: baseline; gap: 12px; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid var(--tw-line); background: transparent; color: var(--tw-muted); cursor: pointer; text-align: left; font: 700 var(--tw-ui)/1.4 var(--tw-mono); letter-spacing: .08em; text-transform: uppercase; transition: color .25s ease, border-color .25s ease, padding .25s var(--tw-ease); }
+.gallery-video-controls button span { color: var(--tw-amber); font-size: .76em; }
+.gallery-video-controls button:is(:hover, :focus-visible, .is-active) { padding-left: 8px; border-color: var(--tw-amber); color: var(--tw-amber-bright); }
+.gallery-video-frame { min-width: 0; margin: 0; padding: 10px; border: 1px solid var(--tw-line-bright); background: rgba(8,17,14,.7); box-shadow: 0 30px 80px rgba(0,0,0,.32); }
+.gallery-video-frame video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #07100d; }
+.gallery-video-frame figcaption { display: flex; justify-content: space-between; gap: 1rem; padding: 15px 5px 3px; color: var(--tw-muted); font: 700 var(--tw-ui)/1.4 var(--tw-mono); letter-spacing: .08em; text-transform: uppercase; }
+.gallery-video-frame figcaption b { color: var(--tw-paper-soft); font-weight: 700; }
+.scrapbook { background: linear-gradient(120deg, rgba(245,215,157,.035), transparent 42%), rgba(13,25,21,.55); box-shadow: 0 24px 70px rgba(0,0,0,.2); }
+.scrapbook-paper { background: rgba(12,24,20,.82); box-shadow: none; transform: none; }
+.scrapbook-paper::before, .scrapbook-paper::after { display: none; }
+.scrapbook-folio { color: var(--tw-paper-soft); }
+.scrapbook-folio small { color: var(--tw-amber-bright); }
+@media (max-width: 900px) {
+  .gallery-reel { grid-template-columns: 1fr; gap: 2rem; }
+  .gallery-reel-copy { max-width: 42rem; }
+}
+@media (max-width: 700px) {
+  .gallery-reel { padding-block: 3.5rem; }
+  .gallery-video-frame figcaption { display: block; }
+  .gallery-video-frame figcaption b { display: block; margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thirdwurld-page::after { animation: none; }
+}
