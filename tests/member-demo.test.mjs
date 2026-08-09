@@ -12,6 +12,8 @@ test('ships a separate human member journey with interactive steps', () => {
   assert.match(script, /showStep/)
   assert.match(html, /Walk the member journey/i)
   assert.match(html, /Private Royal Mail/i)
+  assert.match(html, /member-hero-proof/)
+  assert.match(html, /Human entry boundary/i)
 })
 
 test('uses local, privacy-safe screenshot assets and labels private surfaces', () => {
@@ -24,6 +26,7 @@ test('uses local, privacy-safe screenshot assets and labels private surfaces', (
     'assets/game/nearby-chat-real.png',
     'assets/game/world-moment-real.png',
     'assets/game/resident-diary-mobile-real.png',
+    'assets/gallery/resident-gate.png',
   ]) {
     assert.ok(existsSync(new URL(asset, root)), `Missing ${asset}`)
     assert.match(html, new RegExp(asset.replaceAll('.', '\\.') ))
