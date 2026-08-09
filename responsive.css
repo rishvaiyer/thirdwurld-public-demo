@@ -95,12 +95,12 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 /* One hierarchy everywhere. */
 :where(.page, .member-shell, .next-shell) h1 {
   color: var(--tw-paper);
-  font: 400 clamp(3.2rem, 6.5vw, 7.35rem)/.92 var(--tw-serif) !important;
+  font: 400 clamp(3rem, 5.6vw, 6.5rem)/.94 var(--tw-serif) !important;
   letter-spacing: -.055em !important;
 }
 :where(.page, .member-shell, .next-shell) h2 {
   color: var(--tw-paper);
-  font: 400 clamp(2.3rem, 4.7vw, 4.85rem)/.98 var(--tw-serif) !important;
+  font: 400 clamp(2.2rem, 4vw, 4.2rem)/1 var(--tw-serif) !important;
   letter-spacing: -.05em !important;
 }
 :where(.page, .member-shell, .next-shell) h3 {
@@ -123,6 +123,9 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
   letter-spacing: .1em !important;
   text-transform: uppercase;
 }
+.masthead { grid-template-columns: auto minmax(0, 1fr) auto !important; }
+.desktop-nav { max-width: 100%; gap: clamp(10px, 1vw, 18px) !important; }
+.desktop-nav a { font-size: .66rem !important; letter-spacing: .07em !important; white-space: nowrap; }
 :where(.eyebrow, .member-back, .back-link, .ledger-status, .capture-chip) { color: var(--tw-amber-bright) !important; }
 
 /* Shared buttons and controls. */
@@ -258,6 +261,9 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
   :where(.page, .member-shell, .next-shell) h1 { font-size: clamp(2.95rem, 10vw, 5.4rem) !important; }
   :where(.page, .member-shell, .next-shell) h2 { font-size: clamp(2.15rem, 8vw, 3.8rem) !important; }
   :where(.page, .member-shell, .next-shell) h3 { font-size: clamp(1.45rem, 5.8vw, 2.1rem) !important; }
+}
+@media (max-width: 1500px) and (min-width: 901px) {
+  .world-signal { display: none !important; }
 }
 @media (max-width: 700px) {
   .thirdwurld-page { animation-duration: 30s; }

@@ -8,7 +8,7 @@ test('uses one Thirdwurld brand system across every public page', async () => {
   for (const page of pages) {
     const html = await readFile(new URL(`../${page}`, import.meta.url), 'utf8')
     assert.match(html, /class="[^"]*thirdwurld-page/)
-    assert.match(html, /responsive\.css\?v=3/)
+    assert.match(html, /responsive\.css\?v=4/)
     assert.match(html, /thirdwurld<span>°<\/span>/)
     assert.doesNotMatch(html, /THIRDWURLD/)
   }
