@@ -2,6 +2,7 @@ const THIRDWURLD_DEMO_NAV = Object.freeze([
   { id: 'world', label: 'World', enabled: true },
   { id: 'residents', label: 'Residents', enabled: true },
   { id: 'worldbook', label: 'Atlas', enabled: true },
+  { id: 'gallery', label: 'Gallery', enabled: true },
   { id: 'technology', label: 'Technology', enabled: true },
   { id: 'economics', label: 'Economics', enabled: true },
   { id: 'status', label: 'Status', enabled: true },
@@ -57,13 +58,31 @@ const moments = [
 document.querySelectorAll('[data-moment]').forEach(button => button.addEventListener('click', () => { const [title, subtitle, copy] = moments[Number(button.dataset.moment)]; document.querySelectorAll('[data-moment]').forEach(item => item.classList.toggle('is-current', item === button)); const readout = document.querySelector('[data-perspective-readout]'); readout.querySelector('h3').textContent = title; readout.querySelector('p').textContent = `${subtitle}. ${copy}` }))
 
 const atlasPlaces = {
-  'night-market': ['assets/game/night-market-real.png', '01 / Night Market', 'After dark, the town gathers.', 'Lanterns, social spaces, and authored landmarks give encounters a sense of place.', 'Real in-game capture of the Night Market.'],
-  'corner-cup': ['assets/game/corner-cup-real.png', '02 / Corner Cup', 'A smaller reason to linger.', 'Different spaces create different conditions for routine, reflection, and chance conversation.', 'Real in-game capture of Corner Cup.'],
-  arrival: ['assets/game/arrival-plaza-real.webp', '03 / Arrival Plaza', 'A shared beginning.', 'An arrival area makes the world feel like somewhere you enter, not merely a surface you load.', 'Real in-game capture of the arrival plaza.'],
-  garden: ['assets/thirdwurld-garden-memory.png', '04 / Pollinator Garden', 'A quiet place has purpose too.', 'Illustrative atmosphere for the kind of quiet time and reflection residents can choose.', 'Illustrative atmosphere of a garden memory.'],
+  'night-market': ['assets/game/night-market-real.png', '01 / Night Market', 'After dark, the town gathers.', 'Lanterns, social spaces, and authored landmarks give encounters a sense of place.', 'Current in-game capture of the Night Market.', 'Current in-game capture'],
+  'corner-cup': ['assets/game/corner-cup-real.png', '02 / Corner Cup', 'A smaller reason to linger.', 'Different spaces create different conditions for routine, reflection, and chance conversation.', 'Current in-game capture of Corner Cup.', 'Current in-game capture'],
+  arrival: ['assets/game/arrival-plaza-real.webp', '03 / Arrival Plaza', 'A shared beginning.', 'An arrival area makes the world feel like somewhere you enter, not merely a surface you load.', 'Current in-game capture of the arrival plaza.', 'Current in-game capture'],
+  garden: ['assets/game/pollinator-garden-qa.webp', '04 / Pollinator Garden', 'A garden made for tending.', 'A shared date garden gives care, routine, and quiet time a physical home inside the town.', 'Historical QA capture of the Pollinator Garden entrance with a visible development performance HUD.', 'Historical QA capture · development HUD'],
+  map: ['assets/game/world-map-real.png', '05 / World Map', 'Nine destinations, one continuing town.', 'Social, royal, home, games, style, and creative places give residents and visitors real reasons to move through the world.', 'Current guest-facing in-game capture of the world map.', 'Current in-game capture'],
 }
-function showAtlasPlace(id) { const [src, number, title, copy, alt] = atlasPlaces[id]; const image = document.querySelector('[data-atlas-image]'); image.src = src; image.alt = alt; document.querySelector('[data-atlas-number]').textContent = number; document.querySelector('[data-atlas-title]').textContent = title; document.querySelector('[data-atlas-copy]').textContent = copy; document.querySelectorAll('[data-atlas-control]').forEach(button => button.classList.toggle('is-active', button.dataset.atlasControl === id)) }
+function showAtlasPlace(id) { const [src, number, title, copy, alt, chip] = atlasPlaces[id]; const image = document.querySelector('[data-atlas-image]'); image.src = src; image.alt = alt; document.querySelector('[data-atlas-number]').textContent = number; document.querySelector('[data-atlas-title]').textContent = title; document.querySelector('[data-atlas-copy]').textContent = copy; document.querySelector('[data-atlas-chip]').textContent = chip; document.querySelectorAll('[data-atlas-control]').forEach(button => button.classList.toggle('is-active', button.dataset.atlasControl === id)) }
 document.querySelectorAll('[data-atlas-control]').forEach(button => button.addEventListener('click', () => showAtlasPlace(button.dataset.atlasControl)))
+
+document.querySelectorAll('[data-gallery-filter]').forEach(button => button.addEventListener('click', () => {
+  const filter = button.dataset.galleryFilter
+  document.querySelectorAll('[data-gallery-filter]').forEach(item => item.classList.toggle('is-active', item === button))
+  document.querySelectorAll('[data-gallery-item]').forEach(item => { item.hidden = filter !== 'all' && item.dataset.galleryItem !== filter })
+}))
+const galleryLightbox = document.querySelector('[data-gallery-lightbox]')
+document.querySelectorAll('[data-gallery-src]').forEach(item => item.addEventListener('click', () => {
+  const image = galleryLightbox.querySelector('[data-gallery-lightbox-image]')
+  image.src = item.dataset.gallerySrc
+  image.alt = item.querySelector('img').alt
+  galleryLightbox.querySelector('[data-gallery-lightbox-title]').textContent = item.dataset.galleryTitle
+  galleryLightbox.querySelector('[data-gallery-lightbox-note]').textContent = item.dataset.galleryNote
+  galleryLightbox.showModal()
+}))
+document.querySelector('[data-gallery-close]')?.addEventListener('click', () => galleryLightbox.close())
+galleryLightbox?.addEventListener('click', event => { if (event.target === galleryLightbox) galleryLightbox.close() })
 
 const techLayers = {
   world: ['World record', 'The shared place stays authoritative.', 'Locations, people, and meaningful events come from the world, not a resident inventing what happened.', 'Does not claim: fabricated history or unrestricted action.'],
@@ -77,9 +96,11 @@ function updateCostModel(value) { const residents = Number(value); const low = 4
 document.querySelector('[data-cost-range]')?.addEventListener('input', event => updateCostModel(event.target.value))
 
 const reelScenes = [
-  ['assets/thirdwurld-night-market.png', '01 / Arrival · lantern market atmosphere', 'Start with the place.', 'A world is not a feature list. It is the feeling that something can happen here.'],
-  ['assets/game/nearby-chat-real.png', '02 / Conversation · real in-game capture', 'Then witness a moment.', 'The public demo never claims a screenshot is a feeling. It shows the real surface where residents and visitors meet.'],
-  ['assets/game/owner-dashboard.jpg', '03 / Owner layer · privacy-safe capture', 'Finally, understand the world.', 'The owner can observe meaningful change without turning resident life into public content.'],
+  ['assets/game/arrival-plaza-real.webp', '01 / Arrive · current in-game capture', 'Arrive somewhere real.', 'Enter through a shared plaza, orient yourself, and begin inside the town rather than inside a menu.'],
+  ['assets/game/world-map-real.png', '02 / Choose · current in-game capture', 'Choose where to go.', 'Pick a destination with a purpose, from coffee and conversation to a garden, a home, a game, or a stage.'],
+  ['assets/game/night-market-real.png', '03 / Explore · current in-game capture', 'Move through the world.', 'Walk into an authored place where location, proximity, and time can shape what happens next.'],
+  ['assets/game/nearby-chat-real.png', '04 / Connect · real in-game interaction surface', 'Talk to someone nearby.', 'Residents can meet other residents and visitors inside the world. The interaction begins in place, not in an isolated chat thread.'],
+  ['assets/game/owner-moments-real.png', '05 / Continue · privacy-safe sample capture', 'Let the moment carry forward.', 'Meaningful events can become grounded context while owner-private records remain private.'],
 ]
 let reelIndex = 0
 document.querySelector('[data-reel-next]')?.addEventListener('click', () => { reelIndex = (reelIndex + 1) % reelScenes.length; const [src, label, title, copy] = reelScenes[reelIndex]; const image = document.querySelector('[data-reel-image]'); image.src = src; image.alt = label; document.querySelector('[data-reel-label]').textContent = label; document.querySelector('[data-reel-title]').textContent = title; document.querySelector('[data-reel-copy]').textContent = copy; document.querySelectorAll('[data-reel-dot]').forEach((dot, index) => dot.classList.toggle('is-active', index === reelIndex)) })

@@ -9,7 +9,7 @@ const script = existsSync(new URL('app.js', root)) ? read('app.js') : ''
 
 test('exposes named, toggleable public-demo pages', () => {
   assert.match(script, /THIRDWURLD_DEMO_NAV/)
-  for (const page of ['world', 'residents', 'worldbook', 'technology', 'economics', 'status', 'preview']) {
+  for (const page of ['world', 'residents', 'worldbook', 'gallery', 'technology', 'economics', 'status', 'preview']) {
     assert.match(html, new RegExp(`data-page=["']${page}["']`))
   }
 })
@@ -59,6 +59,15 @@ test('contains distinct technology, atlas, status, and interactive demo surfaces
   assert.match(script, /showAtlasPlace/)
   assert.match(script, /updateCostModel/)
   assert.doesNotMatch(html, /github\.com/i)
+})
+
+test('includes a filterable, truthfully labeled gallery', () => {
+  assert.match(html, /data-page=["']gallery["']/)
+  assert.match(html, /data-gallery-filter/)
+  assert.match(html, /data-gallery-lightbox/)
+  assert.match(html, /Historical QA capture/i)
+  assert.match(html, /Privacy-safe sample capture/i)
+  assert.match(script, /galleryLightbox/)
 })
 
 test('links the pitch flow to the playable capsule and human member walkthrough', () => {
