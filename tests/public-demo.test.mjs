@@ -48,14 +48,14 @@ test('shows Stripe hosted plans and keeps World Map off the Places page', () => 
   assert.doesNotMatch(script, /05 \/ World Map/i)
 })
 
-test('opens the gallery with switchable user-captured video', () => {
+test('opens the gallery with the final user-captured video cut', () => {
   assert.match(html, /data-gallery-video-player/)
-  assert.match(html, /world-capture-01\.webm/)
-  assert.match(html, /data-gallery-video=["']capture-four["']/)
-  assert.match(script, /showGalleryVideo/)
-  for (const asset of ['assets/videos/world-capture-01.webm', 'assets/videos/world-capture-02.webm', 'assets/videos/world-capture-03.webm', 'assets/videos/world-capture-04.webm']) {
-    assert.ok(existsSync(new URL(asset, root)), `Missing ${asset}`)
-  }
+  assert.match(html, /world-capture-04\.webm/)
+  assert.match(html, /data-gallery-video-start=["']20["']/)
+  assert.match(script, /galleryStartSeconds/)
+  assert.doesNotMatch(html, /world-capture-0[123]\.webm/)
+  assert.doesNotMatch(script, /world-capture-0[123]\.webm/)
+  assert.ok(existsSync(new URL('assets/videos/world-capture-04.webm', root)), 'Missing final gallery video')
 })
 
 test('references every local visual asset and does not link to the private app', () => {
