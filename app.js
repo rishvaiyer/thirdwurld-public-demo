@@ -1,7 +1,7 @@
 const THIRDWURLD_DEMO_NAV = Object.freeze([
   { id: 'world', label: 'World', enabled: true },
   { id: 'residents', label: 'Residents', enabled: true },
-  { id: 'worldbook', label: 'Atlas', enabled: true },
+  { id: 'worldbook', label: 'Places', enabled: true },
   { id: 'gallery', label: 'Gallery', enabled: true },
   { id: 'technology', label: 'Technology', enabled: true },
   { id: 'economics', label: 'Economics', enabled: true },
@@ -67,20 +67,59 @@ const atlasPlaces = {
 function showAtlasPlace(id) { const [src, number, title, copy, alt, chip] = atlasPlaces[id]; const image = document.querySelector('[data-atlas-image]'); image.src = src; image.alt = alt; document.querySelector('[data-atlas-number]').textContent = number; document.querySelector('[data-atlas-title]').textContent = title; document.querySelector('[data-atlas-copy]').textContent = copy; document.querySelector('[data-atlas-chip]').textContent = chip; document.querySelectorAll('[data-atlas-control]').forEach(button => button.classList.toggle('is-active', button.dataset.atlasControl === id)) }
 document.querySelectorAll('[data-atlas-control]').forEach(button => button.addEventListener('click', () => showAtlasPlace(button.dataset.atlasControl)))
 
-document.querySelectorAll('[data-gallery-filter]').forEach(button => button.addEventListener('click', () => {
-  const filter = button.dataset.galleryFilter
-  document.querySelectorAll('[data-gallery-filter]').forEach(item => item.classList.toggle('is-active', item === button))
-  document.querySelectorAll('[data-gallery-item]').forEach(item => { item.hidden = filter !== 'all' && item.dataset.galleryItem !== filter })
-}))
 const galleryLightbox = document.querySelector('[data-gallery-lightbox]')
-document.querySelectorAll('[data-gallery-src]').forEach(item => item.addEventListener('click', () => {
+const scrapbookPages = [
+  ['assets/gallery/town-overview.png', 'A town with somewhere to go', 'Real in-game capture', 'A wide view across Thirdwurld’s canals, paths, and authored buildings.'],
+  ['assets/gallery/residents-chatting.png', 'Residents talk to one another', 'Real in-game conversation', 'Nearby Chat catches two AI residents in a conversation already happening inside the world.'],
+  ['assets/gallery/blueberry-resident-encounter.png', 'Meet someone in the world', 'Real resident encounter', 'A visitor and an AI resident share the same place, with conversation available through proximity.'],
+  ['assets/gallery/corner-cup-exterior.png', 'The Corner Cup', 'Real in-game place', 'A waterside destination gives routine, chance meetings, and quieter moments a physical home.'],
+  ['assets/gallery/poker-nearby-chat.png', 'Conversation around the table', 'Real in-game social play', 'Games and conversation can occupy the same shared moment.'],
+  ['assets/gallery/world-menu-memory-tree.png', 'Navigate the world', 'Real interaction surface', 'The world menu and Memory Tree connect movement with meaningful in-world actions.'],
+  ['assets/gallery/avatar-studio.png', 'Choose how you arrive', 'Public product surface', 'The Avatar Studio gives visitors a clear identity before they enter the town.'],
+  ['assets/gallery/wardrobe-interior.png', 'The Wardrobe', 'Real place and interaction', 'Style exists as a destination and an action inside the world, not a detached settings panel.'],
+  ['assets/gallery/resident-gate.png', 'The resident gate', 'Public product surface', 'A deliberate threshold protects the private world while explaining what it means to bring a resident inside.'],
+]
+let scrapbookIndex = 0
+function showScrapbookPage(index) {
+  scrapbookIndex = (index + scrapbookPages.length) % scrapbookPages.length
+  const [src, title, note, copy] = scrapbookPages[scrapbookIndex]
+  const image = document.querySelector('[data-scrapbook-image]')
+  if (!image) return
+  image.src = src
+  image.alt = `${title}. ${note}.`
+  document.querySelector('[data-scrapbook-title]').textContent = title
+  document.querySelector('[data-scrapbook-note]').textContent = note
+  document.querySelector('[data-scrapbook-copy]').textContent = copy
+  document.querySelector('[data-scrapbook-count]').textContent = `${String(scrapbookIndex + 1).padStart(2, '0')} / ${String(scrapbookPages.length).padStart(2, '0')}`
+  document.querySelectorAll('[data-scrapbook-page]').forEach((button, page) => {
+    button.classList.toggle('is-active', page === scrapbookIndex)
+    button.setAttribute('aria-current', page === scrapbookIndex ? 'true' : 'false')
+  })
+}
+function stepScrapbook(direction) { showScrapbookPage(scrapbookIndex + direction) }
+document.querySelector('[data-scrapbook-prev]')?.addEventListener('click', () => stepScrapbook(-1))
+document.querySelector('[data-scrapbook-next]')?.addEventListener('click', () => stepScrapbook(1))
+document.querySelectorAll('[data-scrapbook-page]').forEach(button => button.addEventListener('click', () => showScrapbookPage(Number(button.dataset.scrapbookPage))))
+document.addEventListener('keydown', event => {
+  if (currentPage() !== 'gallery' || galleryLightbox?.open) return
+  if (event.key === 'ArrowLeft') stepScrapbook(-1)
+  if (event.key === 'ArrowRight') stepScrapbook(1)
+})
+let scrapbookTouchStart = 0
+document.querySelector('[data-scrapbook]')?.addEventListener('touchstart', event => { scrapbookTouchStart = event.changedTouches[0].clientX }, { passive: true })
+document.querySelector('[data-scrapbook]')?.addEventListener('touchend', event => {
+  const distance = event.changedTouches[0].clientX - scrapbookTouchStart
+  if (Math.abs(distance) > 48) stepScrapbook(distance > 0 ? -1 : 1)
+}, { passive: true })
+document.querySelector('[data-scrapbook-open]')?.addEventListener('click', () => {
+  const [src, title, note] = scrapbookPages[scrapbookIndex]
   const image = galleryLightbox.querySelector('[data-gallery-lightbox-image]')
-  image.src = item.dataset.gallerySrc
-  image.alt = item.querySelector('img').alt
-  galleryLightbox.querySelector('[data-gallery-lightbox-title]').textContent = item.dataset.galleryTitle
-  galleryLightbox.querySelector('[data-gallery-lightbox-note]').textContent = item.dataset.galleryNote
+  image.src = src
+  image.alt = `${title}. ${note}.`
+  galleryLightbox.querySelector('[data-gallery-lightbox-title]').textContent = title
+  galleryLightbox.querySelector('[data-gallery-lightbox-note]').textContent = note
   galleryLightbox.showModal()
-}))
+})
 document.querySelector('[data-gallery-close]')?.addEventListener('click', () => galleryLightbox.close())
 galleryLightbox?.addEventListener('click', event => { if (event.target === galleryLightbox) galleryLightbox.close() })
 

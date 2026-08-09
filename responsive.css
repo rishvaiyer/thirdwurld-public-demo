@@ -16,6 +16,9 @@
   --tw-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --tw-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --tw-ease: cubic-bezier(.22, 1, .36, 1);
+  --tw-display-1: clamp(3rem, 5vw, 5rem);
+  --tw-display-2: clamp(2rem, 3.5vw, 3.25rem);
+  --tw-body-lg: clamp(1.05rem, 1rem + .25vw, 1.2rem);
 }
 
 html { background: var(--tw-night); text-size-adjust: 100%; }
@@ -95,12 +98,12 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 /* One hierarchy everywhere. */
 :where(.page, .member-shell, .next-shell) h1 {
   color: var(--tw-paper);
-  font: 400 clamp(3rem, 5.6vw, 6.5rem)/.94 var(--tw-serif) !important;
+  font: 400 var(--tw-display-1)/1 var(--tw-serif) !important;
   letter-spacing: -.055em !important;
 }
 :where(.page, .member-shell, .next-shell) h2 {
   color: var(--tw-paper);
-  font: 400 clamp(2.2rem, 4vw, 4.2rem)/1 var(--tw-serif) !important;
+  font: 400 var(--tw-display-2)/1.05 var(--tw-serif) !important;
   letter-spacing: -.05em !important;
 }
 :where(.page, .member-shell, .next-shell) h3 {
@@ -112,20 +115,20 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 :where(.page, .member-shell, .next-shell) p:not(.eyebrow) { line-height: 1.7; }
 :where(.hero-lede, .intro-copy p:not(.eyebrow), .tech-copy p:not(.eyebrow), .atlas-hero p:last-child, .economics-hero p:last-child, .status-hero p:last-child, .preview-hero p:last-child, .member-hero-note p, .section-heading > p:last-child, .step-copy > p:not(.eyebrow), .member-close > p:not(.eyebrow), .next-hero > div > p:not(.eyebrow)) {
   color: var(--tw-paper-soft) !important;
-  font-size: clamp(1rem, .94rem + .24vw, 1.18rem) !important;
+  font-size: var(--tw-body-lg) !important;
 }
 :where(.atlas-details p, .proof-list span, .status-ledger p, .owner-proof p, .cost-lab p:last-child, .tech-proof p:last-child, .sequence-list p, .ledger-grid li, .invite-card small) {
   color: var(--tw-paper-soft) !important;
   font-size: clamp(.96rem, .9rem + .16vw, 1.08rem) !important;
 }
 :where(.eyebrow, .world-signal, .desktop-nav a, .mobile-nav a, .button, .text-button, .mini-link, .capture-chip, .real-capture-card span, .tech-real-capture span, .member-status, .member-back, .step-label, .member-hero-note span, .screenshot-frame figcaption, .letter-meta, .status-mark, .back-link, .ledger-status, .sequence-list strong) {
-  font: 700 clamp(.68rem, .62rem + .08vw, .78rem)/1.4 var(--tw-mono) !important;
+  font: 700 clamp(.7rem, .67rem + .08vw, .8rem)/1.4 var(--tw-mono) !important;
   letter-spacing: .1em !important;
   text-transform: uppercase;
 }
 .masthead { grid-template-columns: auto minmax(0, 1fr) auto !important; }
 .desktop-nav { max-width: 100%; gap: clamp(10px, 1vw, 18px) !important; }
-.desktop-nav a { font-size: .66rem !important; letter-spacing: .07em !important; white-space: nowrap; }
+.desktop-nav a { font-size: .7rem !important; letter-spacing: .07em !important; white-space: nowrap; }
 :where(.eyebrow, .member-back, .back-link, .ledger-status, .capture-chip) { color: var(--tw-amber-bright) !important; }
 
 /* Shared buttons and controls. */
@@ -381,4 +384,72 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .thirdwurld-page, .thirdwurld-page::before { animation: none !important; }
   .thirdwurld-page * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+/* Premium launch layer: restrained hierarchy, readable copy, tactile evidence. */
+.thirdwurld-page { font-size: clamp(1rem, .97rem + .16vw, 1.1rem); }
+:where(.page, .member-shell, .next-shell) h1 { font-size: var(--tw-display-1) !important; line-height: 1 !important; }
+:where(.page, .member-shell, .next-shell) h2 { font-size: var(--tw-display-2) !important; line-height: 1.05 !important; }
+:where(.page, .member-shell, .next-shell) h3 { font-size: clamp(1.35rem, 2vw, 2rem) !important; line-height: 1.08 !important; }
+:where(.status-statement p:last-child, .owner-proof p, .story-heading p:last-child, .tech-proof p:last-child, .cost-lab p:last-child, .atlas-details p, .preview-reel-copy p) { font-size: clamp(1rem, .96rem + .18vw, 1.12rem) !important; }
+.owner-proof h2 { max-width: 12ch; }
+
+.gallery-toolbar > p { max-width: 500px; margin: 0; color: var(--tw-paper-soft); font-size: var(--tw-body-lg); line-height: 1.65; }
+.scrapbook {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+  gap: clamp(1.25rem, 4vw, 4rem);
+  align-items: center;
+  padding: clamp(1rem, 2.6vw, 2rem);
+  border: 1px solid rgba(245, 215, 157, .26);
+  background:
+    linear-gradient(120deg, rgba(245, 215, 157, .055), transparent 38%),
+    rgba(13, 25, 21, .76);
+  box-shadow: 0 34px 100px rgba(0, 0, 0, .32), inset 0 1px rgba(255, 255, 255, .035);
+}
+.scrapbook::before { position: absolute; inset: 9px; border: 1px solid rgba(241, 234, 219, .07); content: ""; pointer-events: none; }
+.scrapbook-paper { position: relative; padding: clamp(.7rem, 1.5vw, 1.2rem); background: #d8cdb8; box-shadow: 12px 14px 0 rgba(0, 0, 0, .2); transform: rotate(-.25deg); }
+.scrapbook-paper::before, .scrapbook-paper::after { position: absolute; z-index: 2; width: 74px; height: 20px; content: ""; background: rgba(222, 196, 137, .62); box-shadow: 0 1px 2px rgba(0, 0, 0, .16); }
+.scrapbook-paper::before { top: -7px; left: 8%; transform: rotate(-4deg); }
+.scrapbook-paper::after { right: 7%; bottom: 42px; transform: rotate(3deg); }
+.scrapbook-image { position: relative; display: grid; width: 100%; aspect-ratio: 16 / 10; place-items: center; overflow: hidden; padding: 0; border: 0; background: #09110e; cursor: zoom-in; }
+.scrapbook-image::after { position: absolute; inset: 0; content: ""; pointer-events: none; background: linear-gradient(145deg, rgba(245, 194, 112, .07), transparent 45%, rgba(38, 83, 66, .09)); mix-blend-mode: color; }
+.scrapbook-image img { display: block; width: 100%; height: 100%; object-fit: contain; filter: saturate(.9) contrast(1.07) brightness(1.02) sepia(.035); transition: transform .7s var(--tw-ease), filter .5s ease, opacity .25s ease; }
+.scrapbook-image:hover img, .scrapbook-image:focus-visible img { transform: scale(1.008); filter: saturate(1) contrast(1.08) brightness(1.035); }
+.scrapbook-folio { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 14px 4px 0; color: #26332d; }
+.scrapbook-folio span, .scrapbook-folio small { font: 700 .72rem/1.4 var(--tw-mono); letter-spacing: .09em; text-transform: uppercase; }
+.scrapbook-folio small { color: #6d5736; text-align: right; }
+.scrapbook-copy { position: relative; z-index: 1; padding: clamp(.75rem, 2vw, 1.5rem) 0; }
+.scrapbook-copy h3 { margin: 0 0 1rem; color: var(--tw-paper); font-size: clamp(2rem, 3vw, 3rem) !important; }
+.scrapbook-copy > p:not(.eyebrow) { color: var(--tw-paper-soft); font-size: var(--tw-body-lg); line-height: 1.7; }
+.scrapbook-controls { display: flex; justify-content: space-between; gap: .75rem; margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+.scrapbook-controls button { min-height: 46px; padding: 0 13px; border: 1px solid var(--tw-line); background: rgba(255, 255, 255, .025); color: var(--tw-paper); cursor: pointer; font: 700 .72rem/1 var(--tw-mono); letter-spacing: .08em; text-transform: uppercase; }
+.scrapbook-controls button:hover, .scrapbook-controls button:focus-visible { border-color: var(--tw-amber); color: var(--tw-amber-bright); }
+.scrapbook-pages { display: grid; grid-template-columns: repeat(9, 1fr); gap: 7px; margin-top: 14px; }
+.scrapbook-pages button { min-height: 42px; border: 1px solid var(--tw-line); background: rgba(13, 25, 21, .45); color: var(--tw-muted); cursor: pointer; font: 700 .72rem/1 var(--tw-mono); }
+.scrapbook-pages button:is(:hover, :focus-visible, .is-active) { border-color: var(--tw-amber); background: rgba(216, 168, 95, .12); color: var(--tw-amber-bright); }
+
+@media (max-width: 900px) {
+  :where(.page, .member-shell, .next-shell) h1 { font-size: clamp(2.55rem, 8vw, 4.2rem) !important; }
+  :where(.page, .member-shell, .next-shell) h2 { font-size: clamp(2rem, 6vw, 3rem) !important; }
+  .scrapbook { grid-template-columns: 1fr; }
+  .scrapbook-copy { padding-bottom: .5rem; }
+}
+@media (max-width: 700px) {
+  :where(.page, .member-shell, .next-shell) h1 { font-size: clamp(2.35rem, 11vw, 3.4rem) !important; }
+  :where(.page, .member-shell, .next-shell) h2 { font-size: clamp(1.85rem, 8vw, 2.5rem) !important; }
+  :where(.page, .member-shell, .next-shell) h3 { font-size: clamp(1.35rem, 6vw, 1.8rem) !important; }
+  .gallery-toolbar > p { margin-top: 1rem; }
+  .scrapbook { padding: 10px; }
+  .scrapbook-paper { padding: 8px; box-shadow: 6px 7px 0 rgba(0, 0, 0, .2); }
+  .scrapbook-folio { display: block; }
+  .scrapbook-folio small { display: block; margin-top: 4px; text-align: left; }
+  .scrapbook-controls span { display: none; }
+  .scrapbook-controls button { min-width: 58px; }
+  .scrapbook-pages { grid-template-columns: repeat(5, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrapbook-paper { transform: none; }
+  .scrapbook-image img { transition: none; }
 }

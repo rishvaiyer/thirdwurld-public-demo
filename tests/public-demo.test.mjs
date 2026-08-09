@@ -12,6 +12,7 @@ test('exposes named, toggleable public-demo pages', () => {
   for (const page of ['world', 'residents', 'worldbook', 'gallery', 'technology', 'economics', 'status', 'preview']) {
     assert.match(html, new RegExp(`data-page=["']${page}["']`))
   }
+  assert.match(script, /id:\s*['"]worldbook['"],\s*label:\s*['"]Places['"]/)
 })
 
 test('contains a captioned resident conversation and replayable demo reel', () => {
@@ -61,7 +62,7 @@ test('contains distinct technology, atlas, status, and interactive demo surfaces
   assert.doesNotMatch(html, /github\.com/i)
 })
 
-test('includes a filterable, truthfully labeled gallery', () => {
+test('includes a truthfully labeled scrapbook gallery', () => {
   const galleryAssets = [
     'resident-gate.png',
     'residents-chatting.png',
@@ -75,18 +76,31 @@ test('includes a filterable, truthfully labeled gallery', () => {
   ]
 
   assert.match(html, /data-page=["']gallery["']/)
-  for (const filter of ['world', 'resident', 'places', 'capabilities']) {
-    assert.match(html, new RegExp(`data-gallery-filter=["']${filter}["']`))
-  }
   for (const asset of galleryAssets) {
     const path = `assets/gallery/${asset}`
     assert.ok(existsSync(new URL(path, root)), `Missing gallery asset ${path}`)
-    assert.match(html, new RegExp(path.replaceAll('.', '\\.')))
+    assert.match(`${html}\n${script}`, new RegExp(path.replaceAll('.', '\\.')))
   }
   assert.match(html, /data-gallery-lightbox/)
-  assert.match(html, /Real in-game capture/i)
-  assert.match(html, /Public product surface/i)
+  assert.match(`${html}\n${script}`, /Real in-game capture/i)
+  assert.match(`${html}\n${script}`, /Public product surface/i)
   assert.match(script, /galleryLightbox/)
+})
+
+test('ships a nine-page scrapbook with direct and accessible navigation', () => {
+  for (const selector of [
+    'data-scrapbook',
+    'data-scrapbook-image',
+    'data-scrapbook-prev',
+    'data-scrapbook-next',
+    'data-scrapbook-count',
+  ]) assert.match(html, new RegExp(selector))
+  assert.equal((html.match(/data-scrapbook-page=/g) || []).length, 9)
+  assert.match(script, /showScrapbookPage/)
+  assert.match(script, /ArrowLeft/)
+  assert.match(script, /ArrowRight/)
+  assert.match(script, /touchstart/)
+  assert.match(script, /touchend/)
 })
 
 test('links the pitch flow to the playable capsule and human member walkthrough', () => {
