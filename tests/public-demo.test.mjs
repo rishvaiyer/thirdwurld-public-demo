@@ -48,6 +48,12 @@ test('shows Stripe hosted plans and keeps World Map off the Places page', () => 
   assert.doesNotMatch(script, /05 \/ World Map/i)
 })
 
+test('does not expose private map labels in the public demo', () => {
+  assert.doesNotMatch(html, /world-map-real|Crown Castle|Unevil|Warden|Queen/i)
+  assert.doesNotMatch(script, /world-map-real|Crown Castle|Unevil|Warden|Queen/i)
+  assert.equal(existsSync(new URL('assets/game/world-map-real.png', root)), false)
+})
+
 test('opens the gallery with the final user-captured video cut', () => {
   assert.match(html, /data-gallery-video-player/)
   assert.match(html, /world-capture-04\.webm/)
