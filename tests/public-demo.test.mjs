@@ -32,7 +32,7 @@ test('shows resident diaries and memorable moments on Residents', () => {
 })
 
 test('uses Thirdwurld current BYOK brain-cost estimates', () => {
-  assert.match(html, /Hosted plans or bring your own key/i)
+  assert.match(html, /Brain cost estimates.*Stripe hosted.*bring your own key/i)
   assert.match(html, /≈ \$0\.10–\$0\.25/i)
   assert.match(html, /≈ \$20–\$35/i)
   assert.doesNotMatch(html, /\$24|\$79|\$249/i)
@@ -40,11 +40,22 @@ test('uses Thirdwurld current BYOK brain-cost estimates', () => {
 })
 
 test('shows Stripe hosted plans and keeps World Map off the Places page', () => {
-  assert.match(html, /Stripe checkout integrated/i)
+  assert.match(html, /Secure Stripe checkout/i)
   assert.match(html, /\$9[\s\S]*\$19/i)
-  assert.match(html, /No API key needed/i)
+  assert.match(html, /no API key needed/i)
+  assert.match(html, /accept card payments through Stripe/i)
   assert.doesNotMatch(html, /data-atlas-control=["']map["']/i)
   assert.doesNotMatch(script, /05 \/ World Map/i)
+})
+
+test('opens the gallery with switchable user-captured video', () => {
+  assert.match(html, /data-gallery-video-player/)
+  assert.match(html, /world-capture-01\.webm/)
+  assert.match(html, /data-gallery-video=["']capture-four["']/)
+  assert.match(script, /showGalleryVideo/)
+  for (const asset of ['assets/videos/world-capture-01.webm', 'assets/videos/world-capture-02.webm', 'assets/videos/world-capture-03.webm', 'assets/videos/world-capture-04.webm']) {
+    assert.ok(existsSync(new URL(asset, root)), `Missing ${asset}`)
+  }
 })
 
 test('references every local visual asset and does not link to the private app', () => {
