@@ -125,6 +125,21 @@ The canonical application builds on a Hyperfy foundation and is organized around
 
 The goal is to show how the product works as a system, not merely show a character speaking inside a 3D scene.
 
+## Public demo
+
+The root `index.html` is the public-facing product showcase. It is intentionally
+dependency-free so it can be previewed locally or served directly by GitHub Pages.
+
+```bash
+node --test tests/public-demo.test.mjs
+python3 -m http.server 4173
+```
+
+Then open `http://127.0.0.1:4173`. The navigation in `app.js` is configured as
+`THIRDWURLD_DEMO_NAV`; set a page's `enabled` value to `false` to hide it without
+removing its content. The in-page demo reel uses original illustrative artwork,
+not live resident data or access to the private world.
+
 ## Public demo roadmap
 
 This repository will grow through a small set of high-signal artifacts:
