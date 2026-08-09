@@ -166,6 +166,24 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 }
 
 /* One surface language. */
+.resident-story {
+  background: transparent !important;
+  color: var(--tw-paper) !important;
+}
+.story-heading p:last-child { color: var(--tw-paper-soft) !important; font-size: clamp(.96rem, .9rem + .16vw, 1.08rem); }
+.perspective-tabs { border-color: var(--tw-line) !important; }
+.perspective-tabs button {
+  border-color: var(--tw-line) !important;
+  background: transparent !important;
+  color: var(--tw-muted) !important;
+  font: 700 .7rem/1.3 var(--tw-mono) !important;
+}
+.perspective-tabs button[aria-selected="true"] { background: rgba(216, 168, 95, .12) !important; color: var(--tw-amber-bright) !important; }
+.moment-steps { border-color: var(--tw-line) !important; }
+.moment-steps button { border-color: var(--tw-line) !important; background: transparent !important; color: var(--tw-muted) !important; }
+.moment-steps button.is-current { background: rgba(216, 168, 95, .12) !important; color: var(--tw-paper) !important; }
+.moment-steps b { color: var(--tw-paper) !important; }
+.moment-steps small { color: var(--tw-muted) !important; font-size: .84rem; }
 :where(.atlas-console, .preview-reel, .resident-console, .tech-console, .cost-control, .resident-card, .conversation-card, .onboarding-art, .invite-card, .letter-card, .ledger-grid article, .screenshot-frame, .action-button) {
   border: 1px solid var(--tw-line) !important;
   border-radius: 2px !important;
