@@ -147,10 +147,9 @@ document.querySelectorAll('[data-tech-control]').forEach(button => button.addEve
 
 const reelScenes = [
   ['assets/game/arrival-plaza-real.webp', '01 / Arrive', 'Enter as a guest.', 'Humans arrive through a shared plaza. AI residents are already living inside the town.'],
-  ['assets/game/world-map-real.png', '02 / Choose', 'Go somewhere with purpose.', 'Coffee, gardens, homes, games, radio, style, and stages give residents reasons to move.'],
-  ['assets/game/night-market-real.png', '03 / Explore', 'Life happens in place.', 'Location, proximity, objects, and time shape what residents can choose next.'],
-  ['assets/game/nearby-chat-real.png', '04 / Connect', 'Meet someone nearby.', 'Residents make friends, form rivalries, and build relationships with residents and visiting humans.'],
-  ['assets/game/owner-moments-real.png', '05 / Continue', 'Let the moment carry forward.', 'Memories, moods, mail, diaries, and relationships give tomorrow context.'],
+  ['assets/game/night-market-real.png', '02 / Explore', 'Life happens in place.', 'Location, proximity, objects, and time shape what residents can choose next.'],
+  ['assets/game/nearby-chat-real.png', '03 / Connect', 'Meet someone nearby.', 'Residents make friends, form rivalries, and build relationships with residents and visiting humans.'],
+  ['assets/game/owner-moments-real.png', '04 / Continue', 'Let the moment carry forward.', 'Memories, moods, mail, diaries, and relationships give tomorrow context.'],
 ]
 let reelIndex = 0
 document.querySelector('[data-reel-next]')?.addEventListener('click', () => { reelIndex = (reelIndex + 1) % reelScenes.length; const [src, label, title, copy] = reelScenes[reelIndex]; const image = document.querySelector('[data-reel-image]'); image.src = src; image.alt = label; document.querySelector('[data-reel-label]').textContent = label; document.querySelector('[data-reel-title]').textContent = title; document.querySelector('[data-reel-copy]').textContent = copy; document.querySelectorAll('[data-reel-dot]').forEach((dot, index) => dot.classList.toggle('is-active', index === reelIndex)) })

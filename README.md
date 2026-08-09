@@ -54,7 +54,7 @@ Thirdwurld is an authored 3D town with a distinct visual identity, not an empty 
 
 - The Commons and Living Town
 - Commons Pollinator Garden
-- Crown Castle
+- Waterfront Quarter
 - Casino Quarter
 - Garden Quarter
 - Music Quarter
