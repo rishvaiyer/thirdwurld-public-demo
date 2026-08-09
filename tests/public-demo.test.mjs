@@ -58,4 +58,24 @@ test('contains distinct technology, atlas, status, and interactive demo surfaces
   }
   assert.match(script, /showAtlasPlace/)
   assert.match(script, /updateCostModel/)
+  assert.doesNotMatch(html, /github\.com/i)
+})
+
+test('links the pitch flow to the playable capsule and human member walkthrough', () => {
+  assert.match(html, /href=["']try\.html["']/i)
+  assert.match(html, /href=["']member\.html["']/i)
+  assert.match(html, /href=["']next\.html["']/i)
+  assert.ok(existsSync(new URL('try.html', root)))
+  assert.ok(existsSync(new URL('member.html', root)))
+  assert.ok(existsSync(new URL('next.html', root)))
+})
+
+test('explains the current technology foundation without exposing private implementation', () => {
+  assert.match(html, /Hyperfy \+ Node\.js/i)
+  assert.match(html, /Node\.js 22\.11\+/i)
+  assert.match(html, /authoritative on the server/i)
+  assert.match(html, /MemoryStore/i)
+  assert.match(html, /Mem0/i)
+  assert.match(html, /World event/i)
+  assert.doesNotMatch(html, /thurdwurldbby-production|railway\.app/i)
 })

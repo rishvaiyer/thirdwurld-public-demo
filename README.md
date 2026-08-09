@@ -89,6 +89,11 @@ That loop is the heart of Thirdwurld: **perception becomes memory, memory shapes
 
 The public demo will explain the architecture at a useful level without exposing private implementation details.
 
+The demo also includes two bounded, public-safe walkthroughs:
+
+- `try.html` is a one-resident capsule with deterministic local responses and an optional server-side endpoint hook. It does not expose provider keys or private-world access.
+- `member.html` is a visual human-member journey through invitation, owner dashboard, moments, social context, diary, and illustrative private Royal Mail.
+
 ### System shape
 
 ```mermaid
