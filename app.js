@@ -4,7 +4,7 @@ const THIRDWURLD_DEMO_NAV = Object.freeze([
   { id: 'worldbook', label: 'Places', enabled: true },
   { id: 'gallery', label: 'Gallery', enabled: true },
   { id: 'technology', label: 'Technology', enabled: true },
-  { id: 'economics', label: 'Economics', enabled: true },
+  { id: 'economics', label: 'Costs', enabled: true },
   { id: 'status', label: 'Status', enabled: true },
   { id: 'preview', label: 'Preview', enabled: true },
 ])
@@ -51,7 +51,6 @@ const atlasPlaces = {
   'corner-cup': ['assets/game/corner-cup-real.png', '02 / Corner Cup', 'A smaller reason to linger.', 'Different spaces create different conditions for routine, reflection, and chance conversation.', 'The Corner Cup beside the water.', 'Pause for coffee'],
   arrival: ['assets/game/arrival-plaza-real.webp', '03 / Arrival Plaza', 'A shared beginning.', 'An arrival area makes the world feel like somewhere you enter, not merely a surface you load.', 'Arrival Plaza at the center of town.', 'Enter the town'],
   garden: ['assets/game/pollinator-garden-qa.webp', '04 / Pollinator Garden', 'A garden made for tending.', 'A shared date garden gives care, routine, and quiet time a physical home inside the town.', 'The entrance to Pollinator Garden.', 'Tend and reflect'],
-  map: ['assets/game/world-map-real.png', '05 / World Map', 'Nine destinations, one continuing town.', 'Social, royal, home, games, style, and creative places give residents and visitors real reasons to move through the world.', 'A map of Thirdwurld destinations.', 'Choose a destination'],
 }
 function showAtlasPlace(id) { const [src, number, title, copy, alt, chip] = atlasPlaces[id]; const image = document.querySelector('[data-atlas-image]'); image.src = src; image.alt = alt; document.querySelector('[data-atlas-number]').textContent = number; document.querySelector('[data-atlas-title]').textContent = title; document.querySelector('[data-atlas-copy]').textContent = copy; document.querySelector('[data-atlas-chip]').textContent = chip; document.querySelectorAll('[data-atlas-control]').forEach(button => button.classList.toggle('is-active', button.dataset.atlasControl === id)) }
 document.querySelectorAll('[data-atlas-control]').forEach(button => button.addEventListener('click', () => showAtlasPlace(button.dataset.atlasControl)))
@@ -119,9 +118,6 @@ const techLayers = {
   trace: ['Durable trace', 'Later moments have context.', 'Diaries, relationship signals, mail, and world events make a later moment more than a reset.', 'Why it matters: resident life can continue after humans leave.'],
 }
 document.querySelectorAll('[data-tech-control]').forEach(button => button.addEventListener('click', () => { const [label, heading, copy, boundary] = techLayers[button.dataset.techControl]; document.querySelectorAll('[data-tech-control]').forEach(item => item.classList.toggle('is-active', item === button)); const readout = document.querySelector('[data-tech-readout]'); readout.querySelector('span').textContent = label; readout.querySelector('h3').textContent = heading; readout.querySelector('p').textContent = copy; readout.querySelector('small').textContent = boundary }))
-
-function updateCostModel(value) { const residents = Number(value); const low = 45 + residents * 10; const high = 90 + residents * 50; document.querySelector('[data-cost-count]').textContent = residents; document.querySelector('[data-cost-total]').textContent = `$${low}–${high}`; document.querySelector('[data-cost-detail]').textContent = `${residents} active resident${residents === 1 ? '' : 's'} · world hosting + inference + memory/observability` }
-document.querySelector('[data-cost-range]')?.addEventListener('input', event => updateCostModel(event.target.value))
 
 const reelScenes = [
   ['assets/game/arrival-plaza-real.webp', '01 / Arrive', 'Enter as a guest.', 'Humans arrive through a shared plaza. AI residents are already living inside the town.'],

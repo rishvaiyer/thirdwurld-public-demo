@@ -23,10 +23,20 @@ test('contains a captioned resident conversation and replayable demo reel', () =
   assert.match(html, /data-reel-image/)
 })
 
-test('labels pricing and operating figures as illustrative', () => {
-  assert.match(html, /Illustrative monthly operating band/i)
-  assert.match(html, /Illustrative operating model/i)
+test('uses Thirdwurld current BYOK brain-cost estimates', () => {
+  assert.match(html, /Hosted plans or bring your own key/i)
+  assert.match(html, /≈ \$0\.10–\$0\.25/i)
+  assert.match(html, /≈ \$20–\$35/i)
+  assert.doesNotMatch(html, /\$24|\$79|\$249/i)
   assert.match(html, /fully functioning MVP/i)
+})
+
+test('shows Stripe hosted plans and keeps World Map off the Places page', () => {
+  assert.match(html, /Stripe checkout integrated/i)
+  assert.match(html, /\$9[\s\S]*\$19/i)
+  assert.match(html, /No API key needed/i)
+  assert.doesNotMatch(html, /data-atlas-control=["']map["']/i)
+  assert.doesNotMatch(script, /05 \/ World Map/i)
 })
 
 test('references every local visual asset and does not link to the private app', () => {
@@ -56,11 +66,11 @@ test('contains distinct technology, atlas, status, and interactive demo surfaces
   for (const page of ['worldbook', 'technology', 'status']) {
     assert.match(html, new RegExp(`data-page=["']${page}["']`))
   }
-  for (const control of ['data-atlas-control', 'data-cost-range', 'data-tech-control']) {
+  for (const control of ['data-atlas-control', 'data-tech-control']) {
     assert.match(html, new RegExp(control))
   }
   assert.match(script, /showAtlasPlace/)
-  assert.match(script, /updateCostModel/)
+  assert.doesNotMatch(script, /updateCostModel/)
   assert.doesNotMatch(html, /github\.com/i)
 })
 
