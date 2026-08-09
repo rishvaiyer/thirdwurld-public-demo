@@ -1,4 +1,4 @@
-/* Thirdwurld public demo brand system. Loaded last on every public page. */
+/* thirdwurld public demo brand system. Loaded last on every public page. */
 :root {
   --tw-night: #0b1411;
   --tw-night-soft: #12201b;
@@ -496,7 +496,7 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 @media (max-width: 850px) { .resident-journal > header { grid-template-columns: 1fr; gap: 18px; } .resident-journal > header .eyebrow { grid-column: auto; } .journal-track { display: flex; width: calc(100vw - 16px); margin-left: calc((100vw - 100%) / -2 + 8px); padding: 0 16px 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; } .journal-track::-webkit-scrollbar { display: none; } .journal-track > article { flex: 0 0 min(84vw, 500px); min-height: 420px; scroll-snap-align: center; } }
 @media (max-width: 560px) { .resident-journal { padding-block: 72px; } .journal-track > article { flex-basis: 86vw; padding: 24px 22px; } .diary-entry > div { align-items: flex-start; flex-direction: column; } .journal-track h3 { margin-top: 28px; } }
 
-/* Actual Thirdwurld costs page */
+/* Actual thirdwurld costs page */
 .economics-page { background: radial-gradient(circle at 82% 8%, rgba(216,168,95,.11), transparent 28%), #0c1513; }
 .cost-page { display: grid; gap: 22px; padding-block: clamp(3rem, 7vw, 6rem); }
 .cost-panel { min-width: 0; padding: clamp(24px, 4vw, 46px); border: 1px solid rgba(241,234,219,.14); background: linear-gradient(145deg, rgba(24,41,34,.94), rgba(10,19,16,.94)); box-shadow: 0 22px 65px rgba(0,0,0,.2); }
@@ -542,3 +542,122 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 .cost-note a { color: var(--tw-amber-bright); font: 700 .7rem/1.3 var(--tw-mono); letter-spacing: .06em; text-transform: uppercase; }
 @media (max-width: 850px) { .hosted-cost-head, .cost-two-up { grid-template-columns: 1fr; } .hosted-plan-grid { grid-template-columns: 1fr; } .hosted-plan-grid article { min-height: 0; } .hosted-plan-grid article p { min-height: 0; } .stripe-mark { width: fit-content; } }
 @media (max-width: 560px) { .cost-panel { padding: 22px 18px; } .cost-usage dl { grid-template-columns: 1fr; } .cost-usage dl > div { display: block; padding: 13px 0; border-bottom: 1px solid rgba(241,234,219,.14); } .cost-usage dt, .cost-usage dd { padding: 0; border: 0; } .cost-usage dd { margin-top: 6px; } }
+
+/* Final AAA visual system. Keep this block last so legacy page rules cannot
+   quietly reintroduce oversized headlines, tiny labels, or hidden light. */
+:root {
+  --tw-display-1: clamp(2.75rem, 5.2vw, 4rem);
+  --tw-display-2: clamp(2rem, 3.4vw, 2.9rem);
+  --tw-display-3: clamp(1.35rem, 2vw, 1.85rem);
+  --tw-body: clamp(1rem, .97rem + .16vw, 1.1rem);
+  --tw-body-lg: clamp(1.05rem, 1rem + .22vw, 1.18rem);
+  --tw-ui: clamp(.75rem, .72rem + .06vw, .82rem);
+}
+.thirdwurld-page {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  font-size: var(--tw-body);
+  background:
+    radial-gradient(circle at calc(82% + var(--pointer-x, 0%) * .08) calc(8% + var(--pointer-y, 0%) * .04), rgba(216,168,95,.16), transparent 34rem),
+    radial-gradient(circle at 8% 54%, rgba(95,148,121,.16), transparent 36rem),
+    var(--tw-night);
+}
+.thirdwurld-page::after {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: .72;
+  background:
+    radial-gradient(circle at calc(18% + var(--pointer-x, 0%) * .06) calc(24% + var(--pointer-y, 0%) * .05), rgba(245,205,125,.11), transparent 27%),
+    radial-gradient(circle at calc(84% - var(--pointer-x, 0%) * .04) calc(74% - var(--pointer-y, 0%) * .03), rgba(143,188,135,.10), transparent 30%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.012) 0 1px, transparent 1px 5px);
+  mix-blend-mode: screen;
+  animation: thirdwurldFieldDrift 26s ease-in-out infinite alternate;
+}
+:where(.page, .member-shell, .next-shell) h1 {
+  font-size: var(--tw-display-1) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.045em !important;
+}
+:where(.page, .member-shell, .next-shell) h2 {
+  font-size: var(--tw-display-2) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -.04em !important;
+}
+:where(.page, .member-shell, .next-shell) h3 {
+  font-size: var(--tw-display-3) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.03em !important;
+}
+.resident-journal > header h2,
+.cost-panel h2,
+.scrapbook-copy h3 { font-size: var(--tw-display-2) !important; line-height: 1.08 !important; }
+.scrapbook-copy h3 { font-size: var(--tw-display-3) !important; }
+:where(.thirdwurld-page, .member-page, .next-page) :is(.eyebrow, .world-signal, .desktop-nav a, .mobile-nav a, .mobile-dock button, .menu-toggle, .button, .text-button, .mini-link, .capture-chip, .real-capture-card span, .tech-real-capture span, .member-status, .member-back, .step-label, .member-hero-note span, .screenshot-frame figcaption, .letter-meta, .status-mark, .back-link, .ledger-status, .sequence-list strong, .site-footer) {
+  font-size: var(--tw-ui) !important;
+  line-height: 1.45 !important;
+}
+:where(.thirdwurld-page, .member-page, .next-page) :is(p, li, dd, dt, blockquote) { font-size: var(--tw-body); }
+:where(.thirdwurld-page, .member-page, .next-page) :is(.hero-lede, .intro-copy p:not(.eyebrow), .tech-copy p:not(.eyebrow), .atlas-hero p:last-child, .economics-hero p:last-child, .status-hero p:last-child, .preview-hero p:last-child, .member-hero-note p, .section-heading > p:last-child, .step-copy > p:not(.eyebrow), .member-close > p:not(.eyebrow), .next-hero > div > p:not(.eyebrow)) {
+  font-size: var(--tw-body-lg) !important;
+  line-height: 1.65 !important;
+}
+:where(.button, .member-button, .next-button, .send-button, .invite-card button) { min-height: 52px; }
+.world-page { position: relative; isolation: isolate; background: transparent !important; }
+.world-page > :not(.world-atmosphere) { position: relative; z-index: 1; }
+.world-atmosphere {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #09120f;
+}
+.world-atmosphere::before {
+  position: absolute;
+  z-index: 1;
+  inset: -8%;
+  content: "";
+  pointer-events: none;
+  opacity: .82;
+  background:
+    radial-gradient(circle at 13% 19%, rgba(255,218,145,.86) 0 8px, rgba(245,204,126,.28) 24px, transparent 130px),
+    radial-gradient(circle at 29% 37%, rgba(255,218,145,.72) 0 10px, rgba(245,204,126,.22) 28px, transparent 150px),
+    radial-gradient(circle at 48% 11%, rgba(255,218,145,.74) 0 8px, rgba(245,204,126,.22) 24px, transparent 140px),
+    radial-gradient(circle at 66% 30%, rgba(255,218,145,.76) 0 10px, rgba(245,204,126,.2) 28px, transparent 150px),
+    radial-gradient(circle at 84% 16%, rgba(255,218,145,.9) 0 8px, rgba(245,204,126,.24) 24px, transparent 140px),
+    radial-gradient(circle at 77% 63%, rgba(255,218,145,.68) 0 10px, rgba(245,204,126,.18) 28px, transparent 150px),
+    radial-gradient(circle at 24% 76%, rgba(255,218,145,.66) 0 8px, rgba(245,204,126,.18) 24px, transparent 140px),
+    radial-gradient(circle at 91% 82%, rgba(255,218,145,.76) 0 10px, rgba(245,204,126,.22) 28px, transparent 150px);
+  filter: blur(2px);
+  mix-blend-mode: screen;
+  animation: thirdwurldLanternPulse 9s ease-in-out infinite alternate;
+}
+.world-atmosphere img { opacity: .9; filter: saturate(1.14) brightness(1.08) contrast(1.07); mix-blend-mode: screen; }
+.world-atmosphere::after { background: linear-gradient(180deg, rgba(5,12,10,.02), rgba(5,12,10,.32)), radial-gradient(circle at 50% 48%, transparent 18%, rgba(4,10,8,.22) 85%); }
+.world-atmosphere i { left: var(--world-x); top: var(--world-y); z-index: 2; opacity: 1; background: radial-gradient(circle, rgba(245,204,126,.4), rgba(216,168,95,.15) 29%, transparent 67%); filter: blur(14px); }
+.world-page .world-hero-image { opacity: .13 !important; mix-blend-mode: screen; }
+.world-page .memory-field > img { opacity: .05 !important; }
+.world-hero, .arrival-section, .memory-field, .world-manifesto { background: transparent !important; }
+@keyframes thirdwurldFieldDrift { from { transform: translate3d(-.5%, 0, 0) scale(1.02); } to { transform: translate3d(.5%, -.8%, 0) scale(1.04); } }
+@keyframes thirdwurldLanternPulse { from { opacity: .58; transform: scale(.99); } to { opacity: .95; transform: scale(1.02); } }
+@media (max-width: 900px) {
+  :where(.page, .member-shell, .next-shell) h1 { font-size: clamp(2.55rem, 8vw, 3.65rem) !important; }
+  :where(.page, .member-shell, .next-shell) h2 { font-size: clamp(1.95rem, 6vw, 2.7rem) !important; }
+  :where(.page, .member-shell, .next-shell) h3 { font-size: clamp(1.35rem, 4.6vw, 1.85rem) !important; }
+  .world-atmosphere img { opacity: .78; }
+}
+@media (max-width: 700px) {
+  :where(.page, .member-shell, .next-shell) h1 { font-size: clamp(2.35rem, 10.5vw, 3.35rem) !important; }
+  :where(.page, .member-shell, .next-shell) h2 { font-size: clamp(1.85rem, 7.5vw, 2.5rem) !important; }
+  :where(.page, .member-shell, .next-shell) h3 { font-size: clamp(1.3rem, 5.8vw, 1.75rem) !important; }
+  .thirdwurld-page::after { opacity: .58; }
+  .world-atmosphere::before { opacity: .68; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .thirdwurld-page::after, .world-atmosphere img, .world-atmosphere::before { animation: none !important; }
+  .world-atmosphere i { transition: none !important; }
+}

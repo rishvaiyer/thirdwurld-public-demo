@@ -8,7 +8,7 @@ test('uses one Thirdwurld brand system across every public page', async () => {
   for (const page of pages) {
     const html = await readFile(new URL(`../${page}`, import.meta.url), 'utf8')
     assert.match(html, /class="[^"]*thirdwurld-page/)
-    assert.match(html, /responsive\.css\?v=10/)
+    assert.match(html, /responsive\.css\?v=11/)
     assert.match(html, /thirdwurld<span>°<\/span>/)
     assert.doesNotMatch(html, /THIRDWURLD/)
   }
@@ -22,7 +22,10 @@ test('defines shared headers, footers, controls, surfaces, and responsive type',
   assert.match(css, /One surface language/)
   assert.match(css, /@media \(max-width: 700px\)/)
   assert.match(css, /prefers-reduced-motion/)
-  assert.match(css, /--tw-display-1:\s*clamp\(3rem, 5vw, 5rem\)/)
-  assert.match(css, /--tw-display-2:\s*clamp\(2rem, 3\.5vw, 3\.25rem\)/)
-  assert.match(css, /--tw-body-lg:\s*clamp\(1\.05rem, 1rem \+ \.25vw, 1\.2rem\)/)
+  assert.match(css, /--tw-display-1:\s*clamp\(2\.75rem, 5\.2vw, 4rem\)/)
+  assert.match(css, /--tw-display-2:\s*clamp\(2rem, 3\.4vw, 2\.9rem\)/)
+  assert.match(css, /--tw-ui:\s*clamp\(\.75rem, \.72rem \+ \.06vw, \.82rem\)/)
+  assert.match(css, /\.world-atmosphere\s*\{[^}]*z-index:\s*0/s)
+  assert.match(css, /--pointer-x/)
+  assert.match(css, /thirdwurldFieldDrift/)
 })

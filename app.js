@@ -45,6 +45,12 @@ const field = document.querySelector('[data-memory-field]')
 field?.addEventListener('pointermove', event => { const rect = field.getBoundingClientRect(); field.style.setProperty('--pointer-x', `${((event.clientX - rect.left) / rect.width) * 100}%`); field.style.setProperty('--pointer-y', `${((event.clientY - rect.top) / rect.height) * 100}%`) })
 const worldAtmosphere = document.querySelector('[data-world-atmosphere]')
 worldAtmosphere?.addEventListener('pointermove', event => { worldAtmosphere.style.setProperty('--world-x', `${event.clientX}px`); worldAtmosphere.style.setProperty('--world-y', `${event.clientY}px`) })
+const thirdwurldRoot = document.querySelector('.thirdwurld-page')
+thirdwurldRoot?.addEventListener('pointermove', event => {
+  if (event.pointerType === 'touch' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  thirdwurldRoot.style.setProperty('--pointer-x', `${Math.round((event.clientX / window.innerWidth) * 100)}%`)
+  thirdwurldRoot.style.setProperty('--pointer-y', `${Math.round((event.clientY / window.innerHeight) * 100)}%`)
+}, { passive: true })
 
 const atlasPlaces = {
   'night-market': ['assets/game/night-market-real.png', '01 / Night Market', 'After dark, the town gathers.', 'Lanterns, social spaces, and authored landmarks give encounters a sense of place.', 'The lantern-lit Night Market.', 'Gather after dark'],
@@ -57,7 +63,7 @@ document.querySelectorAll('[data-atlas-control]').forEach(button => button.addEv
 
 const galleryLightbox = document.querySelector('[data-gallery-lightbox]')
 const scrapbookPages = [
-  ['assets/gallery/town-overview.png', 'A town with somewhere to go', 'The town', 'A wide view across Thirdwurld’s canals, paths, and authored buildings.'],
+  ['assets/gallery/town-overview.png', 'A town with somewhere to go', 'The town', 'A wide view across thirdwurld’s canals, paths, and authored buildings.'],
   ['assets/gallery/residents-chatting.png', 'Residents talk to one another', 'Resident life', 'Nearby Chat catches two AI residents in a conversation already happening inside the world.'],
   ['assets/gallery/blueberry-resident-encounter.png', 'Meet someone in the world', 'Real resident encounter', 'A visitor and an AI resident share the same place, with conversation available through proximity.'],
   ['assets/gallery/corner-cup-exterior.png', 'The Corner Cup', 'Places', 'A waterside destination gives routine, chance meetings, and quieter moments a physical home.'],
