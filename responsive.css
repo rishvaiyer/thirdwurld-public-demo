@@ -1,0 +1,101 @@
+/* Shared responsive polish: readable type, calmer hierarchy, and a living dusk field. */
+html { text-size-adjust: 100%; }
+body {
+  position: relative;
+  isolation: isolate;
+  font-size: clamp(1rem, .95rem + .2vw, 1.12rem);
+  background-image:
+    radial-gradient(circle at 82% 7%, rgba(216,168,95,.14), transparent 30rem),
+    radial-gradient(circle at 8% 54%, rgba(95,148,121,.13), transparent 32rem);
+  background-size: 140% 140%, 155% 155%;
+  animation: thirdwurldAtmosphere 24s ease-in-out infinite alternate;
+}
+body::before {
+  position: fixed;
+  z-index: -1;
+  inset: -18%;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 18% 26%, rgba(245,205,125,.08), transparent 22%),
+    radial-gradient(circle at 84% 72%, rgba(143,188,135,.08), transparent 25%);
+  filter: blur(18px);
+  animation: thirdwurldGlow 17s ease-in-out infinite alternate;
+}
+
+:where(.page, .member-shell, .next-shell) h1 {
+  font-size: clamp(3.2rem, 6.5vw, 7.35rem) !important;
+  line-height: .92 !important;
+}
+:where(.page, .member-shell, .next-shell) h2 {
+  font-size: clamp(2.3rem, 4.7vw, 4.85rem) !important;
+  line-height: .98 !important;
+}
+:where(.page, .member-shell, .next-shell) h3 {
+  font-size: clamp(1.55rem, 2.45vw, 2.4rem) !important;
+  line-height: 1.04 !important;
+}
+:where(.page, .member-shell, .next-shell) p:not(.eyebrow) {
+  line-height: 1.68;
+}
+:where(.hero-lede, .intro-copy p:not(.eyebrow), .tech-copy p:not(.eyebrow), .atlas-hero p:last-child, .economics-hero p:last-child, .status-hero p:last-child, .preview-hero p:last-child, .member-hero-note p, .section-heading>p:last-child, .step-copy>p:not(.eyebrow), .member-close>p:not(.eyebrow), .next-hero>div>p:not(.eyebrow)) {
+  font-size: clamp(1rem, .94rem + .24vw, 1.18rem) !important;
+}
+:where(.atlas-details p, .proof-list span, .status-ledger p, .owner-proof p, .cost-lab p:last-child, .tech-proof p:last-child, .sequence-list p) {
+  font-size: clamp(.96rem, .9rem + .16vw, 1.08rem) !important;
+}
+:where(.eyebrow, .world-signal, .desktop-nav a, .mobile-nav a, .button, .text-button, .mini-link, .capture-chip, .real-capture-card span, .tech-real-capture span, .member-status, .member-back, .step-label, .member-hero-note span, .screenshot-frame figcaption, .letter-meta, .status-mark, .back-link, .ledger-status, .sequence-list strong, .next-footer) {
+  font-size: clamp(.68rem, .62rem + .08vw, .78rem) !important;
+}
+
+/* The art stays the surface. Motion is subtle, so it reads as atmosphere rather than a slideshow. */
+:where(.world-hero, .memory-field, .page-intro, .technology-hero, .atlas-hero, .economics-hero, .status-hero, .preview-hero, .member-hero, .next-hero, .onboarding-art) {
+  background-size: 120% 120%;
+  animation: thirdwurldAtmosphere 28s ease-in-out infinite alternate;
+}
+:where(.world-hero, .page-intro, .technology-hero, .resident-stage, .screenshot-frame):hover > img,
+:where(.world-hero, .page-intro, .technology-hero, .resident-stage, .screenshot-frame):focus-within > img {
+  transform: scale(1.035);
+  transition: transform .8s cubic-bezier(.22,1,.36,1), filter .8s ease;
+  filter: saturate(1.06) contrast(1.02);
+}
+:where(.atlas-console, .preview-reel, .resident-console, .tech-console, .cost-control, .onboarding-art, .letter-card, .ledger-grid article, .screenshot-frame) {
+  transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .35s ease, box-shadow .35s ease;
+}
+:where(.atlas-console, .preview-reel, .resident-console, .tech-console, .cost-control, .onboarding-art, .letter-card, .ledger-grid article, .screenshot-frame):hover {
+  transform: translateY(-3px);
+  border-color: rgba(245,215,157,.42);
+  box-shadow: 0 18px 48px rgba(0,0,0,.2);
+}
+
+/* The one-resident capsule has denser UI, so its scale is tuned separately. */
+.capsule { font-size: clamp(1rem, .95rem + .18vw, 1.1rem); }
+.capsule h1 { font-size: clamp(2.75rem, 6vw, 5.2rem); line-height: .96; }
+.capsule h2 { font-size: clamp(1.65rem, 2.8vw, 2.35rem); line-height: 1.02; }
+.capsule .lede, .capsule .conversation-hint, .capsule .channel-status { font-size: clamp(.98rem, .92rem + .16vw, 1.08rem); line-height: 1.6; }
+.capsule .action-button strong { font-size: clamp(.98rem, .9rem + .12vw, 1.06rem); }
+.capsule .action-button small, .capsule .message p, .capsule dd { font-size: clamp(.9rem, .84rem + .12vw, 1rem); }
+.capsule .message small, .capsule dt, .capsule .preview-label, .capsule .signal, .capsule .counter { font-size: clamp(.68rem, .62rem + .08vw, .78rem); }
+
+@keyframes thirdwurldAtmosphere {
+  0% { background-position: 45% 38%, 58% 62%; }
+  100% { background-position: 58% 48%, 42% 55%; }
+}
+@keyframes thirdwurldGlow {
+  0% { transform: translate3d(-2%, 1%, 0) scale(.98); opacity: .68; }
+  100% { transform: translate3d(2%, -2%, 0) scale(1.04); opacity: 1; }
+}
+
+@media (max-width: 700px) {
+  body { animation-duration: 30s; }
+  :where(.page, .member-shell, .next-shell) h1 { font-size: clamp(2.95rem, 12.5vw, 5.15rem) !important; }
+  :where(.page, .member-shell, .next-shell) h2 { font-size: clamp(2.15rem, 10vw, 3.7rem) !important; }
+  :where(.page, .member-shell, .next-shell) h3 { font-size: clamp(1.45rem, 6.5vw, 2rem) !important; }
+  :where(.hero-lede, .intro-copy p:not(.eyebrow), .tech-copy p:not(.eyebrow), .atlas-hero p:last-child, .economics-hero p:last-child, .status-hero p:last-child, .preview-hero p:last-child, .member-hero-note p, .section-heading>p:last-child, .step-copy>p:not(.eyebrow), .member-close>p:not(.eyebrow), .next-hero>div>p:not(.eyebrow)) { font-size: 1rem !important; }
+  :where(.atlas-details p, .proof-list span, .status-ledger p, .owner-proof p, .cost-lab p:last-child, .tech-proof p:last-child, .sequence-list p) { font-size: .98rem !important; }
+  .capsule h1 { font-size: clamp(2.55rem, 12vw, 4.8rem); }
+  .capsule h2 { font-size: clamp(1.55rem, 7vw, 2.1rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body, body::before, :where(.world-hero, .memory-field, .page-intro, .technology-hero, .atlas-hero, .economics-hero, .status-hero, .preview-hero, .member-hero, .next-hero, .onboarding-art) { animation: none !important; }
+}
