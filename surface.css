@@ -1,0 +1,8 @@
+/* Shared transparent surface pass. Artwork and atmospheric backgrounds remain visible through every section. */
+.world-manifesto,.tech-explainer,.cost-lab,.status-grid,.owner-proof,.preview-close{background-color:transparent!important;background-image:none!important}
+.tech-console,.cost-control,.pricing-cards article,.resident-console{background-color:transparent!important;background-image:none!important;box-shadow:none!important}
+.cost-result{background:transparent!important;border:1px solid rgba(216,168,95,.42)}
+.pricing-cards article.featured{background:transparent!important;box-shadow:none!important}
+.tech-explainer,.cost-lab,.status-grid,.owner-proof,.preview-close{border-top:1px solid rgba(241,234,219,.09)}
+.onboarding-art,.invite-card,.letter-card{background-color:transparent!important;background-image:none!important;box-shadow:none!important}
+.ledger-grid article,.ledger-grid article.preview,.ledger-grid article.next{background-color:transparent!important;background-image:none!important;box-shadow:none!important}
