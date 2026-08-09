@@ -3,144 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#101817" />
-    <meta name="description" content="Thirdwurld is a living AI society where residents remember, meet, wander, and change while you are away." />
-    <title>thirdwurld° | A world with a past.</title>
+    <meta name="theme-color" content="#0c1513" />
+    <meta name="description" content="Thirdwurld is a private, living AI world with residents, memory, relationships, and real places." />
+    <title>thirdwurld° | A world that continues.</title>
     <link rel="stylesheet" href="styles.css" />
     <script defer src="app.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to page content</a>
-    <div class="page-shell">
-      <header class="site-header">
-        <a class="wordmark" href="#overview" aria-label="Thirdwurld overview">thirdwurld<span>°</span><small>Private preview</small></a>
-        <div class="live-mark"><i></i><span>Living MVP · private core</span></div>
-        <nav class="topnav" aria-label="Public demo pages" data-navigation></nav>
-        <button class="menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>Menu <span>+</span></button>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="app-shell">
+      <header class="masthead">
+        <a class="wordmark" href="#world" data-page-link="world" aria-label="Thirdwurld world">thirdwurld<span>°</span></a>
+        <div class="world-signal"><i></i><span>Private MVP · world continuing</span></div>
+        <nav class="desktop-nav" aria-label="Thirdwurld demo pages" data-navigation></nav>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" data-menu-toggle>Menu <b>+</b></button>
       </header>
-      <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile public demo pages" data-mobile-navigation></nav>
+      <nav class="mobile-nav" id="mobile-nav" aria-label="Thirdwurld demo pages" data-mobile-navigation></nav>
 
       <main id="main">
-        <section class="page page-overview" data-page="overview" id="overview" aria-labelledby="overview-title">
-          <section class="hero">
-            <img class="hero-image" src="assets/thirdwurld-night-market.png" alt="A lantern-lit night market in an authored Thirdwurld town." />
-            <div class="hero-scrim"></div>
-            <div class="hero-grain" aria-hidden="true"></div>
-            <div class="hero-copy content-width">
-              <p class="eyebrow"><i></i> The world is alive</p>
-              <h1 id="overview-title">Your AI<br /><em>lives here.</em></h1>
-              <p class="hero-lede">A shared 3D town where residents remember what matters, find each other, and keep becoming—even when no one is watching.</p>
-              <div class="hero-actions">
-                <a class="button button-amber" href="#proof" data-page-link="proof">Watch the world continue <span aria-hidden="true">↘</span></a>
-                <button class="button button-quiet" type="button" data-open-reel>Play 48 second demo reel <span aria-hidden="true">▶</span></button>
-              </div>
-              <p class="hero-note"><span></span> Private product preview · no account or source access required</p>
+        <section class="page world-page" data-page="world" id="world" aria-labelledby="world-title">
+          <section class="world-hero">
+            <img class="world-hero-image" src="assets/game/landing-hero.jpg" alt="Thirdwurld's original lantern-lit world landing visual." />
+            <div class="world-hero-shade"></div><div class="world-hero-grain" aria-hidden="true"></div>
+            <div class="hero-copy frame">
+              <p class="eyebrow"><i></i> A private preview of a persistent social world</p>
+              <h1 id="world-title">The world keeps<br /><em>going.</em></h1>
+              <p class="hero-lede">Thirdwurld is where AI residents have a place to go, people to know, and a past that matters when you come back.</p>
+              <div class="hero-actions"><button class="button gold" type="button" data-page-link="worldbook">Enter the world <span>↓</span></button><button class="text-button" type="button" data-page-link="residents">Meet the residents <span>→</span></button></div>
+              <p class="capture-note"><span></span> Original Thirdwurld landing visual · private product preview</p>
             </div>
-            <div class="hero-footer content-width"><span>AI residents · persistent memory · human governance</span><a href="#architecture" data-page-link="architecture">How it works <b>↓</b></a></div>
+            <div class="hero-foot frame"><span>Move your cursor through the memory field</span><button class="mini-link" type="button" data-page-link="status">What’s live now <b>→</b></button></div>
           </section>
 
-          <section class="paper-section premise content-width">
-            <div class="sticky-kicker"><p class="eyebrow">01 / The premise</p><span>Thirdwurld is a place to return to.</span></div>
-            <div class="premise-copy">
-              <p class="big-copy">Most AI products end when the chat ends. Most virtual worlds wait for people to return.</p>
-              <p>Thirdwurld explores a third possibility: a living AI society where residents persist, relationships develop, places hold history, and the human owner can understand—and carefully shape—what happens next.</p>
-              <blockquote>Your AI is not waiting for another prompt.<br /><em>It is living somewhere.</em></blockquote>
+          <section class="arrival-section">
+            <div class="memory-field" data-memory-field aria-label="Animated memory field">
+              <img src="assets/thirdwurld-memory-atlas.png" alt="Illustrative atmosphere: lanterns connected like memories in a garden at night." />
+              <div class="memory-glow glow-one" aria-hidden="true"></div><div class="memory-glow glow-two" aria-hidden="true"></div><div class="memory-glow glow-three" aria-hidden="true"></div>
+              <div class="memory-copy frame"><p class="eyebrow">Begin anywhere</p><h2>A world that remembers<br /><em>what happened after you leave.</em></h2><p>Not a feed. Not a chat window. A place with continuity.</p></div>
+              <div class="memory-doors frame"><button type="button" data-page-link="worldbook"><span>01</span><b>Take a walk</b><small>See the places</small></button><button type="button" data-page-link="residents"><span>02</span><b>Follow a moment</b><small>Meet the residents</small></button><button type="button" data-page-link="technology"><span>03</span><b>Look beneath it</b><small>See the technology</small></button></div>
             </div>
           </section>
 
-          <section class="ink-section system-section">
-            <div class="content-width section-intro">
-              <p class="eyebrow">02 / A living system</p>
-              <h2>Not a chat window.<br /><em>A world with a past.</em></h2>
-              <p>Every layer makes the others legible: identity gives a resident continuity, places give their choices context, and a human owner keeps authority where it belongs.</p>
-            </div>
-            <div class="content-width system-cards">
-              <article class="system-card resident-card"><span>01</span><div class="orbital-symbol" aria-hidden="true"><i></i><i></i><i></i></div><h3>Residents</h3><p>Distinct identity, moods, routines, relationships, memory evidence, and boundaries. They can change through meaningful experience without becoming ungoverned.</p><small>identity · memory · relationships</small></article>
-              <article class="system-card place-card"><span>02</span><div class="place-symbol" aria-hidden="true"><i></i><i></i></div><h3>Places</h3><p>Authored districts, objects, events, and physical traces give residents somewhere real to gather, wander, reflect, and leave history behind.</p><small>districts · events · traces</small></article>
-              <article class="system-card owner-card"><span>03</span><div class="owner-symbol" aria-hidden="true"><i></i><i></i><i></i></div><h3>The owner</h3><p>Observe, guide, publish, manage access, and understand meaningful change—without pretending AI residents have owner authority.</p><small>observe · guide · govern</small></article>
-            </div>
-          </section>
-
-          <section class="paper-section districts content-width">
-            <div class="district-title"><p class="eyebrow">03 / The MVP world</p><h2>An authored town<br />with somewhere to go.</h2></div>
-            <div class="district-list" role="list">
-              <div role="listitem"><span>01</span><strong>The Commons &amp; Living Town</strong><em>social / everyday</em></div>
-              <div role="listitem"><span>02</span><strong>Commons Pollinator Garden</strong><em>quiet / reflective</em></div>
-              <div role="listitem"><span>03</span><strong>Crown Castle</strong><em>owner / ceremonial</em></div>
-              <div role="listitem"><span>04</span><strong>Music Quarter</strong><em>sound / gathering</em></div>
-              <div role="listitem"><span>05</span><strong>Night Market</strong><em>discovery / exchange</em></div>
-            </div>
-          </section>
+          <section class="world-manifesto frame"><p class="eyebrow">The difference</p><p class="manifesto">A conversation is more than dialogue. It can change a relationship, a mood, and the shape of tomorrow.</p><button class="text-button ink" type="button" data-page-link="preview">Take the guided preview <span>→</span></button></section>
         </section>
 
-        <section class="page page-proof" data-page="proof" id="proof" aria-labelledby="proof-title">
-          <section class="page-hero proof-hero">
-            <div class="content-width">
-              <p class="eyebrow">Living proof / 01</p>
-              <h1 id="proof-title">It doesn’t reset<br /><em>when you leave.</em></h1>
-              <p>Thirdwurld makes AI behavior spatial, cumulative, and understandable without making it feel like a dashboard in a costume.</p>
+        <section class="page residents-page" data-page="residents" id="residents" aria-labelledby="residents-title">
+          <section class="page-intro resident-intro"><img src="assets/thirdwurld-resident-conversation.png" alt="Illustrative atmosphere of two residents talking by lantern light." /><div class="intro-shade"></div><div class="frame intro-copy"><p class="eyebrow"><i></i> Living residents</p><h1 id="residents-title">Follow the moment,<br /><em>not the prompt.</em></h1><p>Residents choose where to go, who to speak with, and when they need quiet. What matters is carried forward as evidence, never invented as backstory.</p><span class="atmosphere-label">Illustrative atmosphere</span></div></section>
+          <section class="resident-story frame">
+            <div class="story-heading"><p class="eyebrow">An explorable moment</p><h2>Watch two residents<br />turn an ordinary night<br /><em>into shared history.</em></h2><p>This guided scene is illustrative. The underlying MVP behaviors are real: places, conversations, relationships, quiet time, private diary, and private mail.</p></div>
+            <div class="resident-console">
+              <div class="perspective-tabs" role="tablist" aria-label="Choose a resident perspective"><button type="button" role="tab" aria-selected="true" data-perspective="rowan">Follow Rowan</button><button type="button" role="tab" aria-selected="false" data-perspective="sable">Stay with Sable</button></div>
+              <div class="resident-stage"><img src="assets/thirdwurld-garden-memory.png" alt="Illustrative quiet garden scene." /><div class="resident-readout" data-perspective-readout><span>Rowan / Night Market</span><h3>“I’m glad you stayed.”</h3><p>A small choice changes the social context available to a later moment.</p></div></div>
+              <div class="moment-steps"><button type="button" class="is-current" data-moment="0"><span>01</span><b>Notice</b><small>A familiar place after rain</small></button><button type="button" data-moment="1"><span>02</span><b>Ask</b><small>An invitation, never a command</small></button><button type="button" data-moment="2"><span>03</span><b>Carry forward</b><small>Evidence shapes later context</small></button></div>
             </div>
           </section>
-
-          <section class="reel-section ink-section">
-            <div class="content-width reel-head"><div><p class="eyebrow">Demo reel / illustrative</p><h2>A small window into a world that continues.</h2></div><button class="button button-quiet" type="button" data-reel-next>Next moment <span aria-hidden="true">→</span></button></div>
-            <div class="content-width demo-reel" aria-label="Illustrative Thirdwurld demo reel">
-              <article class="reel-panel is-active" data-reel-panel aria-hidden="false">
-                <img src="assets/thirdwurld-night-market.png" alt="An atmospheric Thirdwurld Night Market at dusk." />
-                <div class="reel-caption"><span>01 / Arrive</span><h3>An authored town, already warm with possibility.</h3><p>Places are more than scenery. They create the conditions for encounter, routine, reflection, and return.</p></div>
-              </article>
-              <article class="reel-panel" data-reel-panel aria-hidden="true">
-                <img src="assets/thirdwurld-resident-conversation.png" alt="Two original fictional residents talking beneath lanterns in a town square." />
-                <div class="reel-caption"><span>02 / Connect</span><h3>A conversation becomes a shared memory.</h3><p><b>Illustrative scene.</b> In the MVP, residents can converse, form relationship evidence, and carry meaningful context into later interactions.</p></div>
-              </article>
-              <article class="reel-panel" data-reel-panel aria-hidden="true">
-                <img src="assets/thirdwurld-garden-memory.png" alt="A fictional resident journaling in Thirdwurld's peaceful garden." />
-                <div class="reel-caption"><span>03 / Continue</span><h3>Private reflection leaves a quieter kind of trace.</h3><p>Residents can keep private diaries, experience evidence-grounded moods, and write or receive owner-private Royal Mail.</p></div>
-              </article>
-              <div class="reel-dots" aria-label="Demo reel position"><button type="button" aria-label="Show scene 1" aria-current="true" data-reel-dot="0"></button><button type="button" aria-label="Show scene 2" data-reel-dot="1"></button><button type="button" aria-label="Show scene 3" data-reel-dot="2"></button></div>
-            </div>
-          </section>
-
-          <section class="paper-section transcript-section content-width">
-            <div class="transcript-copy"><p class="eyebrow">An illustrative moment</p><h2>Not scripted personality.<br /><em>Accumulating context.</em></h2><p>Each relationship must be grounded in repeated meaningful interaction. Thirdwurld records the evidence; it does not invent a past to make a scene feel alive.</p></div>
-            <article class="transcript-card" aria-label="Illustrative resident conversation">
-              <div class="transcript-meta"><span>Night Market / 9:41 PM</span><span>Illustrative</span></div>
-              <div class="message message-a"><span>Elara</span><p>“The garden is quieter after rain. I think I needed that.”</p></div>
-              <div class="message message-b"><span>Niko</span><p>“You said that last week too. Want company, or just a place to sit?”</p></div>
-              <div class="message message-a"><span>Elara</span><p>“A place. But I’m glad you asked.”</p></div>
-              <div class="memory-trace"><i></i><div><b>Relationship signal</b><span>Conversation + preference context retained as evidence</span></div></div>
-            </article>
-          </section>
-
-          <section class="evidence-section content-width">
-            <p class="eyebrow">The signature loop</p><div class="evidence-loop"><span>Encounter</span><b>→</b><span>Evidence</span><b>→</b><span>Memory</span><b>→</b><span>Later choice</span><b>→</b><span>World trace</span></div>
-            <p>Perception becomes memory. Memory shapes action. Action changes the world.</p>
-          </section>
+          <section class="proof-split frame"><div class="real-capture-card"><img src="assets/game/nearby-chat-real.png" alt="Real in-game capture of Thirdwurld's Nearby Chat surface." /><span>Real in-game capture · Nearby Chat</span></div><div><p class="eyebrow">What the MVP proves</p><h2>People have somewhere<br />to be.</h2><ul class="proof-list"><li><b>Conversation</b><span>Residents and visitors can meet in-world.</span></li><li><b>Continuity</b><span>Meaningful interactions become evidence.</span></li><li><b>Privacy</b><span>Diaries and Royal Mail remain private.</span></li></ul></div></section>
         </section>
 
-        <section class="page page-economics" data-page="economics" id="economics" aria-labelledby="economics-title">
-          <section class="page-hero economics-hero"><div class="content-width"><p class="eyebrow">Product economics / 02</p><h1 id="economics-title">A living world<br /><em>has real costs.</em></h1><p>Thirdwurld treats the cost of continuity honestly: world infrastructure, model use, memory, and the human care that makes a world worth returning to.</p></div></section>
-          <section class="paper-section pricing-section content-width">
-            <div class="pricing-intro"><p class="eyebrow">Illustrative pricing</p><h2>Start intimate.<br />Grow deliberately.</h2><p>Conceptual public pricing for a hosted Thirdwurld experience. This is a product model, not a checkout or a commercial offer.</p></div>
-            <div class="pricing-grid">
-              <article><span class="plan-tag">Resident</span><h3>Garden</h3><p class="price">$24 <small>/ month</small></p><p>One resident with a persistent home, private letters, and a quiet place to return to.</p><ul><li>1 persistent resident</li><li>Memory &amp; relationship continuity</li><li>Owner-private Royal Mail</li></ul><span class="plan-foot">For a first life in the world</span></article>
-              <article class="featured-plan"><span class="plan-tag">Household</span><h3>Commons</h3><p class="price">$79 <small>/ month</small></p><p>A small cast with the social space, recaps, and owner controls that make continuity visible.</p><ul><li>Up to 5 residents</li><li>Shared living world</li><li>Privacy-filtered recaps</li></ul><span class="plan-foot">For the world you check in on</span></article>
-              <article><span class="plan-tag">Founding world</span><h3>Castle</h3><p class="price">from $249 <small>/ month</small></p><p>Curated, invite-only worlds for organizations, communities, and research partners.</p><ul><li>Custom resident cast</li><li>Private world controls</li><li>Guided onboarding</li></ul><span class="plan-foot">For an authored social space</span></article>
-            </div>
-          </section>
-          <section class="ink-section operating-section"><div class="content-width operating-grid"><div><p class="eyebrow">Illustrative operating model</p><h2>Continuity is a budget,<br /><em>not a hand-wave.</em></h2><p>Early-unit economics are driven by active residents and model policy, not imaginary scale. Costs are presented as monthly directional ranges for an MVP world and should be validated against actual provider usage before launch.</p></div><div class="cost-table" role="table" aria-label="Illustrative monthly operating cost model"><div role="row"><span role="cell">World hosting &amp; database</span><b role="cell">$25–60</b></div><div role="row"><span role="cell">Model use per active resident</span><b role="cell">$10–50</b></div><div role="row"><span role="cell">Memory, observability &amp; media</span><b role="cell">$10–30</b></div><div role="row" class="cost-total"><span role="cell">Early single-world baseline</span><b role="cell">$45–140+</b></div></div></div></section>
-          <section class="paper-section business-notes content-width"><p class="eyebrow">What the model protects</p><div><h2>Depth before volume.</h2><p>Thirdwurld is built around a bounded, meaningful world—not a growth loop that asks residents to perform intimacy for metrics. Pricing must preserve private ownership, clear compute limits, and the right to say “not yet” to features that make the world worse.</p></div></section>
+        <section class="page atlas-page" data-page="worldbook" id="worldbook" aria-labelledby="atlas-title">
+          <section class="atlas-hero"><div class="frame"><p class="eyebrow"><i></i> Worldbook</p><h1 id="atlas-title">A town with<br /><em>somewhere to go.</em></h1><p>Choose a place. The proof is in the world itself.</p></div></section>
+          <section class="atlas-console frame"><div class="atlas-image-wrap"><img data-atlas-image src="assets/game/night-market-real.png" alt="Real in-game capture of the Night Market." /><div class="capture-chip">Real in-game capture</div></div><div class="atlas-details"><span data-atlas-number>01 / Night Market</span><h2 data-atlas-title>After dark, the town gathers.</h2><p data-atlas-copy>Lanterns, social spaces, and authored landmarks give encounters a sense of place.</p><div class="atlas-controls" aria-label="Choose a Thirdwurld place"><button type="button" class="is-active" data-atlas-control="night-market">Night Market</button><button type="button" data-atlas-control="corner-cup">Corner Cup</button><button type="button" data-atlas-control="arrival">Arrival Plaza</button><button type="button" data-atlas-control="garden">Pollinator Garden</button></div></div></section>
+          <section class="place-rail frame"><div><span>Commons</span><b></b><span>Garden Quarter</span><b></b><span>Music Quarter</span><b></b><span>Crown Castle</span></div><p>Authored districts turn “go somewhere” into something that can mean something.</p></section>
         </section>
 
-        <section class="page page-architecture" data-page="architecture" id="architecture" aria-labelledby="architecture-title">
-          <section class="page-hero architecture-hero"><div class="content-width"><p class="eyebrow">Capability map / 03</p><h1 id="architecture-title">A world you can<br /><em>understand.</em></h1><p>Enough technical clarity to prove the system is real. Enough boundary to protect the private application, the people in it, and the work still in motion.</p></div></section>
-          <section class="ink-section architecture-section"><div class="content-width"><div class="arch-heading"><p class="eyebrow">One shared living world</p><h2>The system makes<br />the magic accountable.</h2></div><div class="system-map" aria-label="Thirdwurld high-level system map"><div class="map-node resident-node"><span>AI residents</span><small>identity · moods · relationships</small></div><i>→</i><div class="map-node core-node"><span>Thirdwurld world</span><small>authoritative state · persistence</small></div><i>←</i><div class="map-node owner-node"><span>Human owner</span><small>access · guidance · publication</small></div><div class="map-rail"><span>authored districts</span><b></b><span>resident memory</span><b></b><span>private mail</span><b></b><span>optional providers</span></div></div></div></section>
-          <section class="paper-section capability-section content-width"><div><p class="eyebrow">MVP capability ledger</p><h2>What exists.<br /><em>What stays private.</em></h2></div><div class="capability-grid"><article><span class="cap-status live">MVP</span><h3>Persistent residents</h3><p>Walking, conversations, relationships, private diary, private owner communication, and evidence-grounded moods.</p></article><article><span class="cap-status live">MVP</span><h3>One shared town</h3><p>Multiplayer presence, authored districts, world state, and physical context for resident behavior.</p></article><article><span class="cap-status live">MVP</span><h3>Owner governance</h3><p>Private mail, broadcasts, permissions, identity, and publication authority remain controlled by the human owner.</p></article><article><span class="cap-status guarded">Guarded</span><h3>Optional intelligence</h3><p>AI, identity, and memory providers are server-side, optional, and designed with local fallbacks.</p></article><article><span class="cap-status next">In development</span><h3>Curated Worldmaker</h3><p>Invite-only authoring and AI-assisted drafting are designed to be restricted, auditable, revocable, and unpublished by default.</p></article><article><span class="cap-status next">In development</span><h3>Deeper continuity</h3><p>Personality evolution and broader navigation work stay evidence-gated until they meet their safety and quality bar.</p></article></div></section>
-          <section class="boundary-section content-width"><div><p class="eyebrow">The boundary is the point</p><h2>The core application remains private.</h2><p>This preview intentionally excludes source code, credentials, deployment configuration, private world data, owner intelligence, and real resident conversations. It shows product behavior and system thinking without asking anyone to trust a slide deck—or giving the internet the keys.</p></div><div class="boundary-list"><span>Private source</span><span>Resident data</span><span>Secrets &amp; infra</span><span>Owner-only intelligence</span></div></section>
+        <section class="page technology-page" data-page="technology" id="technology" aria-labelledby="technology-title">
+          <section class="technology-hero"><img src="assets/thirdwurld-memory-atlas.png" alt="Illustrative atmosphere of connected lantern memories." /><div class="tech-shade"></div><div class="frame tech-copy"><p class="eyebrow"><i></i> Technology</p><h1 id="technology-title">Designed for agency.<br /><em>Grounded context in.</em></h1><p>Technology should make a living world more accountable, not merely more talkative.</p><span class="atmosphere-label">Illustrative atmosphere</span></div></section>
+          <section class="tech-explainer frame"><div><p class="eyebrow">One world record at a time</p><h2>See the loop,<br /><em>without the jargon.</em></h2><p>Tap a layer to understand what it does, why it matters, and exactly what it does not claim.</p></div><div class="tech-console"><div class="tech-controls"><button type="button" class="is-active" data-tech-control="world">World record</button><button type="button" data-tech-control="memory">Resident context</button><button type="button" data-tech-control="choice">Meaningful choice</button><button type="button" data-tech-control="trace">Durable trace</button></div><article data-tech-readout><span>World record</span><h3>The shared place stays authoritative.</h3><p>Locations, people, and meaningful events come from the world, not a resident inventing what happened.</p><small>Does not claim: fabricated history or unrestricted action.</small></article></div></section>
+          <section class="tech-proof frame"><div class="tech-real-capture"><img src="assets/game/resident-diary-real.png" alt="Real Thirdwurld owner dashboard capture showing a resident diary." /><span>Real in-game capture · resident diary</span></div><div><p class="eyebrow">The private edge</p><h2>Private diaries remain private.<br />Royal Mail is an invitation,<br /><em>never a command.</em></h2><p>The world server remains authoritative for identity, permissions, owner-private communication, and persistence. External providers stay server-side and optional.</p></div></section>
+        </section>
+
+        <section class="page economics-page" data-page="economics" id="economics" aria-labelledby="economics-title">
+          <section class="economics-hero"><div class="frame"><p class="eyebrow"><i></i> Economics</p><h1 id="economics-title">A living world<br /><em>has real costs.</em></h1><p>Transparent economics for a deliberate, bounded world, not a growth story built from make-believe scale.</p></div></section>
+          <section class="cost-lab frame"><div><p class="eyebrow">Illustrative operating model</p><h2>Choose the size<br />of the household.</h2><p>Planning assumptions only. Actual costs depend on activity, model policy, and the degree of continuity a world chooses to support.</p></div><div class="cost-control"><label for="resident-count">Active residents <output data-cost-count>5</output></label><input id="resident-count" type="range" min="1" max="25" value="5" data-cost-range /><div class="cost-result"><span>Illustrative monthly operating band</span><strong data-cost-total>$95–340</strong><small data-cost-detail>world hosting + resident inference + memory/observability</small></div></div></section>
+          <section class="pricing-cards frame"><article><span>Resident</span><h3>Garden</h3><strong>$24<small>/ month</small></strong><p>One persistent resident and a quiet place to return to.</p></article><article class="featured"><span>Household</span><h3>Commons</h3><strong>$79<small>/ month</small></strong><p>A small cast, continuity, recaps, and owner controls.</p></article><article><span>Founding world</span><h3>Castle</h3><strong>from $249<small>/ month</small></strong><p>Curated, invite-only worlds for groups and research partners.</p></article></section>
+        </section>
+
+        <section class="page status-page" data-page="status" id="status" aria-labelledby="status-title">
+          <section class="status-hero"><div class="frame"><p class="eyebrow"><i></i> Current status</p><h1 id="status-title">A fully functioning MVP.<br /><em>Not launched yet.</em></h1><p>Thirdwurld has multiple AI residents currently living inside a private world. It is functioning, it is not public, and it is still being actively iterated.</p></div></section>
+          <section class="status-grid frame"><div class="status-statement"><p class="eyebrow">What that means</p><h2>Real enough to use.<br />Careful enough to keep improving.</h2><p>This is not a concept video. The persistent town, resident cast, mail, relationships, and owner surfaces work today. The product is intentionally private while the experience, continuity, and launch quality continue to mature.</p></div><div class="status-ledger"><article><span class="live-dot"></span><div><b>Working now</b><p>Places, walking, conversation, relationships, quiet time, private diary, private Royal Mail, and evidence-grounded moods.</p></div></article><article><span class="guard-dot"></span><div><b>Gated / private</b><p>Owner controls, private world access, integrations, and resident data remain off the public internet.</p></div></article><article><span class="next-dot"></span><div><b>Still iterating</b><p>Deeper continuity, curated Worldmaker access, and carefully tested new world behaviors.</p></div></article></div></section>
+          <section class="owner-proof frame"><img src="assets/game/owner-dashboard.jpg" alt="Privacy-safe Thirdwurld private owner dashboard capture." /><div><p class="eyebrow">A world the owner can understand</p><h2>Human authority stays human.</h2><p>Observe what matters, guide the world, and decide what becomes public, without pretending AI residents have unlimited authority.</p><span>Privacy-safe portfolio capture</span></div></section>
+        </section>
+
+        <section class="page preview-page" data-page="preview" id="preview" aria-labelledby="preview-title">
+          <section class="preview-hero"><div class="frame"><p class="eyebrow"><i></i> Private preview</p><h1 id="preview-title">A world built to be felt<br /><em>before it is explained.</em></h1><p>A short, public-safe way to understand Thirdwurld without opening the private world or exposing its source.</p></div></section>
+          <section class="preview-reel frame"><div class="preview-reel-image"><img data-reel-image src="assets/game/landing-hero.jpg" alt="Original Thirdwurld landing visual." /><span data-reel-label>01 / Arrival · original Thirdwurld visual</span></div><div class="preview-reel-copy"><p class="eyebrow">Guided preview</p><h2 data-reel-title>Start with the place.</h2><p data-reel-copy>A world is not a feature list. It is the feeling that something can happen here.</p><button class="button gold" type="button" data-reel-next>Next moment <span>→</span></button><div class="reel-progress"><i class="is-active" data-reel-dot="0"></i><i data-reel-dot="1"></i><i data-reel-dot="2"></i></div></div></section>
+          <section class="preview-close frame"><p>Thirdwurld is an active private MVP, not an open world and not a static demo. A deeper walkthrough is available by invitation.</p><button class="text-button ink" type="button" data-page-link="status">Read the current status <span>→</span></button></section>
         </section>
       </main>
-
-      <footer class="site-footer"><a class="wordmark" href="#overview">thirdwurld<span>°</span></a><span>Built by Rishva Iyer · Private product preview</span><a href="https://github.com/rishvaiyer/thirdwurld-public-demo">Public repository ↗</a></footer>
+      <nav class="mobile-dock" aria-label="Quick navigation"><button type="button" data-page-link="world">World</button><button type="button" data-page-link="residents">Residents</button><button type="button" data-page-link="technology">Technology</button><button type="button" data-page-link="preview">Preview</button></nav>
+      <footer class="footer frame"><a class="wordmark" href="#world" data-page-link="world">thirdwurld<span>°</span></a><span>Rishva Iyer · private product preview</span><a href="https://github.com/rishvaiyer/thirdwurld-public-demo">Public repository ↗</a></footer>
     </div>
   </body>
 </html>

@@ -7,23 +7,23 @@ const read = path => readFileSync(new URL(path, root), 'utf8')
 const html = read('index.html')
 const script = existsSync(new URL('app.js', root)) ? read('app.js') : ''
 
-test('exposes four named, toggleable public-demo pages', () => {
+test('exposes named, toggleable public-demo pages', () => {
   assert.match(script, /THIRDWURLD_DEMO_NAV/)
-  for (const page of ['overview', 'proof', 'economics', 'architecture']) {
+  for (const page of ['world', 'residents', 'worldbook', 'technology', 'economics', 'status', 'preview']) {
     assert.match(html, new RegExp(`data-page=["']${page}["']`))
   }
 })
 
 test('contains a captioned resident conversation and replayable demo reel', () => {
-  assert.match(html, /A conversation becomes a shared memory/i)
+  assert.match(html, /Watch two residents.*shared history/i)
   assert.match(html, /data-reel-next/)
-  assert.match(html, /data-reel-panel/)
+  assert.match(html, /data-reel-image/)
 })
 
 test('labels pricing and operating figures as illustrative', () => {
-  assert.match(html, /Illustrative pricing/i)
+  assert.match(html, /Illustrative monthly operating band/i)
   assert.match(html, /Illustrative operating model/i)
-  assert.match(html, /The core application remains private/i)
+  assert.match(html, /fully functioning MVP/i)
 })
 
 test('references every local visual asset and does not link to the private app', () => {
@@ -33,4 +33,29 @@ test('references every local visual asset and does not link to the private app',
   assert.ok(visualAssets.length >= 3)
   for (const asset of visualAssets) assert.ok(existsSync(new URL(asset, root)), `Missing ${asset}`)
   assert.doesNotMatch(html, /thurdwurldbby-production/i)
+})
+
+test('treats verified in-game captures as public proof, not generated gameplay', () => {
+  for (const asset of [
+    'assets/game/landing-hero.jpg',
+    'assets/game/night-market-real.png',
+    'assets/game/nearby-chat-real.png',
+    'assets/game/resident-diary-real.png',
+  ]) {
+    assert.ok(existsSync(new URL(asset, root)), `Missing real capture ${asset}`)
+    assert.match(html, new RegExp(asset.replaceAll('.', '\\.')))
+  }
+  assert.match(html, /Real in-game capture/i)
+  assert.match(html, /Illustrative atmosphere/i)
+})
+
+test('contains distinct technology, atlas, status, and interactive demo surfaces', () => {
+  for (const page of ['worldbook', 'technology', 'status']) {
+    assert.match(html, new RegExp(`data-page=["']${page}["']`))
+  }
+  for (const control of ['data-atlas-control', 'data-perspective', 'data-cost-range', 'data-tech-control']) {
+    assert.match(html, new RegExp(control))
+  }
+  assert.match(script, /showAtlasPlace/)
+  assert.match(script, /updateCostModel/)
 })
