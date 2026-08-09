@@ -77,7 +77,7 @@ function updateCostModel(value) { const residents = Number(value); const low = 4
 document.querySelector('[data-cost-range]')?.addEventListener('input', event => updateCostModel(event.target.value))
 
 const reelScenes = [
-  ['assets/game/landing-hero.jpg', '01 / Arrival · original Thirdwurld visual', 'Start with the place.', 'A world is not a feature list. It is the feeling that something can happen here.'],
+  ['assets/thirdwurld-night-market.png', '01 / Arrival · lantern market atmosphere', 'Start with the place.', 'A world is not a feature list. It is the feeling that something can happen here.'],
   ['assets/game/nearby-chat-real.png', '02 / Conversation · real in-game capture', 'Then witness a moment.', 'The public demo never claims a screenshot is a feeling. It shows the real surface where residents and visitors meet.'],
   ['assets/game/owner-dashboard.jpg', '03 / Owner layer · privacy-safe capture', 'Finally, understand the world.', 'The owner can observe meaningful change without turning resident life into public content.'],
 ]
