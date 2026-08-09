@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A bounded public preview of one thirdwurld resident.">
+    <title>thirdwurld° | Capsule 01</title>
+    <link rel="stylesheet" href="try.css">
+    <link rel="stylesheet" href="responsive.css?v=11">
+  </head>
+  <body class="thirdwurld-page capsule-page">
+    <main class="capsule" data-endpoint="">
+      <header class="topbar site-topbar">
+        <a class="wordmark" href="index.html" aria-label="thirdwurld home">thirdwurld<span>°</span></a>
+        <div class="preview-label"><span class="pulse" aria-hidden="true"></span> Bounded public preview</div>
+        <a class="back-link" href="index.html">Back to preview ↗</a>
+      </header>
+
+      <section class="intro" aria-labelledby="capsule-title">
+        <div class="intro-copy">
+          <p class="eyebrow">CAPSULE 01 <span>/</span> A SMALL WINDOW INTO A LIVING WORLD</p>
+          <h1 id="capsule-title">Meet the person<br><em>behind the lanterns.</em></h1>
+          <p class="lede">One resident. One place. A few careful ways to say hello.</p>
+        </div>
+        <div class="intro-note" role="note">
+          <span class="note-index">01</span>
+          <p>This is a bounded public preview, not the private world. Responses are a local simulation unless a trusted server endpoint is configured.</p>
+        </div>
+      </section>
+
+      <section class="resident-layout" aria-label="Resident capsule">
+        <article class="resident-card">
+            <div class="resident-art">
+            <img src="assets/thirdwurld-night-market.png" alt="Lanterns glowing at the thirdwurld night market">
+            <div class="art-wash"></div>
+            <div class="resident-badge"><span class="status-dot"></span> Present in Night Market</div>
+            <div class="avatar" aria-hidden="true">MV</div>
+          </div>
+          <div class="resident-body">
+            <div class="resident-heading">
+              <div>
+                <p class="eyebrow">RESIDENT / 014</p>
+                <h2 data-resident-name>Mara Venn</h2>
+              </div>
+            <span class="signal" title="Synthetic resident profile">synthetic preview</span>
+            </div>
+            <dl class="resident-facts">
+              <div>
+                <dt>Mood</dt>
+                <dd data-resident-mood>curious, unhurried</dd>
+              </div>
+              <div>
+                <dt>Place</dt>
+                <dd data-resident-place>Lantern Row · Night Market</dd>
+              </div>
+            </dl>
+            <div class="memory-block">
+              <span class="memory-mark" aria-hidden="true">◌</span>
+              <div>
+                <p class="eyebrow">A SMALL MEMORY</p>
+                <p data-resident-memory>Last week, Mara learned that the blue lantern flickers before rain. She still checks it first.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="conversation-card" aria-labelledby="conversation-title">
+          <div class="conversation-head">
+            <div>
+              <p class="eyebrow">OPEN CHANNEL</p>
+              <h2 id="conversation-title">A few ways to say hello</h2>
+            </div>
+            <span class="counter" data-turn-count>0 turns shown</span>
+          </div>
+          <p class="conversation-hint">Choose a bounded action, or leave Mara a short note. You can always stop here.</p>
+          <div class="action-grid" role="group" aria-label="Choose an action">
+            <button type="button" class="action-button" data-action="ask-lanterns">
+              <span class="action-number">01</span>
+              <span><strong>Ask about the lanterns</strong><small>Follow the glow</small></span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="action-button" data-action="quiet-walk">
+              <span class="action-number">02</span>
+              <span><strong>Offer a quiet walk</strong><small>Take the long way</small></span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </button>
+            <button type="button" class="action-button" data-action="leave-note">
+              <span class="action-number">03</span>
+              <span><strong>Leave a small note</strong><small>Give her a thought</small></span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div class="thread" data-thread aria-live="polite" aria-label="Conversation with Mara">
+            <div class="thread-empty" data-thread-empty>
+              <span class="thread-icon" aria-hidden="true">✳</span>
+              <p>Mara is here, listening for a first hello.</p>
+            </div>
+          </div>
+          <form class="message-form" data-message-form>
+            <label class="sr-only" for="capsule-message">Write Mara a short note</label>
+            <input id="capsule-message" data-message-input name="message" maxlength="180" autocomplete="off" required placeholder="Or write a short note…">
+            <button type="submit" class="send-button" aria-label="Send note"><span>Send note</span><span aria-hidden="true">→</span></button>
+          </form>
+          <p class="channel-status" data-channel-status role="status">Local simulation ready · no server endpoint configured.</p>
+        </article>
+      </section>
+
+      <footer class="footer site-footer">
+        <span class="footer-brand">thirdwurld° / capsule 01</span>
+        <span>Nothing here changes the private world.</span>
+        <a href="index.html">Return to the public demo <span aria-hidden="true">↗</span></a>
+      </footer>
+    </main>
+    <script src="try.js" defer></script>
+  </body>
+</html>
