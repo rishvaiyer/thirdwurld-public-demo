@@ -62,11 +62,30 @@ test('contains distinct technology, atlas, status, and interactive demo surfaces
 })
 
 test('includes a filterable, truthfully labeled gallery', () => {
+  const galleryAssets = [
+    'resident-gate.png',
+    'residents-chatting.png',
+    'poker-nearby-chat.png',
+    'blueberry-resident-encounter.png',
+    'world-menu-memory-tree.png',
+    'corner-cup-exterior.png',
+    'avatar-studio.png',
+    'wardrobe-interior.png',
+    'town-overview.png',
+  ]
+
   assert.match(html, /data-page=["']gallery["']/)
-  assert.match(html, /data-gallery-filter/)
+  for (const filter of ['world', 'resident', 'places', 'capabilities']) {
+    assert.match(html, new RegExp(`data-gallery-filter=["']${filter}["']`))
+  }
+  for (const asset of galleryAssets) {
+    const path = `assets/gallery/${asset}`
+    assert.ok(existsSync(new URL(path, root)), `Missing gallery asset ${path}`)
+    assert.match(html, new RegExp(path.replaceAll('.', '\\.')))
+  }
   assert.match(html, /data-gallery-lightbox/)
-  assert.match(html, /Historical QA capture/i)
-  assert.match(html, /Privacy-safe sample capture/i)
+  assert.match(html, /Real in-game capture/i)
+  assert.match(html, /Public product surface/i)
   assert.match(script, /galleryLightbox/)
 })
 
