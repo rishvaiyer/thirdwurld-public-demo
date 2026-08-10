@@ -891,3 +891,12 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 .world-atmosphere::before { opacity: .2; }
 @media (max-width: 700px) { .world-atmosphere::before { opacity: .18; } }
 @media (prefers-reduced-motion: reduce) { .world-atmosphere::before { opacity: .18 !important; } }
+
+/* Nav entries that leave the single-page shell. Marked so it is clear the link
+   is a different document, without shouting about it. */
+.desktop-nav .nav-external,
+.mobile-nav .nav-external { color: var(--tw-amber, #d8a85f); }
+.desktop-nav .nav-external::after,
+.mobile-nav .nav-external::after { content: " \2197"; opacity: .75; }
+.desktop-nav .nav-external:hover,
+.mobile-nav .nav-external:hover { color: var(--tw-amber-bright, #f5d79d); }

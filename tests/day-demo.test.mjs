@@ -50,3 +50,13 @@ test('respects reduced motion and stays keyboard reachable', () => {
   assert.match(html, /class="skip-link"/)
   assert.match(css, /focus-visible/)
 })
+
+test('appears in the nav as a real page, not a hash route', () => {
+  const app = read('app.js')
+  // Declared with an href so it renders in the nav but stays out of routing.
+  assert.match(app, /id:\s*'day'[^}]*href:\s*'day\.html'/)
+  assert.match(app, /enabledPages = navEntries\.filter\(page => !page\.href\)/)
+  // And present statically, so it survives JS being unavailable.
+  const index = read('index.html')
+  assert.equal((index.match(/class="nav-external" href="day\.html"/g) || []).length, 2)
+})

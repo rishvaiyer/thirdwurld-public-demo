@@ -1,15 +1,19 @@
+// Entries with an `href` are real pages rather than sections of this one, so
+// they appear in the nav but never take part in hash routing.
 const THIRDWURLD_DEMO_NAV = Object.freeze([
   { id: 'world', label: 'World', enabled: true },
   { id: 'residents', label: 'Residents', enabled: true },
   { id: 'worldbook', label: 'Places', enabled: true },
   { id: 'gallery', label: 'Gallery', enabled: true },
+  { id: 'day', label: 'A Day', enabled: true, href: 'day.html' },
   { id: 'technology', label: 'Technology', enabled: true },
   { id: 'economics', label: 'Costs', enabled: true },
   { id: 'status', label: 'Status', enabled: true },
   { id: 'preview', label: 'Preview', enabled: true },
 ])
 
-const enabledPages = THIRDWURLD_DEMO_NAV.filter(page => page.enabled)
+const navEntries = THIRDWURLD_DEMO_NAV.filter(page => page.enabled)
+const enabledPages = navEntries.filter(page => !page.href)
 const pages = [...document.querySelectorAll('[data-page]')]
 const navContainers = [...document.querySelectorAll('[data-navigation], [data-mobile-navigation]')]
 const menuButton = document.querySelector('[data-menu-toggle]')
@@ -32,7 +36,20 @@ function showPage(id, focus = false) {
 function route(id) { if (currentPage() !== id || !window.location.hash) window.location.hash = id; else showPage(id, true) }
 
 function renderNav(container) {
-  container.replaceChildren(...enabledPages.map(page => { const link = document.createElement('a'); link.href = `#${page.id}`; link.textContent = page.label; link.dataset.pageLink = page.id; link.addEventListener('click', event => { event.preventDefault(); route(page.id) }); return link }))
+  container.replaceChildren(...navEntries.map(page => {
+    const link = document.createElement('a')
+    link.textContent = page.label
+    if (page.href) {
+      // A separate document: let the browser navigate normally.
+      link.href = page.href
+      link.className = 'nav-external'
+      return link
+    }
+    link.href = `#${page.id}`
+    link.dataset.pageLink = page.id
+    link.addEventListener('click', event => { event.preventDefault(); route(page.id) })
+    return link
+  }))
 }
 
 navContainers.forEach(renderNav)
