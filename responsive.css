@@ -879,3 +879,10 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 .hero-copy h1, .intro-copy h1, .tech-copy h1 {
   text-shadow: 0 2px 26px rgba(4, 10, 8, .78);
 }
+
+/* The mote layer is eight ~150px amber blooms at z-index 1, sitting above the
+   capture at .66-.82 opacity with a 2px blur. At that strength it is not
+   decoration, it is the haze that was hiding the town underneath it. Keep the
+   motes as distant lights; drop the wash. */
+.world-atmosphere::before { opacity: .2; }
+@media (max-width: 700px) { .world-atmosphere::before { opacity: .18; } }
