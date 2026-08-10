@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>thirdwurld | Design preview</title>
+<meta name="description" content="Interactive design rebuilds of the thirdwurld public demo, one frame per page." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../favicon.svg" />
+<style>
+  :root {
+    --night: #0b1411;
+    --night-soft: #12201b;
+    --paper: #f1eadb;
+    --paper-soft: #d9d2c4;
+    --muted: #b7b3a8;
+    --faint: #7f8a81;
+    --amber: #d8a85f;
+    --amber-bright: #f5d79d;
+    --line: rgba(241, 234, 219, .16);
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--paper);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(120% 78% at 50% 0%, rgba(245, 215, 157, .06), transparent 58%),
+      radial-gradient(100% 100% at 50% 55%, transparent 40%, rgba(4, 9, 8, .6) 100%);
+    background-attachment: fixed;
+  }
+
+  .shell { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  header {
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 16px; padding: 20px 0;
+  }
+  .wordmark { font-family: var(--serif); font-size: 20px; letter-spacing: -.04em; text-decoration: none; color: var(--paper); }
+  .wordmark span { color: var(--amber); font-size: 13px; }
+  .tag {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 4px 8px;
+  }
+  .back { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .back:hover { color: var(--amber-bright); }
+
+  .eyebrow {
+    font-family: var(--mono); font-weight: 700; font-size: 11.5px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--amber-bright); margin: 0;
+  }
+
+  h1 {
+    font-family: var(--serif); font-weight: 400; letter-spacing: -.045em;
+    font-size: clamp(2.5rem, 5vw, 3.8rem); line-height: 1.02; margin: 24px 0 0; max-width: 16ch;
+  }
+  .lede { max-width: 60ch; font-size: clamp(1.05rem, 1vw + .8rem, 1.18rem); line-height: 1.7; color: var(--paper-soft); margin: 24px 0 0; }
+  .note { max-width: 66ch; font-size: 14px; line-height: 1.7; color: var(--muted); margin: 20px 0 0; }
+
+  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin: 48px 0 0; }
+
+  .card {
+    display: flex; flex-direction: column; overflow: hidden;
+    border: 1px solid var(--line); border-radius: 12px; background: rgba(13, 25, 21, .52);
+    text-decoration: none; color: inherit;
+    transition: transform .4s var(--ease), border-color .4s var(--ease);
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(245, 215, 157, .38); }
+
+  .shot { position: relative; height: 210px; overflow: hidden; background: var(--night); border-bottom: 1px solid var(--line); }
+  .shot iframe {
+    width: 1440px; height: 1200px; border: 0;
+    transform: scale(.245); transform-origin: top left;
+    pointer-events: none;
+  }
+  .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, rgba(11, 20, 17, .85)); }
+
+  .meta { padding: 18px 20px 20px; }
+  .kicker { font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+  .title { font-family: var(--serif); font-weight: 400; letter-spacing: -.03em; font-size: 24px; margin: 8px 0 0; }
+  .desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); margin: 10px 0 0; }
+  .open {
+    display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber);
+  }
+  .card:hover .open .arrow { transform: translateX(5px); }
+  .arrow { transition: transform .4s var(--ease); }
+
+  footer { border-top: 1px solid var(--line); margin: 64px 0 0; }
+  .foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 28px 0; }
+  .foot span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+
+  @media (max-width: 600px) {
+    .shot { height: 170px; }
+    .shot iframe { transform: scale(.2); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card, .arrow { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="shell bar">
+    <a class="wordmark" href="../index.html">thirdwurld<span>°</span></a>
+    <span class="tag">Design preview / not the live demo</span>
+    <a class="back" href="../index.html">Back to the demo &#8599;</a>
+  </div>
+</header>
+
+<main class="shell" style="padding-top:64px">
+  <p class="eyebrow">Interactive rebuilds</p>
+  <h1>The demo, rebuilt one frame at a time.</h1>
+  <p class="lede">
+    Every page of the public demo, rebuilt as an interactive component on the same palette, type scale, and motion language. Same copy, more things you can actually press.
+  </p>
+  <p class="note">
+    These are hosted on MagicPath and open in a new tab. They are a design surface for trying interactions, not a replacement for the demo itself. The thumbnails below are live pages, so give them a moment.
+  </p>
+
+  <div class="grid">
+
+    <a class="card" href="https://api.magicpath.ai/v1/safe-ground-2664" target="_blank" rel="noopener">
+      <span class="shot"><iframe src="https://api.magicpath.ai/v1/safe-ground-2664" loading="lazy" title="Home rebuild" tabindex="-1" aria-hidden="true"></iframe></span>
+      <span class="meta">
+        <span class="kicker">01 / index.html</span>
+        <h2 class="title">Home</h2>
+        <p class="desc">All nine sections. Live town clock and roster, the four-layer technology console, an eleven frame gallery with a keyboard-driven lightbox, a filterable model cost table, and the capability ledger as tabs.</p>
+        <span class="open">Open the page <span class="arrow">&#8594;</span></span>
+      </span>
+    </a>
+
+    <a class="card" href="https://api.magicpath.ai/v1/warm-lake-6615" target="_blank" rel="noopener">
+      <span class="shot"><iframe src="https://api.magicpath.ai/v1/warm-lake-6615" loading="lazy" title="A Day rebuild" tabindex="-1" aria-hidden="true"></iframe></span>
+      <span class="meta">
+        <span class="kicker">02 / day.html</span>
+        <h2 class="title">A Day</h2>
+        <p class="desc">All forty-one recorded events with a scrubber across the full day, pause and resume on the replay, and per-resident filtering so you can follow one person from waking to sleep.</p>
+        <span class="open">Open the page <span class="arrow">&#8594;</span></span>
+      </span>
+    </a>
+
+    <a class="card" href="https://api.magicpath.ai/v1/eagerly-pool-3126" target="_blank" rel="noopener">
+      <span class="shot"><iframe src="https://api.magicpath.ai/v1/eagerly-pool-3126" loading="lazy" title="Try a Resident rebuild" tabindex="-1" aria-hidden="true"></iframe></span>
+      <span class="meta">
+        <span class="kicker">03 / try.html</span>
+        <h2 class="title">Try a Resident</h2>
+        <p class="desc">The Mara Venn capsule with three bounded actions, a free-text note, a thinking state, and a turn counter. Still a local simulation, and still says so.</p>
+        <span class="open">Open the page <span class="arrow">&#8594;</span></span>
+      </span>
+    </a>
+
+    <a class="card" href="https://api.magicpath.ai/v1/sweet-path-5582" target="_blank" rel="noopener">
+      <span class="shot"><iframe src="https://api.magicpath.ai/v1/sweet-path-5582" loading="lazy" title="Member Journey rebuild" tabindex="-1" aria-hidden="true"></iframe></span>
+      <span class="meta">
+        <span class="kicker">04 / member.html</span>
+        <h2 class="title">Member Journey</h2>
+        <p class="desc">The four steps from invitation to belonging, with the Royal Mail letter as an envelope that opens rather than a block of text sitting on the page.</p>
+        <span class="open">Open the page <span class="arrow">&#8594;</span></span>
+      </span>
+    </a>
+
+    <a class="card" href="https://api.magicpath.ai/v1/lively-light-5908" target="_blank" rel="noopener">
+      <span class="shot"><iframe src="https://api.magicpath.ai/v1/lively-light-5908" loading="lazy" title="What Comes Next rebuild" tabindex="-1" aria-hidden="true"></iframe></span>
+      <span class="meta">
+        <span class="kicker">05 / next.html</span>
+        <h2 class="title">What Comes Next</h2>
+        <p class="desc">The capability ledger as three switchable columns, and the build sequence as a rail you step through rather than three static cards.</p>
+        <span class="open">Open the page <span class="arrow">&#8594;</span></span>
+      </span>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="shell foot">
+    <a class="wordmark" href="../index.html">thirdwurld<span>°</span></a>
+    <span>Design preview &middot; hosted on MagicPath</span>
+    <a class="back" href="../index.html">Return to the demo &#8594;</a>
+  </div>
+</footer>
+
+</body>
+</html>
