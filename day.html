@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0c1513" />
+    <title>thirdwurld | A day in the town</title>
+    <meta name="description" content="A recorded day in thirdwurld, replayed on a loop. The town keeps its own time, and it started without you." />
+    <link rel="canonical" href="https://rishvaiyer.github.io/thirdwurld-public-demo/day.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/social/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="thirdwurld" />
+    <meta property="og:url" content="https://rishvaiyer.github.io/thirdwurld-public-demo/day.html" />
+    <meta property="og:title" content="thirdwurld | A day in the town" />
+    <meta property="og:description" content="A recorded day in thirdwurld, replayed on a loop. The town keeps its own time, and it started without you." />
+    <meta property="og:image" content="https://rishvaiyer.github.io/thirdwurld-public-demo/assets/social/og-cover.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A lantern-lit town in thirdwurld at night, beside the water." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="thirdwurld | A day in the town" />
+    <meta name="twitter:description" content="A recorded day in thirdwurld, replayed on a loop. The town keeps its own time, and it started without you." />
+    <meta name="twitter:image" content="https://rishvaiyer.github.io/thirdwurld-public-demo/assets/social/og-cover.jpg" />
+    <link rel="stylesheet" href="responsive.css?v=20" />
+    <link rel="stylesheet" href="day.css?v=4" />
+    <script defer src="day.js?v=2"></script>
+  </head>
+  <body class="thirdwurld-page day-page">
+    <a class="skip-link" href="#day">Skip to content</a>
+    <div class="day-shell">
+      <header class="day-topbar site-topbar">
+        <a class="wordmark" href="index.html">thirdwurld<span>°</span></a>
+        <span class="status-mark"><i></i> Recorded day / replaying</span>
+        <a class="back-link" href="index.html">Back to preview ↗</a>
+      </header>
+
+      <main id="day" class="day-main">
+        <section class="day-head">
+          <div class="day-clock" data-clock-block>
+            <p class="eyebrow"><i></i> Town time</p>
+            <time class="day-clock-face" data-clock aria-live="off">--:--</time>
+            <p class="day-arrival" data-arrival>Reading the day…</p>
+          </div>
+          <div class="day-intro">
+            <h1>The day started<br /><em>without you.</em></h1>
+            <p>Residents keep their own hours. They move between places, fall into conversation, write things down, and spend part of the day alone. None of it waits for a visitor.</p>
+            <p class="day-disclosure"><strong>What this is.</strong> One recorded day from the private world, replayed on a loop. A full day passes every 24 minutes here. Nothing on this page is a live feed, and leaving the tab does not pause it.</p>
+          </div>
+        </section>
+
+        <section class="day-body" aria-labelledby="day-log-title">
+          <h2 id="day-log-title" class="visually-hidden">Recorded events, in order</h2>
+          <div class="day-rail" aria-hidden="true">
+            <div class="day-rail-track"></div>
+            <div class="day-rail-fill" data-rail-fill></div>
+            <div class="day-rail-marker" data-rail-marker><span data-rail-time>00:00</span></div>
+            <span class="day-rail-tick" style="--at:0%">00</span>
+            <span class="day-rail-tick" style="--at:25%">06</span>
+            <span class="day-rail-tick" style="--at:50%">12</span>
+            <span class="day-rail-tick" style="--at:75%">18</span>
+            <span class="day-rail-tick" style="--at:100%">24</span>
+          </div>
+          <ol class="day-log" data-log>
+            <li class="day-log-empty">Waiting for the next thing to happen.</li>
+          </ol>
+        </section>
+
+        <section class="day-close">
+          <p>Every entry above is something the world records: a place, a person, a change worth carrying forward. It is the same material a resident draws on when deciding what to do next.</p>
+          <div class="day-actions">
+            <a class="day-button day-button-solid" href="index.html#technology">See how it works <span>→</span></a>
+            <a class="day-button day-button-quiet" href="index.html#residents">Meet the residents <span>→</span></a>
+            <a class="day-button day-button-quiet" href="try.html">Try one resident <span>↗</span></a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="day-footer site-footer">
+        <a class="wordmark" href="index.html">thirdwurld<span>°</span></a>
+        <span>A recorded day · not a live feed</span>
+        <a href="index.html#status">Current status →</a>
+      </footer>
+    </div>
+  </body>
+</html>

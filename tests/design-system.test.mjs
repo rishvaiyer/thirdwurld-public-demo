@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 
-const pages = ['index.html', 'member.html', 'next.html', 'try.html']
+const pages = ['index.html', 'member.html', 'next.html', 'try.html', 'day.html']
 
 test('uses one Thirdwurld brand system across every public page', async () => {
   for (const page of pages) {
