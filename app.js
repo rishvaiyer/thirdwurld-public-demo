@@ -214,7 +214,6 @@ const residentStrip = document.querySelector('[data-resident-strip]')
 
 if (town && residentStrip) {
   const clockEl = document.querySelector('[data-town-clock]')
-  const awakeEl = document.querySelector('[data-town-awake]')
   const tickerTime = document.querySelector('[data-ticker-time]')
   const tickerText = document.querySelector('[data-ticker-text]')
   const chips = new Map(
@@ -242,9 +241,6 @@ if (town && residentStrip) {
     const key = statuses.map(s => s.at).join('-') + '|' + latest.at
     if (key === lastKey) return
     lastKey = key
-
-    const awake = statuses.filter(s => !s.asleep).length
-    if (awakeEl) awakeEl.textContent = awake === 1 ? '1 resident awake' : `${awake} residents awake`
 
     statuses.forEach(status => {
       const button = chips.get(status.id)
