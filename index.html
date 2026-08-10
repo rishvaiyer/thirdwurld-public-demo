@@ -50,6 +50,14 @@
     font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
     color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px;
   }
+  .navlinks { display: flex; gap: 22px; }
+  .navlinks a {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; position: relative; padding: 3px 0;
+  }
+  .navlinks a:hover { color: var(--paper); }
+  .navlinks a.is-here { color: var(--paper); }
+  .navlinks a.is-here::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--amber); }
   .dot { display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: var(--sage); margin-right: 7px; vertical-align: middle; animation: breathe 2.6s ease-in-out infinite; }
   @keyframes breathe { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.72); } }
 
@@ -105,6 +113,10 @@
 <header>
   <div class="shell bar">
     <a class="wordmark" href="./">thirdwurld<span>&deg;</span></a>
+    <nav class="navlinks">
+      <a href="./" class="is-here">The demo</a>
+      <a href="research/">Research</a>
+    </nav>
     <span class="tag"><i class="dot"></i>Private MVP &middot; world continuing</span>
   </div>
 </header>

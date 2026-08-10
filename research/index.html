@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>thirdwurld | Research</title>
+<meta name="description" content="Design-research from thirdwurld. Hypotheses published before the results, with the conditions that would prove them wrong." />
+<link rel="icon" href="../favicon.svg" />
+<style>
+  :root {
+    --night: #0b1411;
+    --night-soft: #12201b;
+    --paper: #f1eadb;
+    --paper-soft: #d9d2c4;
+    --muted: #b7b3a8;
+    --faint: #7f8a81;
+    --amber: #d8a85f;
+    --amber-bright: #f5d79d;
+    --sage: #91bd8b;
+    --rose: #e2a094;
+    --line: rgba(241, 234, 219, .16);
+    --line-bright: rgba(245, 215, 157, .38);
+    --panel: rgba(13, 25, 21, .52);
+    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--paper);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(120% 78% at 50% 0%, rgba(245, 215, 157, .06), transparent 58%),
+      radial-gradient(100% 100% at 50% 55%, transparent 40%, rgba(4, 9, 8, .6) 100%);
+    background-attachment: fixed;
+  }
+
+  .shell { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+
+  header { border-bottom: 1px solid var(--line); }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; flex-wrap: wrap; }
+  .wordmark { font-family: var(--serif); font-size: 20px; letter-spacing: -.04em; text-decoration: none; color: var(--paper); }
+  .wordmark span { color: var(--amber); font-size: 13px; }
+  .navlinks { display: flex; gap: 22px; }
+  .navlinks a {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; position: relative; padding: 3px 0;
+  }
+  .navlinks a:hover { color: var(--paper); }
+  .navlinks a.is-here { color: var(--paper); }
+  .navlinks a.is-here::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--amber);
+  }
+
+  .eyebrow {
+    font-family: var(--mono); font-weight: 700; font-size: 11.5px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--amber-bright); margin: 0;
+  }
+
+  h1 {
+    font-family: var(--serif); font-weight: 400; letter-spacing: -.045em;
+    font-size: clamp(2.4rem, 4.8vw, 3.6rem); line-height: 1.03; margin: 26px 0 0; max-width: 18ch;
+  }
+  .lede { max-width: 62ch; font-size: clamp(1.05rem, 1vw + .8rem, 1.18rem); line-height: 1.7; color: var(--paper-soft); margin: 26px 0 0; }
+  .note { max-width: 66ch; font-size: 14px; line-height: 1.75; color: var(--muted); margin: 22px 0 0; }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 18px; align-items: center;
+    margin: 40px 0 0; padding: 14px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint);
+  }
+  .legend b { font-weight: 400; color: var(--muted); }
+  .swatch { display: inline-block; width: 6px; height: 6px; border-radius: 999px; margin-right: 8px; vertical-align: middle; }
+  .s-prep { background: var(--amber); }
+  .s-live { background: var(--sage); }
+
+  .entries { margin: 0; padding: 0; list-style: none; }
+  .entry { border-bottom: 1px solid var(--line); }
+
+  .entry-head {
+    width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 12px 22px;
+    align-items: baseline; background: none; border: 0; color: inherit; text-align: left;
+    padding: 26px 0; cursor: pointer; font: inherit;
+  }
+  .entry-head:hover .entry-title { color: var(--amber-bright); }
+  .num { font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; color: var(--faint); }
+  .entry-title {
+    font-family: var(--serif); font-weight: 400; letter-spacing: -.032em;
+    font-size: clamp(1.3rem, 2.4vw, 1.75rem); line-height: 1.2; margin: 0;
+    transition: color .35s var(--ease);
+  }
+  .byline { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin: 10px 0 0; }
+  .status {
+    font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+    border: 1px solid var(--line); border-radius: 999px; padding: 5px 10px; color: var(--muted); white-space: nowrap;
+  }
+  .plus { font-size: 20px; color: var(--faint); transition: transform .4s var(--ease); line-height: 1; }
+  .entry.is-open .plus { transform: rotate(45deg); }
+
+  .entry-body { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows .5s var(--ease), opacity .4s var(--ease); }
+  .entry.is-open .entry-body { grid-template-rows: 1fr; opacity: 1; }
+  .entry-body > div { overflow: hidden; }
+  .body-inner { padding: 0 0 30px; max-width: 74ch; }
+  .body-inner p { font-size: 15px; line-height: 1.78; color: var(--paper-soft); margin: 0 0 16px; }
+  .body-inner .h { font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); margin: 26px 0 10px; }
+  .body-inner ol { margin: 0; padding-left: 20px; }
+  .body-inner li { font-size: 14.5px; line-height: 1.75; color: var(--paper-soft); margin: 0 0 8px; }
+  .keys { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; }
+  .key {
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px; color: var(--muted);
+  }
+  .pending {
+    margin: 26px 0 0; padding: 16px 18px; border: 1px solid var(--line); border-left: 2px solid var(--amber);
+    border-radius: 4px; background: var(--panel);
+  }
+  .pending p { margin: 0; font-size: 13.5px; line-height: 1.7; color: var(--muted); }
+
+  .rail { margin: 56px 0 0; padding: 26px 0 0; border-top: 1px solid var(--line); }
+  .rail h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.03em; font-size: 22px; margin: 0; }
+  .rail p { max-width: 62ch; font-size: 14px; line-height: 1.75; color: var(--muted); margin: 12px 0 0; }
+
+  footer { border-top: 1px solid var(--line); margin: 64px 0 0; }
+  .foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 28px 0; }
+  .foot span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  .foot a { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+  .foot a:hover { color: var(--amber-bright); }
+
+  @media (max-width: 620px) {
+    .entry-head { grid-template-columns: auto 1fr; }
+    .status { grid-column: 2; justify-self: start; }
+    .plus { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .entry-body, .plus, .entry-title { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="shell bar">
+    <a class="wordmark" href="../">thirdwurld<span>&deg;</span></a>
+    <nav class="navlinks">
+      <a href="../">The demo</a>
+      <a href="./" class="is-here">Research</a>
+    </nav>
+  </div>
+</header>
+
+<main class="shell" style="padding-top:72px">
+  <p class="eyebrow">Research</p>
+  <h1>Hypotheses published before the results.</h1>
+  <p class="lede">
+    Design-research from inside thirdwurld. Each entry states what we think will happen, how it is being measured, and what result would prove it wrong.
+  </p>
+  <p class="note">
+    The demo shows what already runs. This is the other half: the claims that are not settled yet. Everything here is written to be falsifiable, so a null result is a publishable outcome rather than something to bury. Where a document is a protocol rather than a finding, it says so at the top.
+  </p>
+
+  <div class="legend">
+    <span><i class="swatch s-prep"></i><b>In preparation</b> &nbsp;protocol written, not yet run</span>
+    <span><i class="swatch s-live"></i><b>Results in</b> &nbsp;pilot complete, findings attached</span>
+  </div>
+
+  <ul class="entries">
+
+    <li class="entry" id="wayfarer">
+      <button class="entry-head" type="button" aria-expanded="false" aria-controls="wayfarer-body">
+        <span class="num">01</span>
+        <span>
+          <span class="entry-title">Resident-Led Exploration in a Persistent AI World: A Thirdwurld Case Study</span>
+          <span class="byline">Rishva Iyer &middot; 10 August 2026 &middot; design-research case study</span>
+        </span>
+        <span class="status"><i class="swatch s-prep"></i>In preparation</span>
+      </button>
+
+      <div class="entry-body" id="wayfarer-body">
+        <div>
+          <div class="body-inner">
+            <p>
+              Asks whether a persistent 3D world becomes more engaging when its AI residents notice, pursue and remember discoverable events. The intervention is deliberately small: a scarce, server-authoritative loot drop appears in the town, a resident may choose to investigate, the resident has to reach it through a grounded route, and a successful claim becomes a durable world event and memory.
+            </p>
+            <p>
+              The argument is that the product wedge is not residents powered by a language model, which is easy to copy and hard to evaluate. It is the loop of world change, resident choice, embodied action, durable memory and human-visible history.
+            </p>
+
+            <p class="h">What it commits to</p>
+            <ol>
+              <li>Selective exploration. Given an available drop, some residents pursue it and others carry on with routine.</li>
+              <li>Grounded coherence. Narration agrees with the authoritative event ledger more often when a valid route, arrival and atomic claim are required.</li>
+              <li>Durable continuity. A recorded discovery produces more accurate follow-up references than an equivalent object with no memory event.</li>
+              <li>Human return value. Sessions containing a visible resident discovery raise repeat-visit measures.</li>
+              <li>Scarcity constraint. Past a moderate drop frequency, perceived significance falls and behaviour converges.</li>
+            </ol>
+
+            <p class="h">Boundary</p>
+            <p>
+              The synthetic resident used to make the protocol concrete is an internal case, not a recruited participant. The document uses modelled preference, activity score and recorded memory, and does not claim that any resident feels curiosity or wants a reward. That is a design constraint, not cautious wording: it keeps generated self-report from being mistaken for evidence of inner experience.
+            </p>
+
+            <p class="h">Keywords</p>
+            <div class="keys">
+              <span class="key">generative agents</span>
+              <span class="key">embodied AI</span>
+              <span class="key">open-ended learning</span>
+              <span class="key">intrinsic motivation</span>
+              <span class="key">virtual worlds</span>
+              <span class="key">agent memory</span>
+              <span class="key">resident behavior</span>
+              <span class="key">human-computer interaction</span>
+            </div>
+
+            <div class="pending">
+              <p>
+                Pre-deployment protocol. The expected observations in this document are predictions, not results, and no pilot has been run. The full paper and its references will be published here once it is final.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+
+  <div class="rail">
+    <h2>What belongs here</h2>
+    <p>
+      Protocols before they are run, results once they are in, and the occasional note where a design decision needed an argument rather than an opinion. Not release notes, and not a blog. If a claim is not falsifiable it belongs on the demo, not on this page.
+    </p>
+  </div>
+</main>
+
+<footer>
+  <div class="shell foot">
+    <a class="wordmark" href="../">thirdwurld<span>&deg;</span></a>
+    <span>Research &middot; protocols and results</span>
+    <a href="../">Back to the demo &#8594;</a>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.entry-head').forEach(function (head) {
+    head.addEventListener('click', function () {
+      var entry = head.closest('.entry');
+      var open = entry.classList.toggle('is-open');
+      head.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  // Deep link straight to an open entry, e.g. /research/#wayfarer
+  if (location.hash) {
+    var target = document.querySelector(location.hash);
+    if (target && target.classList.contains('entry')) {
+      target.classList.add('is-open');
+      target.querySelector('.entry-head').setAttribute('aria-expanded', 'true');
+    }
+  }
+</script>
+
+</body>
+</html>
