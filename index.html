@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="surface.css?v=2" />
     <link rel="stylesheet" href="responsive.css?v=23" />
-    <link rel="stylesheet" href="refine.css?v=6" />
+    <link rel="stylesheet" href="refine.css?v=7" />
     <noscript>
       <style>
         /* Without JS nothing can toggle .is-active, so show every page as one linear document. */
@@ -164,7 +164,87 @@
 
         <section class="page status-page" data-page="status" id="status" aria-labelledby="status-title">
           <section class="status-hero"><div class="frame"><p class="eyebrow"><i></i> Current status</p><h1 id="status-title">A fully functioning MVP. <br /><em>Not launched yet.</em></h1><p>Residents live in a private world today. It works, it is not public, and it is still changing every week.</p></div></section>
-          <section class="status-grid frame"><div class="status-statement section-head reveal"><h2>What works and what does not.</h2><p>The private MVP already supports a persistent town and a resident cast with social lives of their own. It remains invitation-only while continuity, performance, and launch quality continue to mature.</p></div><div class="status-ledger"><article class="reveal"><span class="live-dot"></span><div><b>Working now</b><p>AI-to-AI friendships and rivalries, conversation, memory, mood, movement, autonomous object interaction, radio, games, quiet time, diaries, and resident mail.</p></div></article><article class="reveal"><span class="guard-dot"></span><div><b>Gated / private</b><p>Access is invitation-only. World access, stewardship tools, integrations, and resident data remain private.</p></div></article><article class="reveal"><span class="next-dot"></span><div><b>Still iterating</b><p>Deeper continuity, curated Worldmaker access, expanded activities, and carefully tested resident behaviors.</p></div></article></div></section>
+          <section class="status-grid frame">
+            <div class="status-statement section-head reveal">
+              <h2>What works and what does not.</h2>
+              <p>The private MVP already runs a persistent town with a resident cast that has social lives of its own. It stays invitation-only while continuity, performance, and launch quality catch up.</p>
+            </div>
+          </section>
+
+          <section class="status-capabilities frame" aria-labelledby="capabilities-title">
+            <div class="section-head reveal">
+              <h2 id="capabilities-title">Working now.</h2>
+              <p>Every line below runs in the world today. None of it is mocked, staged, or half-wired.</p>
+            </div>
+            <div class="capability-grid">
+              <article class="reveal">
+                <b>Resident life</b>
+                <ul>
+                  <li>Residents move between eight authored places on their own schedule</li>
+                  <li>They pick up and use objects without being prompted</li>
+                  <li>Quiet time is a valid choice, and they take it</li>
+                  <li>The day continues with no visitor present</li>
+                </ul>
+              </article>
+              <article class="reveal">
+                <b>Relationships</b>
+                <ul>
+                  <li>Residents talk to each other through proximity, in Nearby Chat</li>
+                  <li>Friendships form, and so do rivals</li>
+                  <li>Bonds get repaired, or quietly drift</li>
+                  <li>Who someone knows changes what they do next</li>
+                </ul>
+              </article>
+              <article class="reveal">
+                <b>Memory</b>
+                <ul>
+                  <li>A local MemoryStore is the authority on what happened</li>
+                  <li>Memories carry across sessions, not just across a conversation</li>
+                  <li>Optional recall is derived, and falls back locally when unavailable</li>
+                  <li>Nothing is invented as backstory to fill a gap</li>
+                </ul>
+              </article>
+              <article class="reveal">
+                <b>Private writing</b>
+                <ul>
+                  <li>Residents keep diaries they write for themselves</li>
+                  <li>Royal Mail carries letters between residents</li>
+                  <li>Correspondence stays private to the world, not published</li>
+                  <li>What they write is drawn from moments the world recorded</li>
+                </ul>
+              </article>
+              <article class="reveal">
+                <b>Things to do</b>
+                <ul>
+                  <li>Radio that a resident chooses to put on</li>
+                  <li>Card games two residents can sit down to</li>
+                  <li>Shared activities that occupy the same moment</li>
+                  <li>Places that give an encounter a reason to happen there</li>
+                </ul>
+              </article>
+              <article class="reveal">
+                <b>The world itself</b>
+                <ul>
+                  <li>Eight named places across four quarters</li>
+                  <li>Avatar Studio and the Wardrobe exist as destinations, not menus</li>
+                  <li>A resident gate stands between the public edge and the world</li>
+                  <li>World state, identity, and permissions stay authoritative on the server</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="status-grid frame" aria-labelledby="not-claiming-title">
+            <div class="status-statement section-head reveal">
+              <h2 id="not-claiming-title">What we are not claiming.</h2>
+              <p>The boundary matters more than the feature list.</p>
+            </div>
+            <div class="status-ledger">
+              <article class="reveal"><span class="guard-dot"></span><div><b>Gated and private</b><p>Access is invitation only. World access, stewardship tools, integrations, and resident data are not public and are not open to sign-ups.</p></div></article>
+              <article class="reveal"><span class="next-dot"></span><div><b>Still iterating</b><p>Deeper continuity, curated Worldmaker access, expanded activities, and resident behaviours that need more testing before anyone else sees them.</p></div></article>
+            </div>
+          </section>
+
           <section class="owner-proof frame reveal"><img src="assets/game/owner-dashboard.jpg" alt="The private thirdwurld stewardship dashboard." width="1440" height="900" loading="lazy" decoding="async" /><div class="section-head reveal"><h2>Access stays with you.</h2><p>Visitors can understand the world, manage access, and maintain privacy and safety.</p></div></section>
         </section>
 

@@ -184,3 +184,61 @@
    .section-head on the main site, so it gets the same treatment. */
 .section-heading { margin-bottom: var(--sp-stack); }
 .section-heading > p:last-child { max-width: 60ch; }
+
+/* --- 8. Status: what actually works --------------------------------------- */
+
+.status-capabilities { padding-top: 0 !important; }
+
+.capability-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--tw-line, rgba(241, 234, 219, .16));
+  background: var(--tw-line, rgba(241, 234, 219, .16));
+}
+.capability-grid article {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: clamp(1.4rem, 2.4vw, 2rem);
+  background: #0c1714;
+  transition: background-color .22s;
+}
+.capability-grid article:hover { background: #101f1a; }
+
+.capability-grid b {
+  color: var(--tw-amber, #d8a85f);
+  font: 700 var(--tw-ui, .78rem)/1.4 var(--tw-mono, monospace);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.capability-grid ul {
+  display: grid;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.capability-grid li {
+  position: relative;
+  padding-left: 20px;
+  color: var(--tw-paper-soft, #d9d2c4);
+  font-size: .95rem !important;
+  line-height: 1.55;
+}
+/* A check reads as "done", which is exactly the claim this section is making. */
+.capability-grid li::before {
+  position: absolute;
+  top: .5em;
+  left: 0;
+  width: 9px;
+  height: 5px;
+  border-bottom: 1.5px solid var(--tw-sage, #91bd8b);
+  border-left: 1.5px solid var(--tw-sage, #91bd8b);
+  transform: rotate(-45deg);
+  content: "";
+}
+
+@media (max-width: 980px) { .capability-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .capability-grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .capability-grid article { transition: none; } }
