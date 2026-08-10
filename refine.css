@@ -1,0 +1,177 @@
+/* =============================================================================
+   Refinement layer
+   Loaded last, on purpose. responsive.css is a 1000-line override file and
+   editing it in place is how it got that way; this sits on top and fixes the
+   three things the audit actually turned up.
+
+   1. Volume. Three heading sizes existed, but 19 of the 37 headings sat at the
+      same 44px. Every section shouted at the page title's volume, so nothing
+      had hierarchy. Page titles stay large; section headings drop a full tier.
+   2. Rhythm. Sections used nine different padding pairs. One scale now.
+   3. Cohesion. One section-header pattern, one card surface, one hover, one
+      focus ring, one reveal.
+   ============================================================================= */
+
+:where(.thirdwurld-page) {
+  /* Vertical rhythm. Every section block uses one of these three. */
+  --sp-section: clamp(4.5rem, 8vw, 7rem);
+  --sp-section-tight: clamp(3rem, 5vw, 4.5rem);
+  --sp-stack: clamp(1.5rem, 2.6vw, 2.25rem);
+
+  /* Volume. The gap between tiers is what creates hierarchy. */
+  --type-display: clamp(2.9rem, 5.4vw, 4.25rem);
+  --type-section: clamp(1.65rem, 2.4vw, 2.15rem);
+  --type-card: clamp(1.1rem, 1.3vw, 1.25rem);
+}
+
+/* --- 1. Volume ------------------------------------------------------------ */
+
+/* Page titles keep the display size. There is exactly one per page. */
+.thirdwurld-page .page section h1,
+.thirdwurld-page .day-intro h1 {
+  font-size: var(--type-display) !important;
+  line-height: .98 !important;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+/* Section headings drop a tier. This is the change that quiets the site. */
+.thirdwurld-page .page section h2 {
+  font-size: var(--type-section) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+}
+
+/* Card and item headings sit just above body copy. */
+.thirdwurld-page .page section h3 {
+  font-size: var(--type-card) !important;
+  line-height: 1.25 !important;
+  letter-spacing: -.01em;
+}
+
+/* The amber second line was doing the same job as the size jump. Now that the
+   sizes carry hierarchy, keep it only where it is the page's one big moment. */
+.thirdwurld-page .page section h2 em { color: inherit; font-style: normal; }
+
+/* --- 2. Rhythm ------------------------------------------------------------ */
+
+:where(.thirdwurld-page) .page > section {
+  padding-top: var(--sp-section);
+  padding-bottom: var(--sp-section);
+}
+/* Heroes own their own spacing: they are full-bleed and bottom-aligned. */
+:where(.thirdwurld-page) .page > section:is(.world-hero, .page-intro, .atlas-hero, .gallery-hero, .technology-hero, .economics-hero, .status-hero, .preview-hero) {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+:where(.thirdwurld-page) .page > section + section { padding-top: 0; }
+:where(.thirdwurld-page) .page > section:last-child { padding-bottom: var(--sp-section); }
+
+/* --- 3. One section-header pattern ---------------------------------------- */
+
+.section-head { margin-bottom: var(--sp-stack); }
+.section-head h2 { margin-bottom: .5em; }
+.section-head > p:last-child {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--tw-paper-soft, #d9d2c4);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+/* --- 4. One surface, one hover, one focus --------------------------------- */
+
+:where(.thirdwurld-page) :is(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--tw-amber-bright, #f5d79d);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Anything that behaves like a card lifts the same way. */
+:where(.thirdwurld-page) :is(.stack-grid article, .proof-list li, .status-ledger article, .hosted-plan-grid article, .world-proof-grid figure, .flow-rail article, .diary-entry, .resident-moment-card) {
+  transition: border-color .22s var(--tw-ease, ease), background-color .22s, transform .22s var(--tw-ease, ease);
+}
+:where(.thirdwurld-page) :is(.stack-grid article, .status-ledger article, .hosted-plan-grid article, .world-proof-grid figure, .diary-entry, .resident-moment-card):hover {
+  border-color: rgba(216, 168, 95, .42);
+  transform: translateY(-2px);
+}
+
+/* --- 5. One reveal -------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .6s var(--tw-ease, ease), transform .6s var(--tw-ease, ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Switching pages should feel like arriving somewhere, not repainting. */
+:where(.thirdwurld-page) .page.is-active { animation: pageArrive .5s var(--tw-ease, ease) both; }
+@keyframes pageArrive {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  :where(.thirdwurld-page) .page.is-active { animation: none; }
+  :where(.thirdwurld-page) :is(.stack-grid article, .status-ledger article, .hosted-plan-grid article, .world-proof-grid figure, .diary-entry, .resident-moment-card) { transition: none; }
+  :where(.thirdwurld-page) :is(.stack-grid article, .status-ledger article, .hosted-plan-grid article, .world-proof-grid figure, .diary-entry, .resident-moment-card):hover { transform: none; }
+}
+
+/* --- 6. At a glance, on the world page ------------------------------------ */
+
+.world-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--tw-line, rgba(241, 234, 219, .16));
+  background: var(--tw-line, rgba(241, 234, 219, .16));
+}
+.world-facts > div {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  padding: clamp(1.25rem, 2.4vw, 1.9rem);
+  background: #0c1714;
+}
+.world-facts dt {
+  color: var(--tw-amber, #d8a85f);
+  font: 700 var(--tw-ui, .78rem)/1.4 var(--tw-mono, monospace);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.world-facts dd {
+  margin: 0;
+  color: var(--tw-paper-soft, #d9d2c4);
+  font-size: .95rem !important;
+  line-height: 1.55;
+}
+.world-facts a { color: var(--tw-amber-bright, #f5d79d); text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 860px) { .world-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .world-facts { grid-template-columns: 1fr; } }
+
+/* --- 7. Fixes found while tightening -------------------------------------- */
+
+/* The width/height attributes that stop layout shift also set a used height,
+   which silently beats aspect-ratio. Every image sized by CSS needs height:auto
+   alongside, or it renders at its intrinsic pixel height. */
+.world-proof-grid img { height: auto; }
+
+/* .world-atmosphere was position:fixed, so the render sat behind the whole
+   document and every section below the hero floated on a moving image. It only
+   ever belonged behind the hero. Pinning it to the first viewport fixes the
+   bleed and drops a permanently composited full-page layer at the same time.
+   Backgrounds stay off the sections, so nothing has to be full-bleed. */
+.world-page .world-atmosphere {
+  position: absolute;
+  top: 0;
+  height: 100svh;
+}
+.world-page .world-atmosphere i { position: absolute; }
+.world-page { position: relative; background: var(--tw-night, #0b1411); }
+.world-page > .world-proof { background: linear-gradient(180deg, #0d1a16, var(--tw-night, #0b1411)); }

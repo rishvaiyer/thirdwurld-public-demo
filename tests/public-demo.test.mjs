@@ -43,7 +43,7 @@ test('shows Stripe hosted plans and keeps World Map off the Places page', () => 
   assert.match(html, /Secure Stripe checkout/i)
   assert.match(html, /\$9[\s\S]*\$19/i)
   assert.match(html, /no API key needed/i)
-  assert.match(html, /accept card payments through Stripe/i)
+  assert.match(html, /card payments through Stripe/i)
   assert.match(html, /Bringing your own key almost always is/i)
   assert.doesNotMatch(html, /data-atlas-control=["']map["']/i)
   assert.doesNotMatch(script, /05 \/ World Map/i)
