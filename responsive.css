@@ -786,3 +786,96 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
   color: var(--tw-amber-bright, #f5d79d);
 }
 .gallery-video-controls span[role="listitem"] span { color: var(--tw-amber, #d8a85f); font-size: .76em; }
+
+/* ==========================================================================
+   Grid overflow fix
+   .atlas-image-wrap / .preview-reel-image carry an unconditional
+   aspect-ratio: 1.28 (styles.css), while their grid parents use
+   align-items: stretch. The stretch sets the height, aspect-ratio then
+   derives a width wider than the declared fr track, and because the wrappers
+   are positioned they paint over the copy column beside them.
+   Above the stacked breakpoint, let the wrapper fill its track instead and
+   hand the cropping to object-fit.
+   ========================================================================== */
+@media (min-width: 901px) {
+  .atlas-console { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); }
+  .preview-reel { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+  .tech-explainer { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .tech-proof { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+
+  .atlas-image-wrap, .preview-reel-image {
+    aspect-ratio: auto;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .atlas-image-wrap img, .preview-reel-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* ==========================================================================
+   Direction C — let the world be bright
+   The captures are the strongest evidence this thing exists, and the previous
+   treatment hid them: the hero rendered at 13% opacity, every place capture
+   was desaturated, and the gallery carried a sepia wash. Here the scrims stop
+   being flat veils and become directional, dark only where type sits.
+   ========================================================================== */
+
+/* --- World hero -------------------------------------------------------- */
+/* The ambient layer is the hero image; let the town actually read. */
+.world-atmosphere img { opacity: 1; filter: saturate(1.12) brightness(1.34) contrast(1.02); }
+.world-atmosphere::after {
+  background:
+    linear-gradient(102deg, rgba(6, 13, 11, .92) 0%, rgba(6, 13, 11, .74) 28%, rgba(6, 13, 11, .28) 55%, rgba(6, 13, 11, .04) 78%),
+    linear-gradient(0deg, rgba(6, 13, 11, .88) 0%, rgba(6, 13, 11, .3) 26%, transparent 54%);
+}
+/* Directional scrim: heavy behind the copy, clear over the town. */
+.world-hero-shade {
+  background:
+    linear-gradient(102deg, rgba(6, 13, 11, .82) 0%, rgba(6, 13, 11, .52) 30%, rgba(6, 13, 11, .12) 58%, transparent 80%),
+    linear-gradient(0deg, rgba(6, 13, 11, .8) 0%, rgba(6, 13, 11, .18) 24%, transparent 50%);
+}
+
+/* Page intros carry copy on the left, so darken that side only. */
+.intro-shade, .tech-shade {
+  background:
+    linear-gradient(102deg, rgba(6, 13, 11, .9) 0%, rgba(6, 13, 11, .66) 30%, rgba(6, 13, 11, .2) 58%, transparent 82%),
+    linear-gradient(0deg, rgba(6, 13, 11, .78) 0%, transparent 48%);
+}
+.page-intro > img, .technology-hero > img { filter: saturate(1.08) brightness(1.22) contrast(1.02); }
+
+/* --- Captures: stop apologising for them ------------------------------- */
+.atlas-image-wrap img { filter: saturate(1.06) contrast(1.03); }
+.preview-reel-image img { filter: saturate(1.06) contrast(1.02); }
+.resident-stage > img { filter: saturate(1.02) brightness(.86); }
+.scrapbook-image img { filter: saturate(1.04) contrast(1.05) brightness(1.04); }
+.scrapbook-image:hover img, .scrapbook-image:focus-visible img { filter: saturate(1.1) contrast(1.06) brightness(1.08); }
+.real-capture-card img, .tech-real-capture img, .owner-proof > img { filter: saturate(1.05) contrast(1.02); }
+
+/* --- Amber earns its keep ---------------------------------------------- */
+/* It was only ever a 14-16% border tint, which reads as no accent at all. */
+.atlas-console, .preview-reel, .gallery-video-frame, .tech-console {
+  border-color: rgba(216, 168, 95, .3);
+}
+.capture-chip {
+  border-color: rgba(245, 215, 157, .5);
+  background: rgba(8, 15, 13, .84);
+  color: var(--tw-amber-bright, #f5d79d);
+}
+.eyebrow i { box-shadow: 0 0 16px 2px rgba(143, 188, 135, .75); }
+
+/* Brighter art means the crop can slide a lantern behind a line of type at
+   some viewport widths. A soft shadow keeps the copy readable without
+   putting the veil back. */
+.hero-copy .hero-lede, .hero-copy .eyebrow,
+.intro-copy p:not(.eyebrow), .intro-copy .eyebrow,
+.tech-copy p:not(.eyebrow), .tech-copy .eyebrow,
+.hero-foot span, .hero-foot .mini-link {
+  text-shadow: 0 1px 14px rgba(4, 10, 8, .92), 0 1px 3px rgba(4, 10, 8, .8);
+}
+.hero-copy h1, .intro-copy h1, .tech-copy h1 {
+  text-shadow: 0 2px 26px rgba(4, 10, 8, .78);
+}
