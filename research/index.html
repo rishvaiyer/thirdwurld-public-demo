@@ -142,6 +142,56 @@
   .foot a { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
   .foot a:hover { color: var(--amber-bright); }
 
+
+  /* attachment */
+  .entry-head { position: relative; }
+  .clip {
+    position: absolute; top: 10px; right: -6px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 7px;
+    color: var(--amber); text-decoration: none; padding: 6px;
+    transform: rotate(-16deg); transform-origin: 50% 10%;
+    transition: transform .45s var(--ease), color .35s var(--ease), filter .35s var(--ease);
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,.55));
+  }
+  .clip svg { width: 26px; height: 26px; display: block; }
+  .clip .clip-label {
+    font-family: var(--mono); font-size: 8.5px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--faint); opacity: 0; transform: translateX(-4px);
+    transition: opacity .35s var(--ease), transform .35s var(--ease); white-space: nowrap;
+  }
+  .clip:hover, .clip:focus-visible {
+    transform: rotate(-3deg) translateY(-3px); color: var(--amber-bright);
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,.7));
+  }
+  .clip:hover .clip-label, .clip:focus-visible .clip-label { opacity: 1; transform: translateX(0); }
+
+  .paper-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 28px 0 0; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+    padding: 13px 18px; border-radius: 5px; background: var(--paper); color: var(--night);
+    transition: box-shadow .4s var(--ease), transform .2s var(--ease);
+  }
+  .btn:hover { box-shadow: 0 16px 40px -20px rgba(241,234,219,.8); }
+  .btn:active { transform: scale(.99); }
+  .btn-ghost {
+    background: none; color: var(--muted); border: 1px solid var(--line);
+  }
+  .btn-ghost:hover { color: var(--paper); border-color: var(--line-bright); box-shadow: none; }
+  .meta-line { font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+
+  .thresholds { width: 100%; border-collapse: collapse; margin: 10px 0 0; }
+  .thresholds th, .thresholds td { text-align: left; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .thresholds th {
+    font-family: var(--mono); font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); font-weight: 400;
+  }
+  .thresholds td:last-child { font-family: var(--mono); font-size: 12px; color: var(--amber-bright); text-align: right; white-space: nowrap; }
+  .thresholds td:first-child { color: var(--paper-soft); padding-right: 16px; }
+
+  @media (max-width: 620px) {
+    .clip { top: 4px; right: -4px; transform: rotate(-12deg) scale(.9); }
+  }
+
   @media (max-width: 620px) {
     .entry-head { grid-template-columns: auto 1fr; }
     .status { grid-column: 2; justify-self: start; }
@@ -181,55 +231,95 @@
 
   <ul class="entries">
 
-    <li class="entry" id="wayfarer">
-      <button class="entry-head" type="button" aria-expanded="false" aria-controls="wayfarer-body">
+    <li class="entry" id="verifiable-memory">
+      <button class="entry-head" type="button" aria-expanded="false" aria-controls="verifiable-memory-body">
         <span class="num">01</span>
         <span>
-          <span class="entry-title">Resident-Led Exploration in a Persistent AI World: A Thirdwurld Case Study</span>
-          <span class="byline">Rishva Iyer &middot; 10 August 2026 &middot; design-research case study</span>
+          <span class="entry-title">Verifiable Resident Memory in a Persistent AI World: Grounding Agent Narration Against an Authoritative Event Ledger</span>
+          <span class="byline">Rishva Iyer &middot; research &middot; pre-deployment protocol</span>
         </span>
         <span class="status"><i class="swatch s-prep"></i>In preparation</span>
       </button>
 
-      <div class="entry-body" id="wayfarer-body">
+      <a class="clip" href="thirdwurld-verifiable-memory-research.pdf" target="_blank" rel="noopener"
+         title="Open the full paper (PDF, 14 pages)" aria-label="Open the full paper as a PDF, 14 pages">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M17.6 7.4 9.1 15.9a2.6 2.6 0 0 0 3.7 3.7l8.5-8.5a4.6 4.6 0 0 0-6.5-6.5l-8.5 8.5a6.6 6.6 0 0 0 9.3 9.3l7-7"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="clip-label">PDF</span>
+      </a>
+
+      <div class="entry-body" id="verifiable-memory-body">
         <div>
           <div class="body-inner">
             <p>
-              Asks whether a persistent 3D world becomes more engaging when its AI residents notice, pursue and remember discoverable events. The intervention is deliberately small: a scarce, server-authoritative loot drop appears in the town, a resident may choose to investigate, the resident has to reach it through a grounded route, and a successful claim becomes a durable world event and memory.
+              Large language models can give characters fluent speech, but fluency is not evidence that anything happened. A resident that says it found a coin on the north walk is producing text, not testimony. The paper argues the measurable property of a persistent world is not believability but <strong>verifiability</strong>: whether a resident's account of its own past can be checked against authoritative world state, and whether verified history changes what it does next.
             </p>
             <p>
-              The argument is that the product wedge is not residents powered by a language model, which is easy to copy and hard to evaluate. It is the loop of world change, resident choice, embodied action, durable memory and human-visible history.
+              Believability is rejected as an engineering target because it is confounded by novelty and anthropomorphic projection, it cannot be measured without humans, and it can be maximised by a system that lies fluently. A resident that confabulates a rich history will outscore one that accurately reports a thin one.
+            </p>
+            <p>
+              The intervention stays deliberately small. The server creates one scarce object, the Wayfarer's Coin. A resident may choose exploration over routine, traverse a collision-grounded route, and claim the object through an atomic transaction that writes an <code>object_discovered</code> event to an append-only ledger. Later behaviour may retrieve it.
             </p>
 
-            <p class="h">What it commits to</p>
+            <p class="h">The two load-bearing hypotheses</p>
             <ol>
-              <li>Selective exploration. Given an available drop, some residents pursue it and others carry on with routine.</li>
-              <li>Grounded coherence. Narration agrees with the authoritative event ledger more often when a valid route, arrival and atomic claim are required.</li>
-              <li>Durable continuity. A recorded discovery produces more accurate follow-up references than an equivalent object with no memory event.</li>
-              <li>Human return value. Sessions containing a visible resident discovery raise repeat-visit measures.</li>
-              <li>Scarcity constraint. Past a moderate drop frequency, perceived significance falls and behaviour converges.</li>
+              <li><strong>H1, grounded coherence.</strong> Requiring a valid route, arrival and atomic claim before a discovery can be narrated raises the proportion of resident narrations fully supported by the ledger.</li>
+              <li><strong>H2, durable continuity.</strong> A discovery written to durable memory produces later references that are more accurate against the ledger, and more contextually appropriate, than an identical route and claim with no memory write.</li>
             </ol>
+            <p>
+              Both are testable with zero human participants. A third hypothesis on human return is marked <em>exploratory</em>, because a power calculation shows current session volume cannot detect a plausible effect. The paper states that limit rather than reporting an underpowered result as a finding.
+            </p>
+
+            <p class="h">Some of the pre-committed thresholds</p>
+            <table class="thresholds">
+              <thead>
+                <tr><th>Criterion</th><th>To proceed</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Ledger-support rate, grounded arm</td><td>&ge; 0.95</td></tr>
+                <tr><td>Ledger-support advantage over ungrounded</td><td>&ge; 0.20</td></tr>
+                <tr><td>Retrieval accuracy, memory over no-memory</td><td>&ge; 0.15</td></tr>
+                <tr><td>Claims without complete route evidence</td><td>zero</td></tr>
+                <tr><td>p95 end-to-end claim latency</td><td>&lt; 2.0s</td></tr>
+              </tbody>
+            </table>
+            <p class="meta-line" style="margin-top:12px">
+              Committed before data collection. Revising a threshold after seeing outcomes voids the pre-registration.
+            </p>
 
             <p class="h">Boundary</p>
             <p>
-              The synthetic resident used to make the protocol concrete is an internal case, not a recruited participant. The document uses modelled preference, activity score and recorded memory, and does not claim that any resident feels curiosity or wants a reward. That is a design constraint, not cautious wording: it keeps generated self-report from being mistaken for evidence of inner experience.
+              The system and its copy use the vocabulary of computation: modelled preference, activity score, recorded memory, retrieved event. Nothing claims a resident feels curiosity, wants a reward, or has experience of any kind. That is described as load-bearing rather than defensive, since the whole method rests on separating generated self-report from verified record.
             </p>
 
             <p class="h">Keywords</p>
             <div class="keys">
               <span class="key">generative agents</span>
-              <span class="key">embodied AI</span>
-              <span class="key">open-ended learning</span>
-              <span class="key">intrinsic motivation</span>
-              <span class="key">virtual worlds</span>
               <span class="key">agent memory</span>
-              <span class="key">resident behavior</span>
+              <span class="key">grounding</span>
+              <span class="key">verifiability</span>
+              <span class="key">embodied AI</span>
+              <span class="key">persistent virtual worlds</span>
+              <span class="key">hallucination measurement</span>
               <span class="key">human-computer interaction</span>
+            </div>
+
+            <div class="paper-actions">
+              <a class="btn" href="thirdwurld-verifiable-memory-research.pdf" target="_blank" rel="noopener">
+                Open the full paper
+                <span aria-hidden="true">&#8599;</span>
+              </a>
+              <a class="btn btn-ghost" href="thirdwurld-verifiable-memory-research.pdf" download>
+                Download PDF
+              </a>
+              <span class="meta-line">14 pages &middot; 307 KB</span>
             </div>
 
             <div class="pending">
               <p>
-                Pre-deployment protocol. The expected observations in this document are predictions, not results, and no pilot has been run. The full paper and its references will be published here once it is final.
+                Pre-deployment protocol. No results are reported and no pilot has been run. Every numeric threshold above is committed in advance of data collection, which is the point of publishing it now rather than after.
               </p>
             </div>
           </div>
@@ -256,6 +346,10 @@
 </footer>
 
 <script>
+  document.querySelectorAll('.clip').forEach(function (clip) {
+    clip.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+
   document.querySelectorAll('.entry-head').forEach(function (head) {
     head.addEventListener('click', function () {
       var entry = head.closest('.entry');
@@ -264,7 +358,7 @@
     });
   });
 
-  // Deep link straight to an open entry, e.g. /research/#wayfarer
+  // Deep link straight to an open entry, e.g. /research/#verifiable-memory
   if (location.hash) {
     var target = document.querySelector(location.hash);
     if (target && target.classList.contains('entry')) {
