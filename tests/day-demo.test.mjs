@@ -6,6 +6,7 @@ const root = new URL('..', import.meta.url)
 const read = path => readFileSync(new URL(path, root), 'utf8')
 const html = read('day.html')
 const script = read('day.js')
+const town = read('town.js')
 const css = read('day.css')
 
 test('ships the recorded-day page with its own assets', () => {
@@ -20,15 +21,15 @@ test('ships the recorded-day page with its own assets', () => {
 test('derives town time from the wall clock so the world does not pause', () => {
   // The whole claim of the page is that it keeps running while you are away,
   // so the clock must be read from Date.now() rather than counted with a timer.
-  assert.match(script, /Date\.now\(\)/)
-  assert.match(script, /REAL_MS_PER_DAY/)
-  assert.doesNotMatch(script, /setInterval/)
+  assert.match(town, /Date\.now\(\)/)
+  assert.match(town, /REAL_MS_PER_DAY/)
+  assert.doesNotMatch(`${town}\n${script}`, /setInterval/)
   assert.match(script, /visibilitychange/)
 })
 
 test('the log wraps past midnight instead of emptying', () => {
-  assert.match(script, /minutesAgo/)
-  assert.match(script, /delta \+ DAY_MINUTES/)
+  assert.match(town, /minutesAgo/)
+  assert.match(town, /delta \+ DAY_MINUTES/)
   assert.doesNotMatch(html, /Nothing has happened yet today/)
 })
 
@@ -40,8 +41,8 @@ test('states plainly that it is a replay, not a live feed', () => {
 })
 
 test('keeps private handles and QA resident names off the page', () => {
-  assert.doesNotMatch(`${html}\n${script}`, /unevil|warden|queen|scallion/i)
-  assert.doesNotMatch(`${html}\n${script}`, /QA AI|Blusberry/i)
+  assert.doesNotMatch(`${html}\n${script}\n${town}`, /unevil|warden|queen|scallion/i)
+  assert.doesNotMatch(`${html}\n${script}\n${town}`, /QA AI|Blusberry/i)
 })
 
 test('respects reduced motion and stays keyboard reachable', () => {

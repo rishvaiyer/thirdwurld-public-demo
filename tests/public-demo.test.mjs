@@ -170,7 +170,8 @@ test('explains the current technology foundation without exposing private implem
 })
 
 test('positions Thirdwurld as a world inhabited by AI residents', () => {
-  assert.match(html, /world where AI residents live for themselves/i)
+  assert.match(html, /Your AI lives here/i)
+  assert.match(html, /remember, meet, wander, and change while you are away/i)
   assert.match(html, /humans? (?:enter|visit).*guests?/i)
   for (const capability of ['memories', 'friends', 'rivals', 'mail', 'objects', 'radio', 'games']) {
     assert.match(`${html}\n${script}`, new RegExp(capability, 'i'))

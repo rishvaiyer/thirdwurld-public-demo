@@ -900,3 +900,209 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 .mobile-nav .nav-external::after { content: " \2197"; opacity: .75; }
 .desktop-nav .nav-external:hover,
 .mobile-nav .nav-external:hover { color: var(--tw-amber-bright, #f5d79d); }
+
+/* ==========================================================================
+   Landing hero: the town, as it stands right now
+   The old hero invited you to "move your cursor through the memory field" and
+   then did nothing with it. This replaces that with the one interaction that
+   reveals something true: where each resident is, and what just happened.
+   ========================================================================== */
+
+.hero-signal {
+  position: absolute;
+  top: 96px;
+  right: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 12px;
+  color: var(--tw-paper-soft, #d9d2c4);
+  font: 700 var(--tw-ui, .78rem)/1 var(--tw-mono, monospace);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 12px rgba(4, 10, 8, .9);
+}
+.hero-signal-live { display: inline-flex; align-items: center; gap: 8px; color: var(--tw-faint, #7f8a81); }
+.hero-signal-live i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--tw-sage, #91bd8b);
+  box-shadow: 0 0 12px var(--tw-sage, #91bd8b);
+  animation: heroPulse 2.6s ease-in-out infinite;
+}
+.hero-signal b { color: var(--tw-amber-bright, #f5d79d); font-variant-numeric: tabular-nums; font-size: 1.15em; }
+@keyframes heroPulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+
+.resident-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 720px;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.resident-strip > li { display: flex; }
+
+.resident-chip {
+  position: relative;
+  display: grid;
+  grid-template-areas: "dot name" "dot where" "dot state";
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1px 10px;
+  padding: 11px 14px;
+  border: 1px solid var(--tw-line, rgba(241, 234, 219, .16));
+  border-radius: 3px;
+  background: rgba(8, 16, 13, .5);
+  backdrop-filter: blur(10px);
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .2s, background .2s, transform .2s var(--tw-ease, ease);
+}
+.resident-chip:hover, .resident-chip:focus-visible {
+  border-color: rgba(216, 168, 95, .55);
+  background: rgba(12, 24, 20, .72);
+  transform: translateY(-2px);
+}
+
+.chip-dot {
+  grid-area: dot;
+  align-self: center;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tw-sage, #91bd8b);
+  box-shadow: 0 0 10px rgba(145, 189, 139, .8);
+}
+.resident-chip.is-asleep .chip-dot { background: var(--tw-faint, #7f8a81); box-shadow: none; }
+
+.resident-chip b {
+  grid-area: name;
+  color: var(--tw-paper, #f1eadb);
+  font: 600 .95rem/1.3 var(--tw-sans, sans-serif);
+  letter-spacing: 0;
+}
+.chip-where {
+  grid-area: where;
+  color: var(--tw-amber, #d8a85f);
+  font: 700 .66rem/1.4 var(--tw-mono, monospace);
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+.chip-state {
+  grid-area: state;
+  color: var(--tw-faint, #7f8a81);
+  font: 400 .78rem/1.4 var(--tw-sans, sans-serif);
+}
+
+/* The moment behind the chip. Revealed on hover, and pinned open on tap,
+   because touch has no hover to reveal it with. */
+.chip-moment {
+  position: absolute;
+  z-index: 3;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: max-content;
+  max-width: min(78vw, 380px);
+  padding: 10px 12px;
+  border: 1px solid rgba(216, 168, 95, .4);
+  background: rgba(6, 14, 11, .95);
+  color: var(--tw-paper-soft, #d9d2c4);
+  font: 400 .8rem/1.5 var(--tw-sans, sans-serif);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity .18s, transform .18s;
+}
+.resident-chip:hover .chip-moment,
+.resident-chip:focus-visible .chip-moment,
+.resident-chip[aria-expanded="true"] .chip-moment { opacity: 1; transform: none; }
+
+.hero-ticker {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  max-width: 640px;
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(241, 234, 219, .12);
+  color: var(--tw-paper-soft, #d9d2c4);
+}
+.hero-ticker time {
+  flex: none;
+  color: var(--tw-amber, #d8a85f);
+  font: 700 .78rem/1.6 var(--tw-mono, monospace);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .05em;
+}
+.hero-ticker span { font-size: .98rem; line-height: 1.6; }
+
+.hero-note {
+  max-width: 46ch;
+  margin: 20px 0 0;
+  color: var(--tw-faint, #7f8a81);
+  font: 400 .8rem/1.5 var(--tw-sans, sans-serif) !important;
+}
+
+/* --- Proof, where the three abstract doors used to be ------------------- */
+
+.world-proof {
+  padding-top: clamp(4rem, 9vw, 7rem);
+  padding-bottom: clamp(4rem, 9vw, 7rem);
+}
+.world-proof-head { max-width: 62ch; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.world-proof-head h2 { margin-bottom: 18px; }
+.world-proof-head p { color: var(--tw-paper-soft, #d9d2c4); }
+
+.world-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.8rem);
+}
+.world-proof-grid figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--tw-line, rgba(241, 234, 219, .16));
+  background: #0d1a16;
+}
+.world-proof-grid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  filter: saturate(1.05) contrast(1.03);
+  transition: transform .4s var(--tw-ease, ease);
+}
+.world-proof-grid figure:hover img { transform: scale(1.02); }
+.world-proof-grid figcaption { display: grid; gap: 6px; padding: 16px 18px; }
+.world-proof-grid figcaption b { color: var(--tw-paper, #f1eadb); font: 600 1rem/1.3 var(--tw-sans, sans-serif); }
+.world-proof-grid figcaption span { color: var(--tw-faint, #7f8a81); font-size: .88rem; line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .world-proof-grid { grid-template-columns: 1fr; }
+  .hero-signal { top: 84px; }
+}
+@media (max-width: 700px) {
+  .resident-strip { gap: 8px; }
+  .resident-chip { padding: 9px 12px; }
+  .chip-moment { left: auto; right: 0; }
+  .hero-signal { justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-signal-live i { animation: none; }
+  .resident-chip, .chip-moment, .world-proof-grid img { transition: none; }
+}
+
+/* "Recorded day" rides the status line instead of a separate paragraph of
+   caveats under the hero. One statement of fact, not four. */
+.hero-signal-tag {
+  padding: 3px 8px;
+  border: 1px solid rgba(241, 234, 219, .28);
+  border-radius: 999px;
+  color: var(--tw-faint, #7f8a81);
+  font-size: .92em;
+}

@@ -200,3 +200,71 @@ const reelScenes = [
 ]
 let reelIndex = 0
 document.querySelector('[data-reel-next]')?.addEventListener('click', () => { reelIndex = (reelIndex + 1) % reelScenes.length; const [src, label, title, copy] = reelScenes[reelIndex]; const image = document.querySelector('[data-reel-image]'); image.src = src; image.alt = label; document.querySelector('[data-reel-label]').textContent = label; document.querySelector('[data-reel-title]').textContent = title; document.querySelector('[data-reel-copy]').textContent = copy; document.querySelectorAll('[data-reel-dot]').forEach((dot, index) => dot.classList.toggle('is-active', index === reelIndex)) })
+
+/* ---------------------------------------------------------------------------
+   Landing hero: the town, as it stands right now.
+
+   Shares town.js with day.html, so the chips and the ticker are reading the
+   same recorded day the dedicated page replays. Nothing here claims live data;
+   the hero says so in plain words underneath.
+   --------------------------------------------------------------------------- */
+
+const town = window.THIRDWURLD_TOWN
+const residentStrip = document.querySelector('[data-resident-strip]')
+
+if (town && residentStrip) {
+  const clockEl = document.querySelector('[data-town-clock]')
+  const awakeEl = document.querySelector('[data-town-awake]')
+  const tickerTime = document.querySelector('[data-ticker-time]')
+  const tickerText = document.querySelector('[data-ticker-text]')
+  const chips = new Map(
+    [...residentStrip.querySelectorAll('[data-resident]')].map(button => [button.dataset.resident, button])
+  )
+
+  // Tapping a chip pins its moment open, since hover is not available on touch.
+  chips.forEach(button => {
+    button.setAttribute('aria-expanded', 'false')
+    button.addEventListener('click', () => {
+      const open = button.getAttribute('aria-expanded') === 'true'
+      chips.forEach(other => other.setAttribute('aria-expanded', 'false'))
+      button.setAttribute('aria-expanded', String(!open))
+    })
+  })
+
+  let lastKey = ''
+
+  const paintHero = () => {
+    const now = town.townMinutes()
+    if (clockEl) clockEl.textContent = town.stamp(now)
+
+    const statuses = town.residentStatus(now)
+    const latest = town.recentEvents(now, 1)[0]
+    const key = statuses.map(s => s.at).join('-') + '|' + latest.at
+    if (key === lastKey) return
+    lastKey = key
+
+    const awake = statuses.filter(s => !s.asleep).length
+    if (awakeEl) awakeEl.textContent = awake === 1 ? '1 resident awake' : `${awake} residents awake`
+
+    statuses.forEach(status => {
+      const button = chips.get(status.id)
+      if (!button) return
+      button.classList.toggle('is-asleep', status.asleep)
+      button.querySelector('.chip-where').textContent = status.place
+      button.querySelector('.chip-state').textContent = status.state
+      button.querySelector('[data-chip-moment]').textContent = `${town.stamp(status.at)} · ${status.text}`
+    })
+
+    if (tickerTime) tickerTime.textContent = town.stamp(latest.at)
+    if (tickerText) tickerText.textContent = `${town.actors(latest)} ${latest.text}.`
+  }
+
+  paintHero()
+
+  let heroFrame = null
+  const heroLoop = () => { paintHero(); heroFrame = requestAnimationFrame(heroLoop) }
+  const startHero = () => { if (heroFrame === null) heroLoop() }
+  const stopHero = () => { if (heroFrame !== null) { cancelAnimationFrame(heroFrame); heroFrame = null } }
+  document.addEventListener('visibilitychange', () => (document.hidden ? stopHero() : startHero()))
+  if (!document.hidden) startHero()
+}
