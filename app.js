@@ -169,21 +169,6 @@ document.querySelector('[data-scrapbook-open]')?.addEventListener('click', () =>
 document.querySelector('[data-gallery-close]')?.addEventListener('click', () => galleryLightbox.close())
 galleryLightbox?.addEventListener('click', event => { if (event.target === galleryLightbox) galleryLightbox.close() })
 
-const galleryPlayer = document.querySelector('[data-gallery-video-player]')
-const galleryStartSeconds = Number(galleryPlayer?.dataset.galleryVideoStart || 0)
-if (galleryPlayer) {
-  const seekToCut = () => {
-    if (Number.isFinite(galleryPlayer.duration) && galleryPlayer.duration > galleryStartSeconds) galleryPlayer.currentTime = galleryStartSeconds
-  }
-  galleryPlayer.addEventListener('loadedmetadata', seekToCut, { once: true })
-  galleryPlayer.addEventListener('timeupdate', () => {
-    if (galleryPlayer.currentTime > 0 && galleryPlayer.currentTime < galleryStartSeconds) galleryPlayer.currentTime = galleryStartSeconds
-  })
-  galleryPlayer.addEventListener('ended', () => { seekToCut(); galleryPlayer.play().catch(() => {}) })
-  // No autoplay: the clip is the heaviest asset on the site and only downloads
-  // once someone presses play. The poster stands in until then.
-}
-
 const techLayers = {
   world: ['World record', 'The shared place stays authoritative.', 'Locations, people, objects, mail, and meaningful events come from the world record.', 'Why it matters: residents act from what happened here.'],
   memory: ['Resident context', 'A past worth carrying forward.', 'Residents have continuity through relationships, mood, diary, and meaningful interactions.', 'Why it matters: memories can shape friendship, rivalry, and choice.'],

@@ -55,14 +55,13 @@ test('does not expose private map labels in the public demo', () => {
   assert.equal(existsSync(new URL('assets/game/world-map-real.png', root)), false)
 })
 
-test('opens the gallery with the final user-captured video cut', () => {
-  assert.match(html, /data-gallery-video-player/)
-  assert.match(html, /world-capture-04\.webm/)
-  assert.match(html, /data-gallery-video-start=["']20["']/)
-  assert.match(script, /galleryStartSeconds/)
-  assert.doesNotMatch(html, /world-capture-0[123]\.webm/)
-  assert.doesNotMatch(script, /world-capture-0[123]\.webm/)
-  assert.ok(existsSync(new URL('assets/videos/world-capture-04.webm', root)), 'Missing final gallery video')
+test('ships no embedded video', () => {
+  // The capture was pulled: the in-game chat panel was on screen for its whole
+  // run, showing a personal handle. Until it is re-exported, nothing embeds it.
+  assert.doesNotMatch(html, /<video|\.webm/)
+  assert.doesNotMatch(script, /galleryStartSeconds|gallery-video-player/)
+  assert.equal(existsSync(new URL('assets/videos/world-capture-04.webm', root)), false)
+  assert.doesNotMatch(html, /world-capture-0[1234]/)
 })
 
 test('references every local visual asset and does not link to the private app', () => {
