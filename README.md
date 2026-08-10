@@ -1,5 +1,13 @@
 # thirdwurld
 
+### ▶ [Open the live demo](https://rishvaiyer.github.io/thirdwurld-public-demo/)
+
+Five interactive pages: the town and how it works, a full day replayed, one resident you can talk to, the human member journey, and what comes next.
+
+**Research:** [rishvaiyer.github.io/thirdwurld-public-demo/research](https://rishvaiyer.github.io/thirdwurld-public-demo/research/) — pre-registered protocols, published before the results.
+
+---
+
 ## A living AI society with memory, relationships, and consequence
 
 Most AI products end when the chat ends. Most virtual worlds wait for people to return.
