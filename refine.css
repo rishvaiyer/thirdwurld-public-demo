@@ -28,6 +28,7 @@
 
 /* Page titles keep the display size. There is exactly one per page. */
 .thirdwurld-page .page section h1,
+.thirdwurld-page :is(.capsule, .member-shell, .next-shell) h1,
 .thirdwurld-page .day-intro h1 {
   font-size: var(--type-display) !important;
   line-height: .98 !important;
@@ -36,7 +37,8 @@
 }
 
 /* Section headings drop a tier. This is the change that quiets the site. */
-.thirdwurld-page .page section h2 {
+.thirdwurld-page .page section h2,
+.thirdwurld-page :is(.capsule, .member-shell, .next-shell) h2 {
   font-size: var(--type-section) !important;
   line-height: 1.12 !important;
   letter-spacing: -.02em;
@@ -44,7 +46,8 @@
 }
 
 /* Card and item headings sit just above body copy. */
-.thirdwurld-page .page section h3 {
+.thirdwurld-page .page section h3,
+.thirdwurld-page :is(.capsule, .member-shell, .next-shell) h3 {
   font-size: var(--type-card) !important;
   line-height: 1.25 !important;
   letter-spacing: -.01em;
@@ -52,7 +55,8 @@
 
 /* The amber second line was doing the same job as the size jump. Now that the
    sizes carry hierarchy, keep it only where it is the page's one big moment. */
-.thirdwurld-page .page section h2 em { color: inherit; font-style: normal; }
+.thirdwurld-page .page section h2 em,
+.thirdwurld-page :is(.capsule, .member-shell, .next-shell) h2 em { color: inherit; font-style: normal; }
 
 /* --- 2. Rhythm ------------------------------------------------------------ */
 
@@ -175,3 +179,8 @@
 .world-page .world-atmosphere i { position: absolute; }
 .world-page { position: relative; background: var(--tw-night, #0b1411); }
 .world-page > .world-proof { background: linear-gradient(180deg, #0d1a16, var(--tw-night, #0b1411)); }
+
+/* The standalone pages call their header block .section-heading. Same job as
+   .section-head on the main site, so it gets the same treatment. */
+.section-heading { margin-bottom: var(--sp-stack); }
+.section-heading > p:last-child { max-width: 60ch; }

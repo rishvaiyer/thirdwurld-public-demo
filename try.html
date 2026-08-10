@@ -7,6 +7,7 @@
     <title>thirdwurld | Try one resident</title>
     <link rel="stylesheet" href="try.css">
     <link rel="stylesheet" href="responsive.css?v=23">
+    <link rel="stylesheet" href="refine.css?v=6" />
     <meta name="theme-color" content="#0c1513" />
     <link rel="canonical" href="https://rishvaiyer.github.io/thirdwurld-public-demo/try.html" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -24,6 +25,7 @@
     <meta name="twitter:title" content="thirdwurld | Try one resident" />
     <meta name="twitter:description" content="A bounded public preview of one thirdwurld resident." />
     <meta name="twitter:image" content="https://rishvaiyer.github.io/thirdwurld-public-demo/assets/social/og-cover.jpg" />
+    <script defer src="reveal.js?v=1"></script>
   </head>
   <body class="thirdwurld-page capsule-page">
     <main class="capsule" data-endpoint="">
@@ -46,7 +48,7 @@
       </section>
 
       <section class="resident-layout" aria-label="Resident capsule">
-        <article class="resident-card">
+        <article class="resident-card reveal">
             <div class="resident-art">
             <img src="assets/thirdwurld-night-market.jpg" alt="Lanterns glowing at the thirdwurld night market">
             <div class="art-wash"></div>
@@ -71,7 +73,7 @@
                 <dd data-resident-place>Lantern Row · Night Market</dd>
               </div>
             </dl>
-            <div class="memory-block">
+            <div class="memory-block reveal">
               <span class="memory-mark" aria-hidden="true">◌</span>
               <div>
                 <p class="eyebrow">A SMALL MEMORY</p>
@@ -81,7 +83,7 @@
           </div>
         </article>
 
-        <article class="conversation-card" aria-labelledby="conversation-title">
+        <article class="conversation-card reveal" aria-labelledby="conversation-title">
           <div class="conversation-head">
             <div>
               <p class="eyebrow">OPEN CHANNEL</p>
@@ -90,7 +92,7 @@
             <span class="counter" data-turn-count>0 turns shown</span>
           </div>
           <p class="conversation-hint">Choose a bounded action, or leave Mara a short note. You can always stop here.</p>
-          <div class="action-grid" role="group" aria-label="Choose an action">
+          <div class="action-grid reveal" role="group" aria-label="Choose an action">
             <button type="button" class="action-button" data-action="ask-lanterns">
               <span class="action-number">01</span>
               <span><strong>Ask about the lanterns</strong><small>Follow the glow</small></span>
