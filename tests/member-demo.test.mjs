@@ -26,7 +26,7 @@ test('uses local, privacy-safe screenshot assets and labels private surfaces', (
     'assets/game/nearby-chat-real.png',
     'assets/game/world-moment-real.png',
     'assets/game/resident-diary-mobile-real.png',
-    'assets/gallery/resident-gate.png',
+    'assets/gallery/resident-gate.jpg',
   ]) {
     assert.ok(existsSync(new URL(asset, root)), `Missing ${asset}`)
     assert.match(html, new RegExp(asset.replaceAll('.', '\\.') ))

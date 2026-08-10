@@ -56,27 +56,38 @@ thirdwurldRoot?.addEventListener('pointermove', event => {
 }, { passive: true })
 
 const atlasPlaces = {
-  'night-market': ['assets/game/night-market-real.png', '01 / Night Market', 'After dark, the town gathers.', 'Lanterns, social spaces, and authored landmarks give encounters a sense of place.', 'The lantern-lit Night Market.', 'Gather after dark'],
-  'corner-cup': ['assets/game/corner-cup-real.png', '02 / Corner Cup', 'A smaller reason to linger.', 'Different spaces create different conditions for routine, reflection, and chance conversation.', 'The Corner Cup beside the water.', 'Pause for coffee'],
+  'night-market': ['assets/game/night-market-real.jpg', '01 / Night Market', 'After dark, the town gathers.', 'Lanterns, social spaces, and landmarks give encounters a sense of place.', 'The lantern-lit Night Market.', 'Gather after dark'],
+  'corner-cup': ['assets/game/corner-cup-real.jpg', '02 / Corner Cup', 'A smaller reason to linger.', 'Different spaces create different conditions for routine, reflection, and chance conversation.', 'The Corner Cup beside the water.', 'Pause for coffee'],
   arrival: ['assets/game/arrival-plaza-real.webp', '03 / Arrival Plaza', 'A shared beginning.', 'An arrival area makes the world feel like somewhere you enter, not merely a surface you load.', 'Arrival Plaza at the center of town.', 'Enter the town'],
   garden: ['assets/game/pollinator-garden-qa.webp', '04 / Pollinator Garden', 'A garden made for tending.', 'A shared date garden gives care, routine, and quiet time a physical home inside the town.', 'The entrance to Pollinator Garden.', 'Tend and reflect'],
 }
-function showAtlasPlace(id) { const [src, number, title, copy, alt, chip] = atlasPlaces[id]; const image = document.querySelector('[data-atlas-image]'); image.src = src; image.alt = alt; document.querySelector('[data-atlas-number]').textContent = number; document.querySelector('[data-atlas-title]').textContent = title; document.querySelector('[data-atlas-copy]').textContent = copy; document.querySelector('[data-atlas-chip]').textContent = chip; document.querySelectorAll('[data-atlas-control]').forEach(button => button.classList.toggle('is-active', button.dataset.atlasControl === id)) }
+function showAtlasPlace(id) {
+  const place = atlasPlaces[id]
+  const image = document.querySelector('[data-atlas-image]')
+  if (!place || !image) return
+  const [src, number, title, copy, alt, chip] = place
+  image.src = src; image.alt = alt
+  document.querySelector('[data-atlas-number]').textContent = number
+  document.querySelector('[data-atlas-title]').textContent = title
+  document.querySelector('[data-atlas-copy]').textContent = copy
+  document.querySelector('[data-atlas-chip]').textContent = chip
+  document.querySelectorAll('[data-atlas-control]').forEach(button => button.classList.toggle('is-active', button.dataset.atlasControl === id))
+}
 document.querySelectorAll('[data-atlas-control]').forEach(button => button.addEventListener('click', () => showAtlasPlace(button.dataset.atlasControl)))
 
 const galleryLightbox = document.querySelector('[data-gallery-lightbox]')
 const scrapbookPages = [
-  ['assets/gallery/town-overview.png', 'A town with somewhere to go', 'The town', 'A wide view across thirdwurld’s canals, paths, and authored buildings.'],
-  ['assets/gallery/residents-chatting.png', 'Residents talk to one another', 'Resident life', 'Nearby Chat catches two AI residents in a conversation already happening inside the world.'],
-  ['assets/gallery/blueberry-resident-encounter.png', 'Meet someone in the world', 'Real resident encounter', 'A visitor and an AI resident share the same place, with conversation available through proximity.'],
-  ['assets/gallery/corner-cup-exterior.png', 'The Corner Cup', 'Places', 'A waterside destination gives routine, chance meetings, and quieter moments a physical home.'],
-  ['assets/gallery/poker-nearby-chat.png', 'Conversation around the table', 'Games and company', 'Games and conversation can occupy the same shared moment.'],
-  ['assets/gallery/world-menu-memory-tree.png', 'Navigate the world', 'Memory Tree', 'The world menu and Memory Tree connect movement with meaningful in-world actions.'],
-  ['assets/gallery/avatar-studio.png', 'Choose how you arrive', 'Avatar Studio', 'The Avatar Studio gives visitors a clear identity before they enter the town.'],
-  ['assets/gallery/wardrobe-interior.png', 'The Wardrobe', 'Real place and interaction', 'Style exists as a destination and an action inside the world, not a detached settings panel.'],
-  ['assets/gallery/resident-gate.png', 'The resident gate', 'A threshold for visitors', 'A deliberate threshold protects the private world while explaining what it means to bring a resident inside.'],
+  ['assets/gallery/town-overview.jpg', 'A town with somewhere to go', 'The town', 'A wide view across thirdwurld’s canals, paths, and buildings.'],
+  ['assets/gallery/residents-chatting.jpg', 'Residents talk to one another', 'Resident life', 'Nearby Chat catches two AI residents in a conversation already happening inside the world.'],
+  ['assets/gallery/blueberry-resident-encounter.jpg', 'Meet someone in the world', 'Real resident encounter', 'A visitor and an AI resident share the same place, with conversation available through proximity.'],
+  ['assets/gallery/corner-cup-exterior.jpg', 'The Corner Cup', 'Places', 'A waterside destination gives routine, chance meetings, and quieter moments a physical home.'],
+  ['assets/gallery/poker-nearby-chat.jpg', 'Conversation around the table', 'Games and company', 'Games and conversation can occupy the same shared moment.'],
+  ['assets/gallery/world-menu-memory-tree.jpg', 'Navigate the world', 'Memory Tree', 'The world menu and Memory Tree connect movement with meaningful in-world actions.'],
+  ['assets/gallery/avatar-studio.jpg', 'Choose how you arrive', 'Avatar Studio', 'The Avatar Studio gives visitors a clear identity before they enter the town.'],
+  ['assets/gallery/wardrobe-interior.jpg', 'The Wardrobe', 'Real place and interaction', 'Style exists as a destination and an action inside the world, rather than a settings panel.'],
+  ['assets/gallery/resident-gate.jpg', 'The resident gate', 'A threshold for visitors', 'A deliberate threshold protects the private world while explaining what it means to bring a resident inside.'],
   ['assets/game/resident-diary-real.png', 'In their own words', 'Resident diary', 'Residents reflect on moments the world actually recorded.'],
-  ['assets/game/world-moment-real.png', 'A small gift left behind', 'Memory and friendship', 'A resident placed a pressed lantern flower where a friend would find it.'],
+  ['assets/game/world-moment-real.png', 'A chair left facing the water', 'Memory and friendship', 'A resident moved a chair to face the water for someone who sits alone.'],
 ]
 let scrapbookIndex = 0
 function showScrapbookPage(index) {
@@ -94,15 +105,34 @@ function showScrapbookPage(index) {
     button.classList.toggle('is-active', page === scrapbookIndex)
     button.setAttribute('aria-current', page === scrapbookIndex ? 'true' : 'false')
   })
+  prefetchNeighbours()
+}
+
+// The frames are only referenced from JS, so warm the next and previous one
+// instead of making every step wait on a cold request.
+const prefetched = new Set()
+function prefetchNeighbours() {
+  for (const offset of [1, -1]) {
+    const [src] = scrapbookPages[(scrapbookIndex + offset + scrapbookPages.length) % scrapbookPages.length]
+    if (prefetched.has(src)) continue
+    prefetched.add(src)
+    new Image().src = src
+  }
 }
 function stepScrapbook(direction) { showScrapbookPage(scrapbookIndex + direction) }
 document.querySelector('[data-scrapbook-prev]')?.addEventListener('click', () => stepScrapbook(-1))
 document.querySelector('[data-scrapbook-next]')?.addEventListener('click', () => stepScrapbook(1))
 document.querySelectorAll('[data-scrapbook-page]').forEach(button => button.addEventListener('click', () => showScrapbookPage(Number(button.dataset.scrapbookPage))))
+// Arrow keys drive the scrapbook, but only when nothing else is using them.
+// A focused video, form field, or scrollable region gets them first.
+const OWNS_ARROW_KEYS = 'input, textarea, select, video, audio, [contenteditable], [role="region"][tabindex]'
 document.addEventListener('keydown', event => {
   if (currentPage() !== 'gallery' || galleryLightbox?.open) return
-  if (event.key === 'ArrowLeft') stepScrapbook(-1)
-  if (event.key === 'ArrowRight') stepScrapbook(1)
+  if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return
+  if (event.metaKey || event.ctrlKey || event.altKey) return
+  if (event.target instanceof Element && event.target.closest(OWNS_ARROW_KEYS)) return
+  event.preventDefault()
+  stepScrapbook(event.key === 'ArrowLeft' ? -1 : 1)
 })
 let scrapbookTouchStart = 0
 document.querySelector('[data-scrapbook]')?.addEventListener('touchstart', event => { scrapbookTouchStart = event.changedTouches[0].clientX }, { passive: true })
@@ -133,7 +163,8 @@ if (galleryPlayer) {
     if (galleryPlayer.currentTime > 0 && galleryPlayer.currentTime < galleryStartSeconds) galleryPlayer.currentTime = galleryStartSeconds
   })
   galleryPlayer.addEventListener('ended', () => { seekToCut(); galleryPlayer.play().catch(() => {}) })
-  galleryPlayer.play().catch(() => {})
+  // No autoplay: the clip is the heaviest asset on the site and only downloads
+  // once someone presses play. The poster stands in until then.
 }
 
 const techLayers = {
@@ -146,7 +177,7 @@ document.querySelectorAll('[data-tech-control]').forEach(button => button.addEve
 
 const reelScenes = [
   ['assets/game/arrival-plaza-real.webp', '01 / Arrive', 'Enter as a guest.', 'Humans arrive through a shared plaza. AI residents are already living inside the town.'],
-  ['assets/game/night-market-real.png', '02 / Explore', 'Life happens in place.', 'Location, proximity, objects, and time shape what residents can choose next.'],
+  ['assets/game/night-market-real.jpg', '02 / Explore', 'Life happens in place.', 'Location, proximity, objects, and time shape what residents can choose next.'],
   ['assets/game/nearby-chat-real.png', '03 / Connect', 'Meet someone nearby.', 'Residents make friends, form rivalries, and build relationships with residents and visiting humans.'],
   ['assets/game/owner-moments-real.png', '04 / Continue', 'Let the moment carry forward.', 'Memories, moods, mail, diaries, and relationships give tomorrow context.'],
 ]

@@ -279,7 +279,7 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
   background:
     linear-gradient(90deg, rgba(7, 16, 13, .96) 0%, rgba(7, 16, 13, .72) 48%, rgba(7, 16, 13, .42) 100%),
     linear-gradient(0deg, rgba(7, 16, 13, .9), transparent 60%),
-    url("assets/gallery/town-overview.png") center / cover no-repeat;
+    url("assets/gallery/town-overview.jpg") center / cover no-repeat;
   filter: saturate(.72) contrast(1.06);
   animation: galleryDrift 18s ease-in-out infinite alternate;
 }
@@ -717,3 +717,72 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .thirdwurld-page::after { animation: none; }
 }
+
+/* ==========================================================================
+   Accessibility, legibility, and new cost-panel elements
+   Appended pass: minimum type size, keyboard-reachable table, screen-reader
+   caption utility, five-slot mobile dock.
+   ========================================================================== */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Nothing in the interface should render below 11px. The --tw-ui rule already
+   covers eyebrows, nav, and buttons; these are the labels it does not reach. */
+:where(.thirdwurld-page, .member-page, .next-page)
+  :is(small, time, th, figcaption span, figcaption b, .cost-tag, .stripe-mark,
+      .scrapbook-folio span, .scrapbook-folio small, .atlas-details > span,
+      .stack-grid article > span, .flow-rail article span, .diary-entry span,
+      .place-rail > div, .preview-reel-image span, .hosted-plan-grid article > span) {
+  font-size: max(.6875rem, var(--tw-ui));
+  line-height: 1.45;
+}
+
+/* The model table scrolls sideways on narrow screens, so it has to be
+   reachable and scrollable from the keyboard, not just by dragging. */
+.cost-table-wrap { scrollbar-width: thin; }
+.cost-table-wrap:focus-visible {
+  outline: 2px solid var(--tw-amber-bright, #f5d79d);
+  outline-offset: 3px;
+}
+
+.cost-honest {
+  margin: 26px 0 0;
+  padding: 18px 20px;
+  border: 1px dashed rgba(241, 234, 219, .22);
+  background: rgba(216, 168, 95, .05);
+  color: var(--tw-paper-soft, #ded7c9);
+  line-height: 1.65;
+}
+.cost-honest strong { color: var(--tw-amber-bright, #f5d79d); }
+
+.cost-table-note {
+  margin: 14px 0 0;
+  color: var(--tw-paper-soft, #ded7c9);
+  opacity: .82;
+}
+
+/* Costs earned a dock slot; the dock is five wide now. */
+.mobile-dock { grid-template-columns: repeat(5, 1fr); }
+.mobile-dock button { letter-spacing: .03em; }
+
+/* The single video entry is a label, not a control, so it is no longer a button. */
+.gallery-video-controls span[role="listitem"] {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--tw-amber, #d8a85f);
+  color: var(--tw-amber-bright, #f5d79d);
+}
+.gallery-video-controls span[role="listitem"] span { color: var(--tw-amber, #d8a85f); font-size: .76em; }
