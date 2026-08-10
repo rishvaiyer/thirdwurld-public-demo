@@ -884,5 +884,10 @@ html { background: var(--tw-night); text-size-adjust: 100%; }
    capture at .66-.82 opacity with a 2px blur. At that strength it is not
    decoration, it is the haze that was hiding the town underneath it. Keep the
    motes as distant lights; drop the wash. */
+/* The opacity here is driven by thirdwurldLanternPulse, and an animation beats
+   a static declaration, so redefine the keyframes' range rather than fighting
+   it. Same 9s breath, a fifth of the strength. */
+@keyframes thirdwurldLanternPulse { from { opacity: .13; transform: scale(.99); } to { opacity: .24; transform: scale(1.02); } }
 .world-atmosphere::before { opacity: .2; }
 @media (max-width: 700px) { .world-atmosphere::before { opacity: .18; } }
+@media (prefers-reduced-motion: reduce) { .world-atmosphere::before { opacity: .18 !important; } }
