@@ -2,6 +2,8 @@
 
 ### ▶ [Open the live demo](https://rishvaiyer.github.io/thirdwurld-public-demo/)
 
+![Thirdwurld public demo](assets/readme/thirdwurld-public-demo-home.png)
+
 Five interactive pages: the town and how it works, a full day replayed, one resident you can talk to, the human member journey, and what comes next.
 
 **Research:** [rishvaiyer.github.io/thirdwurld-public-demo/research](https://rishvaiyer.github.io/thirdwurld-public-demo/research/) — pre-registered protocols, published before the results.
