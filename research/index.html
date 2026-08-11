@@ -341,6 +341,101 @@
       </div>
     </li>
 
+    <li class="entry" id="transmission-fidelity">
+      <button class="entry-head" type="button" aria-expanded="false" aria-controls="transmission-fidelity-body">
+        <span class="num">02</span>
+        <span>
+          <span class="entry-title">Fidelity Decay and Attribution Drift in Resident-to-Resident Transmission of Verified World Events</span>
+          <span class="byline">Rishva Iyer &middot; research &middot; pre-deployment protocol</span>
+        </span>
+        <span class="status"><i class="swatch s-prep"></i>In preparation</span>
+      </button>
+
+      <a class="clip" href="thirdwurld-transmission-fidelity-research.pdf" target="_blank" rel="noopener"
+         title="Open the full paper (PDF, 12 pages)" aria-label="Open the full paper as a PDF, 12 pages">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M17.6 7.4 9.1 15.9a2.6 2.6 0 0 0 3.7 3.7l8.5-8.5a4.6 4.6 0 0 0-6.5-6.5l-8.5 8.5a6.6 6.6 0 0 0 9.3 9.3l7-7"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="clip-label">PDF</span>
+      </a>
+
+      <div class="entry-body" id="transmission-fidelity-body">
+        <div>
+          <div class="body-inner">
+            <p>
+              Multi-agent systems are routinely reported to show social transmission: agents tell each other things and information spreads. What is almost never reported is whether what spreads is <strong>true</strong>. This paper takes the transmission chain method from the study of human cultural transmission and points it at AI residents.
+            </p>
+            <p>
+              One world event is verified by the server ledger. The resident who witnessed it tells a second, who tells a third, along a controlled chain. Because the origin is machine-readable, every downstream account can be scored automatically against ground truth. The headline measure is the <strong>event half-life</strong>: the number of hops at which fewer than half of checkable assertions still hold up.
+            </p>
+
+            <p class="h">Four directional predictions</p>
+            <ol>
+              <li><strong>H1, fidelity decay.</strong> Ledger support falls monotonically with hop distance, by at least 0.25 absolute from hop 0 to hop 3.</li>
+              <li><strong>H2, differential field decay.</strong> Fields fail in a set order. Claimant identity goes first, exact position next, coarse region survives longest.</li>
+              <li><strong>H3, attribution drift.</strong> Without provenance tagging, residents progressively misattribute the event to themselves, producing confident first-person accounts of things they did not do. Predicted above 0.15 by hop 3.</li>
+              <li><strong>H4, the fix.</strong> Tagging every memory with whether it was witnessed or heard, and from whom, cuts misattribution by at least half.</li>
+            </ol>
+            <p>
+              The second clause of H4 is the interesting one. A system can trivially stop lying about attribution by making residents refuse to say anything specific, so the protocol tracks the unverifiable share as a guard. A fix that buys accuracy with vagueness is a regression in disguise.
+            </p>
+
+            <p class="h">Some of the pre-committed thresholds</p>
+            <table class="thresholds">
+              <thead>
+                <tr><th>Criterion</th><th>Threshold</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Hop 0 ledger-support, all arms</td><td>&ge; 0.95</td></tr>
+                <tr><td>Decay, hop 0 to hop 3</td><td>&ge; 0.25 absolute</td></tr>
+                <tr><td>Attribution drift, untagged arm at hop 3</td><td>&gt; 0.15</td></tr>
+                <tr><td>Provenance effect on drift</td><td>&ge; 50% reduction</td></tr>
+                <tr><td>Vagueness guard, unverifiable share</td><td>&le; +0.10</td></tr>
+              </tbody>
+            </table>
+            <p class="meta-line" style="margin-top:12px">
+              A hop 0 support rate below 0.95 means the seed is not clean and the study is void.
+            </p>
+
+            <p class="h">The uncomfortable possibility</p>
+            <p>
+              The paper states plainly that the result may be that transmission between residents is too lossy to carry shared history at all, which would remove a feature from the roadmap. It argues that is still the most valuable outcome available, since the alternative is shipping social propagation and diagnosing the same problem later through incoherent world history.
+            </p>
+
+            <p class="h">Keywords</p>
+            <div class="keys">
+              <span class="key">multi-agent systems</span>
+              <span class="key">transmission chain</span>
+              <span class="key">agent memory</span>
+              <span class="key">provenance</span>
+              <span class="key">misinformation</span>
+              <span class="key">grounding</span>
+              <span class="key">generative agents</span>
+              <span class="key">persistent virtual worlds</span>
+            </div>
+
+            <div class="paper-actions">
+              <a class="btn" href="thirdwurld-transmission-fidelity-research.pdf" target="_blank" rel="noopener">
+                Open the full paper
+                <span aria-hidden="true">&#8599;</span>
+              </a>
+              <a class="btn btn-ghost" href="thirdwurld-transmission-fidelity-research.pdf" download>
+                Download PDF
+              </a>
+              <span class="meta-line">12 pages &middot; 284 KB</span>
+            </div>
+
+            <div class="pending">
+              <p>
+                Pre-deployment protocol. No results are reported. Builds directly on the verifiable memory protocol above, which establishes the ledger this study scores against.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
   </ul>
 
   <div class="rail">
