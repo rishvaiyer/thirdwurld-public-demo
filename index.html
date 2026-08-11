@@ -59,14 +59,16 @@
     font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
     color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px;
   }
-  .navlinks { display: flex; gap: 22px; }
+  .navlinks { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
   .navlinks a {
-    font-family: var(--mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; position: relative; padding: 3px 0;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; position: relative; padding: 3px 0; white-space: nowrap;
   }
   .navlinks a:hover { color: var(--paper); }
   .navlinks a.is-here { color: var(--paper); }
   .navlinks a.is-here::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--amber); }
+  .bar { align-items: flex-start; }
+  @media (max-width: 760px) { .navlinks { gap: 6px 14px; } .navlinks a { font-size: 9.5px; letter-spacing: .1em; } }
   .dot { display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: var(--sage); margin-right: 7px; vertical-align: middle; animation: breathe 2.6s ease-in-out infinite; }
   @keyframes breathe { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.72); } }
 
@@ -122,9 +124,18 @@
 <header>
   <div class="shell bar">
     <a class="wordmark" href="./">thirdwurld<span>&deg;</span></a>
-    <nav class="navlinks">
-      <a href="./" class="is-here">The demo</a>
-      <a href="research/">Research</a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#world" target="_blank" rel="noopener">World</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#residents" target="_blank" rel="noopener">Residents</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#places" target="_blank" rel="noopener">Places</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#gallery" target="_blank" rel="noopener">Gallery</a>
+      <a href="https://api.magicpath.ai/v1/warm-lake-6615" target="_blank" rel="noopener">A Day</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#technology" target="_blank" rel="noopener">Technology</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#costs" target="_blank" rel="noopener">Costs</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#status" target="_blank" rel="noopener">Status</a>
+      <a href="https://api.magicpath.ai/v1/safe-ground-2664#preview" target="_blank" rel="noopener">Preview</a>
+      <a href="./research/">Research</a>
+      <a href="./" class="is-here">Demo</a>
     </nav>
     <span class="tag"><i class="dot"></i>Private MVP &middot; world continuing</span>
   </div>
