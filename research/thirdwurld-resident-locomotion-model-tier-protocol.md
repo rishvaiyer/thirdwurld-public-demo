@@ -170,7 +170,7 @@ API-Bank reports meaningful differences between models on planning and tool use,
 
 ## 9. Limits and ethical boundary
 
-This protocol measures model outputs, server outcomes, and visible locomotion. It does not measure consciousness, desire, felt curiosity, or inner experience. "Voluntary" means that the model selected one allowed action under a specified prompt and state. It is a product-behavior term, not a claim about mental life.
+This protocol measures model outputs, server outcomes, and visible locomotion. "Voluntary" means that the model selected one allowed action under a specified prompt and state.
 
 The study is intentionally narrow. It may establish that a model is more reliable at choosing a valid movement action. It cannot establish that stronger models make better residents overall, that walking is inherently more meaningful than quiet time, or that results generalize beyond the tested prompts, models, and world version.
 
