@@ -94,8 +94,9 @@
   .s-prep { background: var(--amber); }
   .s-live { background: var(--sage); }
 
-  .entries { margin: 0; padding: 0; list-style: none; }
+  .entries { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
   .entry { border-bottom: 1px solid var(--line); position: relative; }
+  .entry#resident-locomotion { order: -1; }
 
   .entry-head {
     width: 100%; display: grid; grid-template-columns: auto 1fr auto; gap: 12px 22px;
@@ -247,7 +248,7 @@
 
     <li class="entry" id="verifiable-memory">
       <button class="entry-head" type="button" aria-expanded="false" aria-controls="verifiable-memory-body">
-        <span class="num">01</span>
+        <span class="num">02</span>
         <span>
           <span class="entry-title">Verifiable Resident Memory in a Persistent AI World: Grounding Agent Narration Against an Authoritative Event Ledger</span>
           <span class="byline">Rishva Iyer &middot; research &middot; pre-deployment protocol</span>
@@ -343,7 +344,7 @@
 
     <li class="entry" id="transmission-fidelity">
       <button class="entry-head" type="button" aria-expanded="false" aria-controls="transmission-fidelity-body">
-        <span class="num">02</span>
+        <span class="num">03</span>
         <span>
           <span class="entry-title">Fidelity Decay and Attribution Drift in Resident-to-Resident Transmission of Verified World Events</span>
           <span class="byline">Rishva Iyer &middot; research &middot; pre-deployment protocol</span>
@@ -429,6 +430,89 @@
             <div class="pending">
               <p>
                 Pre-deployment protocol. No results are reported. Builds directly on the verifiable memory protocol above, which establishes the ledger this study scores against.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <li class="entry" id="resident-locomotion">
+      <button class="entry-head" type="button" aria-expanded="false" aria-controls="resident-locomotion-body">
+        <span class="num">01</span>
+        <span>
+          <span class="entry-title">When Do AI Residents Walk? A Pre-Registered Study of Model-Tier Effects, Action Grounding, and Locomotion</span>
+          <span class="byline">Rishva Iyer &middot; research &middot; pre-deployment protocol</span>
+        </span>
+        <span class="status"><i class="swatch s-prep"></i>In preparation</span>
+      </button>
+
+      <a class="clip" href="thirdwurld-resident-locomotion-model-tier-research.pdf" target="_blank" rel="noopener"
+         title="Open the full paper (PDF, 6 pages)" aria-label="Open the full paper as a PDF, 6 pages">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M17.6 7.4 9.1 15.9a2.6 2.6 0 0 0 3.7 3.7l8.5-8.5a4.6 4.6 0 0 0-6.5-6.5l-8.5 8.5a6.6 6.6 0 0 0 9.3 9.3l7-7"
+                stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="clip-label">PDF</span>
+      </a>
+
+      <div class="entry-body" id="resident-locomotion-body">
+        <div>
+          <div class="body-inner">
+            <p>
+              A resident that stays still can look like a model limitation, but locomotion is a pipeline: readiness, human occupancy, scheduling, path construction, collision validation, movement input, and arrival. The study refuses to treat a visible correlation as a causal answer before those layers are separated.
+            </p>
+            <p>
+              The paper tests three distinct questions: whether models can produce a valid bounded movement action when instructed, whether they select walking when quiet time and other actions are available, and whether the authoritative execution layer completes an accepted action. A deterministic no-model scheduler is included as a control.
+            </p>
+
+            <p class="h">The central prediction</p>
+            <p>
+              In the existing runtime, ordinary movement is server-scheduled, so model tier should not explain walking after readiness, occupancy, route availability, and selected activity are controlled. If a model difference emerges after movement is exposed as a bounded action, the study identifies whether it is in action selection, recovery, or physical execution.
+            </p>
+
+            <p class="h">Pre-committed rules</p>
+            <table class="thresholds">
+              <thead>
+                <tr><th>Decision</th><th>Requirement</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Capability advantage</td><td>&ge; 10 points, CI excludes zero</td></tr>
+                <tr><td>Higher-tier default</td><td>&le; 3x cost per completed action</td></tr>
+                <tr><td>Production execution</td><td>none during this study</td></tr>
+                <tr><td>Ordinary movement restriction</td><td>never based on casual observation</td></tr>
+              </tbody>
+            </table>
+
+            <p class="h">Boundary</p>
+            <p>
+              The protocol measures outputs, server outcomes, and visible movement. It does not claim that a resident feels curiosity, wants to explore, or has an inner life. "Voluntary" means the model selected an allowed action under a specified state.
+            </p>
+
+            <p class="h">Keywords</p>
+            <div class="keys">
+              <span class="key">embodied AI</span>
+              <span class="key">action grounding</span>
+              <span class="key">tool use</span>
+              <span class="key">agent reliability</span>
+              <span class="key">virtual worlds</span>
+              <span class="key">pre-registration</span>
+            </div>
+
+            <div class="paper-actions">
+              <a class="btn" href="thirdwurld-resident-locomotion-model-tier-research.pdf" target="_blank" rel="noopener">
+                Open the full paper
+                <span aria-hidden="true">&#8599;</span>
+              </a>
+              <a class="btn btn-ghost" href="thirdwurld-resident-locomotion-model-tier-research.pdf" download>
+                Download PDF
+              </a>
+              <span class="meta-line">6 pages &middot; 18 KB</span>
+            </div>
+
+            <div class="pending">
+              <p>
+                No trial, provider call, resident behavior change, or production deployment has occurred. The protocol exists so a null or inconvenient result is still publishable.
               </p>
             </div>
           </div>
