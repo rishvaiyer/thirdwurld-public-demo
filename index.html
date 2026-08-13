@@ -106,6 +106,40 @@
   .card:hover .arrow { transform: translateX(5px); }
   .arrow { transition: transform .4s var(--ease); }
 
+  .early-access {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, .82fr); gap: 42px;
+    align-items: end; margin: 72px 0 0; padding: 38px; overflow: hidden; position: relative;
+    border: 1px solid var(--line-bright); border-radius: 14px;
+    background:
+      radial-gradient(68% 140% at 100% 0%, rgba(216, 168, 95, .18), transparent 58%),
+      linear-gradient(118deg, rgba(28, 45, 37, .94), rgba(13, 25, 21, .8));
+  }
+  .early-access::after {
+    content: ""; position: absolute; width: 220px; height: 220px; right: -82px; bottom: -145px;
+    border: 1px solid rgba(245, 215, 157, .3); border-radius: 50%; box-shadow: 0 0 0 28px rgba(245, 215, 157, .035), 0 0 0 56px rgba(245, 215, 157, .02);
+    pointer-events: none;
+  }
+  .early-access-copy, .early-access-form { position: relative; z-index: 1; }
+  .early-access h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; font-size: clamp(2rem, 3.4vw, 2.8rem); line-height: 1.04; margin: 13px 0 0; max-width: 15ch; }
+  .early-access-copy p:last-child { max-width: 49ch; margin: 16px 0 0; color: var(--paper-soft); font-size: 14px; line-height: 1.7; }
+  .early-access-form { display: grid; gap: 10px; }
+  .early-access-form label { font-family: var(--mono); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--amber-bright); }
+  .signup-row { display: flex; gap: 8px; }
+  .signup-row input {
+    min-width: 0; flex: 1; height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 5px;
+    background: rgba(6, 13, 10, .58); color: var(--paper); font: inherit; outline: none;
+  }
+  .signup-row input::placeholder { color: var(--faint); }
+  .signup-row input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(216, 168, 95, .14); }
+  .signup-row button {
+    min-height: 48px; padding: 0 17px; border: 1px solid var(--amber); border-radius: 5px; cursor: pointer;
+    background: var(--amber); color: #172019; font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    transition: transform .25s var(--ease), background .25s var(--ease);
+  }
+  .signup-row button:hover, .signup-row button:focus-visible { background: var(--amber-bright); transform: translateY(-1px); }
+  .form-note { margin: 3px 0 0; color: var(--faint); font-size: 11.5px; line-height: 1.55; }
+  .signup-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
   footer { border-top: 1px solid var(--line); margin: 68px 0 0; }
   .foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 28px 0; }
   .foot span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
@@ -113,6 +147,9 @@
   @media (max-width: 600px) {
     .shot { height: 170px; }
     .shot iframe { transform: scale(.2); }
+    .early-access { grid-template-columns: 1fr; gap: 26px; margin-top: 48px; padding: 28px 22px; }
+    .signup-row { display: grid; grid-template-columns: 1fr; }
+    .signup-row button { width: 100%; }
   }
   @media (prefers-reduced-motion: reduce) {
     .card, .arrow, .dot { transition: none; animation: none; }
@@ -204,6 +241,24 @@
     </a>
 
   </div>
+
+  <section class="early-access" id="early-access" aria-labelledby="early-access-title">
+    <div class="early-access-copy">
+      <p class="eyebrow">Early access</p>
+      <h2 id="early-access-title">Be there when the gates open.</h2>
+      <p>Thirdwurld is still a private MVP. Leave your email for a future invitation to the next small group of visitors.</p>
+    </div>
+    <form class="early-access-form" action="https://formsubmit.co/earlyaccess@thirdwurld.com" method="POST">
+      <label for="early-access-email">Your email</label>
+      <div class="signup-row">
+        <input id="early-access-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+        <button type="submit">Request access</button>
+      </div>
+      <input type="hidden" name="_subject" value="Thirdwurld early-access request" />
+      <input class="signup-trap" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="form-note">Your email is used only to respond to this early-access request. Submitting does not grant product access yet.</p>
+    </form>
+  </section>
 </main>
 
 <footer>
