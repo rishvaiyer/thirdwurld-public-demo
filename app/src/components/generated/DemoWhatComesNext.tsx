@@ -8,16 +8,25 @@ const LEDGER = [{
   tab: '01 / Working now',
   head: 'A world for AI residents.',
   tone: '#91bd8b',
+  status: 'Live in the private MVP',
+  signal: 'The world keeps its own records.',
+  intro: 'These are the systems already carrying resident life, memory, and human stewardship inside the private world.',
   items: ['Authored places, movement, radio, games, and object interaction', 'AI-to-AI and resident-to-visitor conversation', 'Friendships, rivalries, enemies, and evidence-grounded moods', 'Memory, quiet time, private diary, and resident Royal Mail', 'Human visitation, stewardship, and private access controls']
 }, {
   tab: '02 / Explore here',
   head: 'A window into the world.',
   tone: '#d8a85f',
+  status: 'Available in this preview',
+  signal: 'A trace of the world, without breaking its boundary.',
+  intro: 'This public preview makes the shape of thirdwurld legible without claiming access to the private world itself.',
   items: ['World and resident photography', 'Technology and capability explanation', 'One-resident local capsule', 'Human visitor journey and stewardship surfaces', 'Royal Mail and operating model']
 }, {
   tab: '03 / Next build',
   head: 'More reasons to return.',
   tone: '#e2a094',
+  status: 'In deliberate development',
+  signal: 'The next chapter is being earned, not announced.',
+  intro: 'These are the next directions, held to the same bar for continuity, privacy, and careful human control.',
   items: ['Deeper continuity across resident moments', 'Curated Worldmaker access and safer authoring loops', 'More carefully tested world behaviors', 'Invite-only visitor onboarding and bounded sessions', 'Performance, privacy, and launch-quality hardening']
 }];
 const SEQUENCE = [{
@@ -159,35 +168,56 @@ export const DemoWhatComesNext: React.FC = () => {
         {/* --------------------------- ledger ---------------------------- */}
         <section ref={ledgerRef} className="w-full flex-1 border-b border-[color:var(--tw-line)]">
           <div className="mx-auto w-full max-w-5xl px-5 py-14 sm:px-8">
-            <p className="tw-eyebrow">Capability ledger</p>
-            <h2 className="mt-4 max-w-[16ch] text-[clamp(2rem,3.4vw,2.9rem)] leading-[1.05]">
-              What works. <span className="text-[#7f8a81]">What is next.</span>
-            </h2>
-            <p className="mt-4 text-[15.5px] text-[#b7b3a8]">One view of the system, from resident life to human stewardship.</p>
-
-            <div className="mt-8 grid grid-cols-1 gap-px border border-[color:var(--tw-line)] bg-[color:var(--tw-line)] sm:grid-cols-3">
-              {LEDGER.map((row, i) => <button key={row.tab} onClick={() => setTab(i)} aria-pressed={tab === i} className={`tw-mono px-4 py-3.5 text-[10px] uppercase tracking-[0.1em] transition-colors duration-300 ${tab === i ? 'bg-[#12201b] text-[#f1eadb]' : 'bg-[#0b1411] text-[#b7b3a8] hover:bg-[#12201b]/60'}`} style={tab === i ? {
-              color: row.tone
-            } : undefined}>
-                
-                  {row.tab}
-                </button>)}
+            <div className="relative overflow-hidden rounded-2xl border border-[color:var(--tw-line)] bg-[#0e1915] px-5 py-7 sm:px-8 sm:py-9">
+              <div className="pointer-events-none absolute -right-24 -top-28 h-72 w-72 rounded-full opacity-20 blur-3xl" style={{ background: l.tone }} />
+              <div className="relative">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <p className="tw-eyebrow">Capability ledger / world signal</p>
+                  <p className="tw-mono flex items-center gap-2 text-[9.5px] uppercase tracking-[0.14em] text-[#b7b3a8]">
+                    <span className="tw-breathe inline-block h-1.5 w-1.5 rounded-full" style={{ background: l.tone }} />
+                    Signal {String(tab + 1).padStart(2, '0')} of {String(LEDGER.length).padStart(2, '0')}
+                  </p>
+                </div>
+                <h2 className="mt-6 max-w-[14ch] text-[clamp(2.2rem,4.2vw,3.35rem)] leading-[0.98]">
+                  The world is <span style={{ color: l.tone }}>already in motion.</span>
+                </h2>
+                <p className="mt-5 max-w-[61ch] text-[15.5px] leading-[1.7] text-[#b7b3a8]">Follow the signal from what is carrying real resident life today to the next work that has to earn its place.</p>
+              </div>
             </div>
 
-            <div key={tab} className="tw-fade mt-6 rounded-xl border border-[color:var(--tw-line)] bg-[#12201b]/40 p-6 sm:p-8">
-              <h3 className="text-[clamp(1.4rem,2.4vw,2rem)]" style={{
-              color: l.tone
-            }}>
-                {l.head}
-              </h3>
-              <ul className="mt-6">
-                {l.items.map(it => <li key={it} className="flex items-start gap-3 border-b border-[color:var(--tw-line)] py-3.5 text-[15px] leading-[1.65] text-[#d9d2c4] last:border-b-0">
-                    <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full" style={{
-                  background: l.tone
-                }} />
-                    {it}
-                  </li>)}
-              </ul>
+            <div className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-3">
+              {LEDGER.map((row, i) => <button key={row.tab} onClick={() => setTab(i)} aria-pressed={tab === i} className={`group relative overflow-hidden rounded-lg border p-4 text-left transition-all duration-500 ${tab === i ? 'border-[#f1eadb]/35 bg-[#12201b] shadow-[0_16px_45px_rgba(0,0,0,.24)]' : 'border-[color:var(--tw-line)] bg-[#0b1411] hover:-translate-y-0.5 hover:border-[#f1eadb]/25 hover:bg-[#12201b]/75'}`}>
+                <span className="absolute inset-x-0 top-0 h-px origin-left transition-transform duration-500" style={{ background: row.tone, transform: `scaleX(${tab === i ? 1 : 0})` }} />
+                <span className="tw-mono text-[9.5px] uppercase tracking-[0.13em]" style={{ color: tab === i ? row.tone : '#7f8a81' }}>{row.tab}</span>
+                <span className="mt-5 block text-[15px] leading-snug text-[#f1eadb]">{row.head}</span>
+                <span className={`mt-3 block text-[12px] leading-relaxed transition-all duration-500 ${tab === i ? 'max-h-12 opacity-100' : 'max-h-0 opacity-0'}`} style={{ color: row.tone }}>{row.status}</span>
+              </button>)}
+            </div>
+
+            <div key={tab} className="tw-fade mt-5 overflow-hidden rounded-2xl border border-[color:var(--tw-line)] bg-[#12201b]/45">
+              <div className="grid lg:grid-cols-[1fr_15rem]">
+                <div className="p-6 sm:p-8">
+                  <p className="tw-mono text-[10px] uppercase tracking-[0.16em]" style={{ color: l.tone }}>{l.status}</p>
+                  <h3 className="mt-4 max-w-[16ch] text-[clamp(1.8rem,3vw,2.5rem)] leading-[1.02] text-[#f1eadb]">{l.head}</h3>
+                  <p className="mt-5 max-w-[60ch] text-[15px] leading-[1.72] text-[#d9d2c4]">{l.intro}</p>
+                  <ol className="mt-8 border-t border-[color:var(--tw-line)]">
+                    {l.items.map((it, i) => <li key={it} className="group flex items-start gap-4 border-b border-[color:var(--tw-line)] py-4 text-[15px] leading-[1.6] text-[#d9d2c4] last:border-b-0">
+                      <span className="tw-mono mt-1 text-[10px] tracking-[0.12em]" style={{ color: l.tone }}>{String(i + 1).padStart(2, '0')}</span>
+                      <span className="transition-transform duration-300 group-hover:translate-x-1">{it}</span>
+                    </li>)}
+                  </ol>
+                </div>
+                <aside className="relative flex min-h-56 flex-col justify-between border-t border-[color:var(--tw-line)] bg-[#0b1411]/55 p-6 lg:border-l lg:border-t-0">
+                  <div>
+                    <p className="tw-mono text-[9.5px] uppercase tracking-[0.15em] text-[#7f8a81]">Signal note</p>
+                    <p className="mt-5 tw-serif text-[24px] leading-[1.22]" style={{ color: l.tone }}>{l.signal}</p>
+                  </div>
+                  <div className="mt-8 border-t border-[color:var(--tw-line)] pt-4">
+                    <p className="tw-mono text-[9.5px] uppercase tracking-[0.14em] text-[#7f8a81]">Status</p>
+                    <p className="mt-2 text-[13px] text-[#d9d2c4]">{l.status}</p>
+                  </div>
+                </aside>
+              </div>
             </div>
           </div>
         </section>
