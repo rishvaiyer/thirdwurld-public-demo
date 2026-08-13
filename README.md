@@ -101,8 +101,8 @@ The public demo will explain the architecture at a useful level without exposing
 
 The demo also includes two bounded, public-safe walkthroughs:
 
-- `try.html` is a one-resident capsule with deterministic local responses and an optional server-side endpoint hook. It does not expose provider keys or private-world access.
-- `member.html` is a visual human-member journey through invitation, owner dashboard, moments, social context, diary, and illustrative private Royal Mail.
+- `/try/` is a one-resident capsule with deterministic local responses and an optional server-side endpoint hook. It does not expose provider keys or private-world access.
+- `/member/` is a visual human-member journey through invitation, owner dashboard, moments, social context, diary, and illustrative private Royal Mail.
 
 ### System shape
 
@@ -142,18 +142,44 @@ The goal is to show how the product works as a system, not merely show a charact
 
 ## Public demo
 
-The root `index.html` is the public-facing product showcase. It is intentionally
-dependency-free so it can be previewed locally or served directly by GitHub Pages.
+The root `index.html` is the hand-written hub. It is dependency-free and cards out to
+five pages that are built from source in this repository and served by GitHub Pages:
+
+| Route | Page |
+| --- | --- |
+| `/world/` | The town, and how it works |
+| `/day/` | A full day replayed |
+| `/try/` | One resident you can talk to |
+| `/member/` | The human member journey |
+| `/next/` | What comes next |
+
+Everything is self-hosted. The pages have no third-party runtime dependency: images
+come from `assets/` in this repository and the only external request is the Inter
+webfont from Google Fonts.
+
+### Serving it
 
 ```bash
-node --test tests/public-demo.test.mjs
 python3 -m http.server 4173
 ```
 
-Then open `http://127.0.0.1:4173`. The navigation in `app.js` is configured as
-`THIRDWURLD_DEMO_NAV`; set a page's `enabled` value to `false` to hide it without
-removing its content. The in-page demo reel uses original illustrative artwork,
-not live resident data or access to the private world.
+Then open `http://127.0.0.1:4173`. The committed build is what Pages serves, so no
+build step is needed just to preview the site.
+
+### Rebuilding the five pages
+
+The page sources live in `app/` (Vite, React, TypeScript, Tailwind v4). The build
+writes the entry HTML for each route plus hashed bundles into `static/`, straight
+into the repository root, and that output is committed.
+
+```bash
+cd app && npm install && npm run build
+```
+
+`emptyOutDir` is off, so the build never touches `index.html`, `assets/`, `research/`,
+or `docs/`. Commit the regenerated route folders and `static/` along with your source
+change. The in-page demo reel uses original illustrative artwork, not live resident
+data or access to the private world.
 
 ## Public demo roadmap
 

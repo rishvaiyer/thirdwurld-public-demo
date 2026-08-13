@@ -1,0 +1,27 @@
+{
+  "name": "thirdwurld-public-demo-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Self-hosted build of the five thirdwurld demo pages. Output is committed to the repository root and served by GitHub Pages.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "@types/node": "^26.2.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.1.11",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  }
+}
