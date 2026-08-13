@@ -248,15 +248,14 @@
       <h2 id="early-access-title">Be there when the gates open.</h2>
       <p>Thirdwurld is still a private MVP. Leave your email for a future invitation to the next small group of visitors.</p>
     </div>
-    <form class="early-access-form" action="https://formsubmit.co/earlyaccess@thirdwurld.com" method="POST">
+    <form class="early-access-form" id="early-access-form" novalidate>
       <label for="early-access-email">Your email</label>
       <div class="signup-row">
         <input id="early-access-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
         <button type="submit">Request access</button>
       </div>
-      <input type="hidden" name="_subject" value="Thirdwurld early-access request" />
-      <input class="signup-trap" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <p class="form-note">Your email is used only to respond to this early-access request. Submitting does not grant product access yet.</p>
+      <input class="signup-trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="form-note" id="early-access-note" aria-live="polite">Your email is stored only for this early-access request. Submitting does not grant product access yet.</p>
     </form>
   </section>
 </main>
@@ -267,6 +266,44 @@
     <span>Private MVP &middot; invitation only &middot; not launched</span>
   </div>
 </footer>
+
+<script>
+  const earlyAccessForm = document.querySelector('#early-access-form');
+  const earlyAccessEmail = document.querySelector('#early-access-email');
+  const earlyAccessNote = document.querySelector('#early-access-note');
+
+  earlyAccessForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = earlyAccessEmail.value.trim();
+    if (!earlyAccessEmail.checkValidity()) {
+      earlyAccessEmail.reportValidity();
+      return;
+    }
+
+    const submitButton = earlyAccessForm.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Saving…';
+    earlyAccessNote.textContent = 'Saving your early-access request…';
+
+    try {
+      const response = await fetch('https://early-access-api-production-8faa.up.railway.app/api/early-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, website: earlyAccessForm.elements.website.value })
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || 'Unable to save your request.');
+
+      earlyAccessForm.reset();
+      earlyAccessNote.textContent = 'You are on the early-access list. We will be in touch.';
+      submitButton.textContent = 'Request saved';
+    } catch (error) {
+      earlyAccessNote.textContent = error.message || 'Unable to save your request. Please try again.';
+      submitButton.disabled = false;
+      submitButton.textContent = 'Request access';
+    }
+  });
+</script>
 
 </body>
 </html>
