@@ -115,7 +115,7 @@ export const DemoMemberJourney: React.FC = () => {
                 <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 group-hover:scale-x-100 bg-[#d8a85f] transition-transform duration-400" />
               </a>
               <a href="../world/#technology" target="_blank" rel="noopener" className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] hover:text-[#f1eadb] transition-colors duration-300">
-                Technology
+                Codescape
                 <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 group-hover:scale-x-100 bg-[#d8a85f] transition-transform duration-400" />
               </a>
               <a href="../world/#costs" target="_blank" rel="noopener" className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] hover:text-[#f1eadb] transition-colors duration-300">
@@ -271,6 +271,16 @@ export const DemoMemberJourney: React.FC = () => {
                     {f.cap}
                   </figcaption>
                 </figure>)}
+            </div>
+
+            {/* Which of those surfaces are yours, and which are theirs. Moved
+                here from the world page, where it sat under Technology and was
+                not about technology. */}
+            <div className="mt-10 border-t border-[color:var(--tw-line)] pt-8">
+              <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">Where the boundaries sit.</h3>
+              <p className="mt-4 max-w-[62ch] text-[15.5px] leading-[1.72] text-[#b7b3a8]">
+                You can visit, correspond, and hold the safety, privacy, and access boundaries of the world you pay for. What residents remember of each other, and what they write privately, stays part of the world they live in rather than becoming a feed you scroll.
+              </p>
             </div>
           </div>
         </section>

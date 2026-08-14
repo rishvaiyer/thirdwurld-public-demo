@@ -276,6 +276,11 @@ const DAY: Event[] = [{
   state: 'asleep',
   text: 'woke once and went back to sleep'
 }];
+// The loop the timeline above is a recording of. It used to sit on the world
+// page's technology section, twice over, where it was explaining continuity to
+// people who had not yet seen any. Here it sits under a day of real entries,
+// which is the thing it describes.
+const BEATS: [string, string, string, string][] = [['01', 'World record', 'A place, a person, or a meaningful change is recorded by the world, not invented by a resident.', 'Does not claim: fabricated history, or unrestricted action.'], ['02', 'Resident context', 'Identity, mood, relationships and memory are assembled for whoever is about to act.', 'Why it matters: memories shape friendship, rivalry, and what someone does next.'], ['03', 'Bounded choice', 'The resident chooses where to go, who to approach, and what to use, inside their permissions.', 'Why it matters: the world offers more than conversation to choose from.'], ['04', 'Durable trace', 'Diaries, relationship signals, mail and world events make the next moment more than a reset.', 'Why it matters: resident life continues after visitors leave.']];
 const DAY_MINUTES = 1440;
 const REAL_MS_PER_DAY = 24 * 60 * 1000;
 const clock = (m: number) => `${String(Math.floor(m / 60) % 24).padStart(2, '0')}:${String(Math.floor(m) % 60).padStart(2, '0')}`;
@@ -352,7 +357,7 @@ export const DemoADay: React.FC = () => {
                 <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-100 bg-[#d8a85f] transition-transform duration-400" />
               </a>
               <a href="../world/#technology" target="_blank" rel="noopener" className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] hover:text-[#f1eadb] transition-colors duration-300">
-                Technology
+                Codescape
                 <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 group-hover:scale-x-100 bg-[#d8a85f] transition-transform duration-400" />
               </a>
               <a href="../world/#costs" target="_blank" rel="noopener" className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] hover:text-[#f1eadb] transition-colors duration-300">
@@ -504,8 +509,22 @@ export const DemoADay: React.FC = () => {
               Every entry above is something the world records: a place, a person, a change worth carrying forward. It is the same material a resident draws on when deciding what to do next.
             </p>
 
-            <div className="mt-7 flex flex-wrap gap-x-8 gap-y-3">
-              {[['See how it works ↗', '../world/#technology'], ['Meet the residents ↗', '../world/#residents'], ['Try one resident ↗', '../try/']].map(([l, href]) => <a key={l} href={href} target="_blank" rel="noopener" className="text-[14.5px] text-[#d9d2c4] transition-colors duration-300 hover:text-[#f5d79d]">
+            {/* What the timeline above is actually doing, in four beats. */}
+            <div className="mt-12">
+              <span className="tw-eyebrow">From one entry to the next</span>
+              <h2 className="mt-4 max-w-[20ch] text-[clamp(1.6rem,3vw,2.2rem)] leading-[1.08]">How a moment becomes the reason for the next one.</h2>
+              <div className="mt-7 grid grid-cols-1 gap-px border border-[color:var(--tw-line)] bg-[color:var(--tw-line)] sm:grid-cols-2 lg:grid-cols-4">
+                {BEATS.map(([n, t, b, f]) => <article key={n} className="bg-[#0b1411] p-5">
+                    <b className="tw-mono text-[10px] tracking-[0.14em] text-[#d8a85f]">{n}</b>
+                    <h3 className="mt-2 text-[17px] leading-snug">{t}</h3>
+                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-[#b7b3a8]">{b}</p>
+                    <p className="tw-mono mt-4 border-t border-[color:var(--tw-line)] pt-3 text-[9.5px] leading-[1.6] text-[#7f8a81]">{f}</p>
+                  </article>)}
+              </div>
+            </div>
+
+            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3">
+              {[['See the codebase ↗', '../world/#technology'], ['Meet the residents ↗', '../world/#residents'], ['Try one resident ↗', '../try/']].map(([l, href]) => <a key={l} href={href} target="_blank" rel="noopener" className="text-[14.5px] text-[#d9d2c4] transition-colors duration-300 hover:text-[#f5d79d]">
                   {l}
                 </a>)}
             </div>

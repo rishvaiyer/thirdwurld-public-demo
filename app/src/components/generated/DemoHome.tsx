@@ -288,10 +288,13 @@ const GALLERY = [{
   body: 'A resident moved a chair to face the water for someone who sits alone.'
 }];
 const CODESCAPE_URL = SITE + 'codescape/';
-// Printed by the generator that built the city, so the page and the thing it is
-// describing cannot drift apart without someone noticing.
+// Every figure below is read out of the same build that produced the city, so
+// the page and the thing it describes cannot drift apart unnoticed.
 const CITY = [['1,032', 'tracked files'], ['224,564', 'lines of code'], ['14', 'districts'], ['origin/main', 'the shipped commit']];
-const STACK = [['01 / Foundation', 'Hyperfy + Node.js', 'A Hyperfy foundation with a Node.js 22.11+ server, a three.js client, and PhysX for collision.'], ['02 / Authority', 'Server first', 'World state, identity, permissions, resident mail, and persistence stay authoritative on the server, in Postgres.'], ['03 / Memory', 'Local records, optional recall', 'Local MemoryStore records are authoritative. Optional Mem0 recall is derived and falls back locally when unavailable.'], ['04 / Residents', 'Models behind a boundary', 'Residents think through OpenAI or Anthropic models, inside a sandbox that decides what they are allowed to do.']];
+// The districts, largest first. This is the shape of the repository, not a
+// diagram of it: the same numbers that decided how tall the buildings are.
+const DISTRICTS = [['src/core', 151, '73,286', 'Engine. Nodes, systems, physics, the renderer stage, the script sandbox.'], ['src/world', 275, '44,129', 'The town itself. World apps, districts, avatars, the authored GLBs.'], ['src/server', 111, '24,764', 'Authority. World state, accounts, residents, mail, persistence, billing.'], ['scripts', 169, '22,366', 'Tests and tooling. Every one runs on its own with no framework.'], ['src/client', 92, '19,558', 'Interface. The React overlay the world is driven through.'], ['site', 34, '18,885', 'The public pages, including this one.']];
+const STACK = [['Client', 'three.js · Rapier · PhysX', 'three.js with three-mesh-bvh for raycasts, n8ao and postprocessing for the look. Rapier runs the player controller; PhysX runs world collision through wasm.'], ['Server', 'Node 22.11 · Fastify · ws', 'Fastify serves the API and the socket. World state, identity and permissions are decided here and broadcast as msgpackr frames, never trusted from a client.'], ['Data', 'Postgres · knex · S3', 'Postgres through knex for blueprints, entities, accounts and mail, with SQLite for local runs. Assets are content-addressed by hash into S3-compatible storage.'], ['Residents', 'OpenAI · Anthropic · SES', 'Residents think through either provider on a per-resident key. Mem0 recall is optional and derived; local records stay authoritative. World-app scripts run inside an SES compartment, so a script gets capabilities rather than the runtime.']];
 const PLANS = [{
   name: 'Cozy',
   price: '$9',
@@ -846,23 +849,49 @@ export const DemoHome: React.FC = () => {
 
               <Reveal delay={140}>
                 <div className="mt-14">
-                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">What it is built with.</h3>
-                  <p className="mt-2 max-w-[62ch] text-[14.5px] leading-relaxed text-[#b7b3a8]">
-                    The tall towers in the city are the world client and the server. Everything below names what they are made of.
+                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">Where the code is.</h3>
+                  <p className="mt-2 max-w-[64ch] text-[14.5px] leading-relaxed text-[#b7b3a8]">
+                    The six largest districts, by lines. Two thirds of the repository is the engine and the town built on it; the server that arbitrates both is a fifth of their size.
                   </p>
+                  <div className="tw-scroll mt-6 overflow-x-auto">
+                    <table className="w-full min-w-[38rem] border-collapse text-left">
+                      <thead>
+                        <tr className="tw-mono text-[9.5px] uppercase tracking-[0.16em] text-[#7f8a81]">
+                          <th className="border-b border-[color:var(--tw-line)] py-3 pr-4 font-normal">District</th>
+                          <th className="border-b border-[color:var(--tw-line)] py-3 pr-4 text-right font-normal">Files</th>
+                          <th className="border-b border-[color:var(--tw-line)] py-3 pr-4 text-right font-normal">Lines</th>
+                          <th className="border-b border-[color:var(--tw-line)] py-3 font-normal">What is in it</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {DISTRICTS.map(([n, f, l, w]) => <tr key={n as string}>
+                            <td className="tw-mono border-b border-[color:var(--tw-line)] py-3 pr-4 align-top text-[12px] text-[#f5d79d]">{n}</td>
+                            <td className="tw-mono border-b border-[color:var(--tw-line)] py-3 pr-4 text-right align-top text-[12px] text-[#b7b3a8]">{f}</td>
+                            <td className="tw-mono border-b border-[color:var(--tw-line)] py-3 pr-4 text-right align-top text-[12px] text-[#d9d2c4]">{l}</td>
+                            <td className="border-b border-[color:var(--tw-line)] py-3 align-top text-[13.5px] leading-relaxed text-[#b7b3a8]">{w}</td>
+                          </tr>)}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </Reveal>
+
+              <Reveal delay={180}>
+                <div className="mt-14">
+                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">What it runs on.</h3>
                   <div className="mt-6 grid grid-cols-1 gap-px border border-[color:var(--tw-line)] bg-[color:var(--tw-line)] sm:grid-cols-2 lg:grid-cols-4">
                     {STACK.map(([n, t, b]) => <div key={n} className="group bg-[#0b1411] p-5 transition-colors duration-300 hover:bg-[#12201b]">
                         <span className="tw-mono text-[9.5px] uppercase tracking-[0.16em] text-[#7f8a81]">{n}</span>
-                        <h4 className="mt-2.5 text-[18px] leading-snug">{t}</h4>
+                        <h4 className="mt-2.5 text-[17px] leading-snug">{t}</h4>
                         <p className="mt-2.5 text-[13.5px] leading-relaxed text-[#b7b3a8]">{b}</p>
                       </div>)}
                   </div>
                 </div>
               </Reveal>
 
-              <Reveal delay={180}>
-                <p className="tw-mono mt-8 max-w-[74ch] border-t border-[color:var(--tw-line)] pt-5 text-[10.5px] leading-[1.7] text-[#7f8a81]">
-                  Does not show: file contents, secrets, or anything beyond how often a file changed. Internal working notes are left out of the city, and the repository itself is private.
+              <Reveal delay={220}>
+                <p className="tw-mono mt-8 max-w-[76ch] border-t border-[color:var(--tw-line)] pt-5 text-[10.5px] leading-[1.7] text-[#7f8a81]">
+                  The city shows filenames, sizes and how often a file changed. Not contents, not secrets. Internal working notes are excluded, and the repository is private.
                 </p>
               </Reveal>
             </div>
