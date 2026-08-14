@@ -29,7 +29,7 @@ const ownerMoments = "../assets/game/owner-moments-real.png";
 const SITE = '../';
 const DAY_URL = '../day/';
 // [label, target]. '#id' scrolls within this page, anything else opens in a new tab.
-const NAV: [string, string][] = [['World', '#world'], ['Residents', '#residents'], ['Places', '#places'], ['Gallery', '#gallery'], ['A Day', DAY_URL], ['Technology', '#technology'], ['Costs', '#costs'], ['Status', '#status'], ['Preview', '#preview'], ['Research', SITE + 'research/'], ['Demo', SITE]];
+const NAV: [string, string][] = [['World', '#world'], ['Residents', '#residents'], ['Places', '#places'], ['Gallery', '#gallery'], ['A Day', DAY_URL], ['Codescape', '#technology'], ['Costs', '#costs'], ['Status', '#status'], ['Preview', '#preview'], ['Research', SITE + 'research/'], ['Demo', SITE]];
 const CAST = [{
   id: 'marvin',
   name: 'Marvin'
@@ -287,15 +287,11 @@ const GALLERY = [{
   kind: 'Memory and friendship',
   body: 'A resident moved a chair to face the water for someone who sits alone.'
 }];
-const TECH_LAYERS: Record<string, [string, string, string, string]> = {
-  world: ['World record', 'The shared place stays authoritative.', 'Locations, people, and meaningful events come from the world, not a resident inventing what happened.', 'Does not claim: fabricated history or unrestricted action.'],
-  memory: ['Resident context', 'A past worth carrying forward.', 'Residents have continuity through relationships, mood, diary, and meaningful interactions.', 'Why it matters: memories can shape friendship, rivalry, and choice.'],
-  choice: ['Meaningful choice', 'Agency with boundaries.', 'Residents choose where to go, who to approach, and which available objects or activities to engage.', 'Why it matters: the world creates possibilities beyond conversation.'],
-  trace: ['Durable trace', 'Later moments have context.', 'Diaries, relationship signals, mail, and world events make a later moment more than a reset.', 'Why it matters: resident life can continue after humans leave.']
-};
-const TECH_ORDER: [string, string][] = [['world', 'World record'], ['memory', 'Resident context'], ['choice', 'Meaningful choice'], ['trace', 'Durable trace']];
-const STACK = [['01 / Foundation', 'Hyperfy + Node.js', 'The current MVP is built on a Hyperfy foundation with a Node.js 22.11+ server and a 3D client.'], ['02 / Authority', 'Server first', 'World state, identity, permissions, resident mail, and persistence stay authoritative on the server.'], ['03 / Memory', 'Local records, optional recall', 'Local MemoryStore records are authoritative. Optional Mem0 recall is derived and falls back locally when unavailable.'], ['04 / Experience', 'Everything runs in the world', 'Walking, conversation, relationships, quiet time, private diary, and private Royal Mail are exposed through the world itself.']];
-const FLOW = [['01', 'World event', 'A place, person, or meaningful change is recorded.'], ['02', 'Resident context', 'Relevant identity, mood, relationship, and memory are assembled.'], ['03', 'Bounded choice', 'The resident responds inside capability and permission boundaries.'], ['04', 'Durable trace', 'The next moment can begin with evidence instead of a reset.']];
+const CODESCAPE_URL = SITE + 'codescape/';
+// Printed by the generator that built the city, so the page and the thing it is
+// describing cannot drift apart without someone noticing.
+const CITY = [['1,032', 'tracked files'], ['224,564', 'lines of code'], ['14', 'districts'], ['origin/main', 'the shipped commit']];
+const STACK = [['01 / Foundation', 'Hyperfy + Node.js', 'A Hyperfy foundation with a Node.js 22.11+ server, a three.js client, and PhysX for collision.'], ['02 / Authority', 'Server first', 'World state, identity, permissions, resident mail, and persistence stay authoritative on the server, in Postgres.'], ['03 / Memory', 'Local records, optional recall', 'Local MemoryStore records are authoritative. Optional Mem0 recall is derived and falls back locally when unavailable.'], ['04 / Residents', 'Models behind a boundary', 'Residents think through OpenAI or Anthropic models, inside a sandbox that decides what they are allowed to do.']];
 const PLANS = [{
   name: 'Cozy',
   price: '$9',
@@ -446,7 +442,7 @@ const Eyebrow = ({
 
 export const DemoHome: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [tech, setTech] = useState('world');
+  const [cityLive, setCityLive] = useState(false);
   const [place, setPlace] = useState(0);
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [reel, setReel] = useState(0);
@@ -800,46 +796,59 @@ export const DemoHome: React.FC = () => {
           </div>
         </section>
 
-        {/* --------------------------- technology ------------------------- */}
+        {/* ---------------------- codescape / technology ------------------- */}
         <section id="technology" className="w-full border-b border-[color:var(--tw-line)]">
           <div className="relative">
             <img src={memoryAtlas} alt="Connected lantern memories." className="absolute inset-0 h-full w-full object-cover opacity-15" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#0b1411]/85 to-[#0b1411]" />
             <div className="relative mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 lg:py-20">
               <Reveal>
-                <Eyebrow>Technology</Eyebrow>
-                <h2 className="mt-4 text-[clamp(2rem,3.4vw,2.9rem)]">How continuity actually works.</h2>
-                <p className="mt-5 max-w-[66ch] text-[16px] leading-[1.72] text-[#d9d2c4]">
-                  Residents get somewhere to be, things they can actually do, and a memory that carries between visits. The world stays the authority on what happened.
+                <Eyebrow>Codescape · technology</Eyebrow>
+                <h2 className="mt-4 text-[clamp(2rem,3.4vw,2.9rem)]">The codebase, as a city you can fly through.</h2>
+                <p className="mt-5 max-w-[68ch] text-[16px] leading-[1.72] text-[#d9d2c4]">
+                  This is the source that runs the world, drawn from the repository itself. One building is one tracked file. Height is lines of code, colour is language, and lit windows are how often that file has changed. Districts are the top-level folders, laid out by volume.
                 </p>
               </Reveal>
 
-              <Reveal delay={80}>
-                <div className="mt-10">
-                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">The loop, in four parts.</h3>
-                  <p className="mt-2 text-[14.5px] text-[#b7b3a8]">Tap a layer to see what it does and why it matters.</p>
-
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {TECH_ORDER.map(([k, label]) => <button key={k} onClick={() => setTech(k)} aria-pressed={tech === k} className={`tw-mono rounded-[4px] border px-4 py-2.5 text-[10.5px] uppercase tracking-[0.12em] transition-all duration-300 ${tech === k ? 'border-[#f5d79d] bg-[#f5d79d]/10 text-[#f5d79d]' : 'border-[color:var(--tw-line)] text-[#b7b3a8] hover:border-[#f1eadb]/35 hover:text-[#f1eadb]'}`}>
-                      
-                        {label}
-                      </button>)}
-                  </div>
-
-                  <article key={tech} className="tw-fade mt-5 rounded-xl border border-[color:var(--tw-line)] bg-[#12201b]/50 p-6 sm:p-8">
-                    <span className="tw-mono text-[10px] uppercase tracking-[0.16em] text-[#f5d79d]">{TECH_LAYERS[tech][0]}</span>
-                    <h4 className="mt-3 text-[clamp(1.3rem,2.2vw,1.9rem)]">{TECH_LAYERS[tech][1]}</h4>
-                    <p className="mt-4 max-w-[64ch] text-[15.5px] leading-[1.72] text-[#d9d2c4]">{TECH_LAYERS[tech][2]}</p>
-                    <p className="tw-mono mt-5 border-t border-[color:var(--tw-line)] pt-4 text-[10.5px] text-[#7f8a81]">{TECH_LAYERS[tech][3]}</p>
-                  </article>
+              <Reveal delay={60}>
+                <div className="mt-9 grid grid-cols-2 gap-px border border-[color:var(--tw-line)] bg-[color:var(--tw-line)] sm:grid-cols-4">
+                  {CITY.map(([n, l]) => <div key={l} className="bg-[#0b1411] p-5">
+                      <span className="tw-serif block text-[clamp(1.5rem,2.6vw,2rem)] leading-none text-[#f5d79d]">{n}</span>
+                      <span className="tw-mono mt-2.5 block text-[9.5px] uppercase tracking-[0.16em] text-[#7f8a81]">{l}</span>
+                    </div>)}
                 </div>
               </Reveal>
 
-              <Reveal delay={120}>
+              <Reveal delay={100}>
+                <figure className="mt-8 overflow-hidden rounded-xl border border-[color:var(--tw-line)]">
+                  {/* The city zooms on wheel and swallows the event, so an
+                      always-live frame would eat the page scroll on the way
+                      past. It stays visible but inert until it is asked for. */}
+                  <div className="relative">
+                    <iframe
+                      src={CODESCAPE_URL}
+                      title="The thirdwurld codebase rendered as an explorable 3D city."
+                      loading="lazy"
+                      tabIndex={cityLive ? 0 : -1}
+                      className={`block h-[clamp(23rem,60vh,38rem)] w-full border-0 bg-[#05070c] ${cityLive ? '' : 'pointer-events-none'}`} />
+                    {!cityLive && <button type="button" onClick={() => setCityLive(true)} className="group absolute inset-0 flex items-end justify-center bg-gradient-to-t from-[#0b1411]/80 via-transparent to-transparent pb-8 transition-colors duration-300 hover:from-[#0b1411]/60">
+                        <span className="tw-mono rounded-[4px] border border-[#f5d79d] bg-[#0b1411]/85 px-5 py-3 text-[10.5px] uppercase tracking-[0.14em] text-[#f5d79d] transition-all duration-300 group-hover:bg-[#f5d79d]/10">
+                          Click to explore the city
+                        </span>
+                      </button>}
+                  </div>
+                  <figcaption className="tw-mono flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--tw-line)] bg-[#12201b]/60 px-4 py-3 text-[10.5px] uppercase tracking-[0.12em] text-[#7f8a81]">
+                    <span>Drag to orbit · scroll to zoom · click a building to read its file</span>
+                    <a href={CODESCAPE_URL} className="text-[#f5d79d] transition-colors duration-300 hover:text-[#f1eadb]">Open full screen ↗</a>
+                  </figcaption>
+                </figure>
+              </Reveal>
+
+              <Reveal delay={140}>
                 <div className="mt-14">
-                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">What it is built on.</h3>
+                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">What it is built with.</h3>
                   <p className="mt-2 max-w-[62ch] text-[14.5px] leading-relaxed text-[#b7b3a8]">
-                    thirdwurld combines a 3D place, an authoritative server, and resident context that can persist beyond a single conversation.
+                    The tall towers in the city are the world client and the server. Everything below names what they are made of.
                   </p>
                   <div className="mt-6 grid grid-cols-1 gap-px border border-[color:var(--tw-line)] bg-[color:var(--tw-line)] sm:grid-cols-2 lg:grid-cols-4">
                     {STACK.map(([n, t, b]) => <div key={n} className="group bg-[#0b1411] p-5 transition-colors duration-300 hover:bg-[#12201b]">
@@ -851,34 +860,10 @@ export const DemoHome: React.FC = () => {
                 </div>
               </Reveal>
 
-              <Reveal delay={160}>
-                <div className="mt-14">
-                  <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">How a moment becomes context.</h3>
-                  <div className="tw-scroll mt-6 flex items-stretch gap-3 overflow-x-auto pb-2">
-                    {FLOW.map(([n, t, b], i) => <React.Fragment key={n}>
-                        <article className="min-w-[210px] flex-1 rounded-lg border border-[color:var(--tw-line)] bg-[#12201b]/40 p-5">
-                          <b className="tw-mono text-[10px] tracking-[0.14em] text-[#d8a85f]">{n}</b>
-                          <span className="mt-2 block text-[16px]">{t}</span>
-                          <small className="mt-2 block text-[13px] leading-relaxed text-[#b7b3a8]">{b}</small>
-                        </article>
-                        {i < FLOW.length - 1 && <i className="hidden select-none items-center text-[#7f8a81] sm:flex">→</i>}
-                      </React.Fragment>)}
-                  </div>
-                </div>
-              </Reveal>
-
-              <Reveal delay={200}>
-                <div className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-[1fr_1fr]">
-                  <figure className="overflow-hidden rounded-xl border border-[color:var(--tw-line)]">
-                    <img src={diaryReal} alt="A resident diary inside the owner-private view." className="w-full object-cover" />
-                  </figure>
-                  <div className="flex flex-col justify-center">
-                    <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">Where the boundaries sit.</h3>
-                    <p className="mt-4 max-w-[56ch] text-[15.5px] leading-[1.72] text-[#b7b3a8]">
-                      Humans can visit, correspond, and maintain safety, privacy, and access boundaries. Resident relationships, memories, and private correspondence remain part of the world they inhabit.
-                    </p>
-                  </div>
-                </div>
+              <Reveal delay={180}>
+                <p className="tw-mono mt-8 max-w-[74ch] border-t border-[color:var(--tw-line)] pt-5 text-[10.5px] leading-[1.7] text-[#7f8a81]">
+                  Does not show: file contents, secrets, or anything beyond how often a file changed. Internal working notes are left out of the city, and the repository itself is private.
+                </p>
               </Reveal>
             </div>
           </div>
