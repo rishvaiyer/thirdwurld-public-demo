@@ -28,7 +28,8 @@ const ownerMoments = "../assets/game/owner-moments-real.png";
 
 const SITE = '../';
 const DAY_URL = '../day/';
-// [label, target]. '#id' scrolls within this page, anything else opens in a new tab.
+// [label, target]. '#id' scrolls within this page, anything else navigates in place.
+// These are all same-site destinations, so none of them open a new tab.
 const NAV: [string, string][] = [['World', '#world'], ['Residents', '#residents'], ['Places', '#places'], ['Gallery', '#gallery'], ['A Day', DAY_URL], ['Codescape', '#technology'], ['Costs', '#costs'], ['Status', '#status'], ['Preview', '#preview'], ['Research', SITE + 'research/'], ['Demo', SITE]];
 const CAST = [{
   id: 'marvin',
@@ -164,7 +165,7 @@ const FACTS = [{
   v: 'Invitation only. A working private MVP, not launched.'
 }, {
   k: 'Cost',
-  v: 'Hosted from $9 a month, or bring your own key for less.'
+  v: 'Hosted from $9 a month, or bring your own key and pay the provider directly.'
 }, {
   k: 'Built on',
   v: 'Hyperfy and Node.js, with world state authoritative on the server.'
@@ -308,42 +309,38 @@ const PLANS = [{
   price: 'BYOK',
   per: 'direct usage',
   body: 'Connect OpenAI or Anthropic and pay that provider directly for the model you choose.',
-  foot: 'Usually cheaper · you manage the account'
+  foot: 'Cheaper on most models · you manage the account'
 }];
 const USAGE = [['Chat and ambient replies', '~60 per day (~1,800 per month)'], ['Private diary entries', '~3 per day (~90 per month)'], ['Private letters', '~1 per day (~30 per month)'], ['Owner-thought responses', '~2 per day (~60 per month)'], ['Total tokens in / out', '~1.2M input / ~150k output per month']];
+// Ordered cheapest to most expensive. The order is the information: there is no
+// separate tier label to contradict the number sitting next to it.
 const MODELS = [{
-  model: 'Claude Opus 5',
-  tier: 'Highest cost',
-  cost: '≈ $9–$12',
-  vendor: 'Anthropic'
-}, {
-  model: 'Claude Sonnet 5',
-  tier: 'Balanced default',
-  cost: '≈ $5–$7',
-  vendor: 'Anthropic'
-}, {
-  model: 'Claude Haiku 4.5',
-  tier: 'Efficient',
-  cost: '≈ $1.50–$2.50',
-  vendor: 'Anthropic'
-}, {
-  model: 'GPT-5.6 Sol',
-  tier: 'Highest cost',
-  cost: '≈ $20–$35',
+  model: 'GPT-5.6 Luna',
+  cost: '≈ $0.30-$0.60',
   vendor: 'OpenAI'
 }, {
   model: 'GPT-5.6 Terra',
-  tier: 'Balanced default',
-  cost: '≈ $1–$2',
+  cost: '≈ $1-$2',
   vendor: 'OpenAI'
 }, {
-  model: 'GPT-5.6 Luna',
-  tier: 'Efficient',
-  cost: '≈ $0.30–$0.60',
+  model: 'Claude Haiku 4.5',
+  cost: '≈ $1.50-$2.50',
+  vendor: 'Anthropic'
+}, {
+  model: 'Claude Sonnet 5',
+  cost: '≈ $5-$7',
+  vendor: 'Anthropic'
+}, {
+  model: 'Claude Opus 5',
+  cost: '≈ $9-$12',
+  vendor: 'Anthropic'
+}, {
+  model: 'GPT-5.6 Sol',
+  cost: '≈ $20-$35',
   vendor: 'OpenAI'
 }];
-const DRIVERS = [['Resident sociability.', 'Every visitor turn is a paid model call.'], ['Model choice.', 'Moving from balanced to highest-capability models creates the largest jump.'], ['Diary and letters.', 'Longer than chat replies, but much less frequent.'], ['The world itself costs you nothing.', 'Other residents’ models, moment captures, dashboards, and mail archives are not billed to your key.']];
-const KEEP_DOWN = ['Begin with a balanced or efficient model.', 'Move up only when a resident genuinely needs deeper reasoning.', 'Set a monthly spending cap with your provider.', 'Change the model at any time from the human dashboard.'];
+const DRIVERS = [['Resident sociability.', 'Every visitor turn is a paid model call.'], ['Model choice.', 'The single largest factor. The range from the cheapest model to the most expensive is more than fiftyfold.'], ['Diary and letters.', 'Longer than chat replies, but much less frequent.'], ['The world itself costs you nothing.', 'Other residents’ models, moment captures, dashboards, and mail archives are not billed to your key.']];
+const KEEP_DOWN = ['Start near the top of the table and work down only if you need to.', 'Move to a more expensive model when a resident genuinely needs deeper reasoning.', 'Set a monthly spending cap with your provider.', 'Change the model at any time from the human dashboard.'];
 const LEDGER = [{
   g: 'Resident life',
   items: ['Residents move between eight authored places on their own schedule', 'They pick up and use objects without being prompted', 'Quiet time is a valid choice, and they take it', 'The day continues with no visitor present']
@@ -507,7 +504,7 @@ export const DemoHome: React.FC = () => {
               {NAV.map(([l, target]) => target.startsWith('#') ? <button key={l} onClick={() => go(target.slice(1))} className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] transition-colors duration-300 hover:text-[#f1eadb]">
                   {l}
                   <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-[#d8a85f] transition-transform duration-500 group-hover:scale-x-100" />
-                </button> : <a key={l} href={target} target="_blank" rel="noopener" className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] transition-colors duration-300 hover:text-[#f1eadb]">
+                </button> : <a key={l} href={target} className="tw-mono group relative whitespace-nowrap py-1 text-[9.5px] uppercase tracking-[0.13em] text-[#b7b3a8] transition-colors duration-300 hover:text-[#f1eadb]">
                   {l}
                   <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-[#d8a85f] transition-transform duration-500 group-hover:scale-x-100" />
                 </a>)}
@@ -523,7 +520,7 @@ export const DemoHome: React.FC = () => {
             <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-x-4 px-5 py-3 sm:px-8">
               {NAV.map(([l, target]) => target.startsWith('#') ? <button key={l} onClick={() => go(target.slice(1))} className="tw-mono py-2.5 text-left text-[10.5px] uppercase tracking-[0.14em] text-[#b7b3a8] transition-colors hover:text-[#f1eadb]">
                   {l}
-                </button> : <a key={l} href={target} target="_blank" rel="noopener" onClick={() => setMenuOpen(false)} className="tw-mono py-2.5 text-left text-[10.5px] uppercase tracking-[0.14em] text-[#b7b3a8] transition-colors hover:text-[#f1eadb]">
+                </button> : <a key={l} href={target} onClick={() => setMenuOpen(false)} className="tw-mono py-2.5 text-left text-[10.5px] uppercase tracking-[0.14em] text-[#b7b3a8] transition-colors hover:text-[#f1eadb]">
                   {l}
                 </a>)}
             </div>
@@ -539,7 +536,7 @@ export const DemoHome: React.FC = () => {
             <div>
               <div className="tw-in flex items-center gap-3">
                 <span className="tw-breathe h-1.5 w-1.5 rounded-full bg-[#91bd8b]" />
-                <span className="tw-eyebrow">The town, right now</span>
+                <span className="tw-eyebrow">A day in the town, replaying</span>
                 <span className="tw-mono text-[11px] text-[#7f8a81]">{clock(minute)}</span>
                 <span className="tw-mono rounded-[3px] border border-[color:var(--tw-line)] px-2 py-0.5 text-[9.5px] uppercase tracking-[0.12em] text-[#7f8a81]">Recorded day</span>
               </div>
@@ -565,11 +562,11 @@ export const DemoHome: React.FC = () => {
               <div className="tw-in mt-9 flex flex-col gap-3 sm:flex-row" style={{
               animationDelay: '240ms'
             }}>
-                <button onClick={() => go('a-day')} className="group flex items-center justify-center gap-2 rounded-[5px] bg-[#f1eadb] px-6 py-3.5 text-[15px] font-bold text-[#0b1411] transition-all duration-400 hover:shadow-[0_18px_46px_-22px_rgba(241,234,219,0.8)] active:scale-[0.99]">
+                <a href={DAY_URL} className="group flex items-center justify-center gap-2 rounded-[5px] bg-[#f1eadb] px-6 py-3.5 text-[15px] font-bold text-[#0b1411] transition-all duration-400 hover:shadow-[0_18px_46px_-22px_rgba(241,234,219,0.8)] active:scale-[0.99]">
                   Watch a day <span className="transition-transform duration-400 group-hover:translate-x-1">→</span>
-                </button>
+                </a>
                 <button onClick={() => go('technology')} className="group flex items-center justify-center gap-2 rounded-[5px] border border-[color:var(--tw-line)] px-6 py-3.5 text-[15px] transition-all duration-400 hover:border-[color:var(--tw-line-bright)] hover:bg-white/4">
-                  See how it works <span className="transition-transform duration-400 group-hover:translate-x-1">→</span>
+                  See the codebase <span className="transition-transform duration-400 group-hover:translate-x-1">→</span>
                 </button>
               </div>
             </div>
@@ -580,7 +577,7 @@ export const DemoHome: React.FC = () => {
           }}>
               <div className="tw-panel rounded-xl p-5 backdrop-blur-sm sm:p-6">
                 <div className="flex items-center justify-between border-b border-[color:var(--tw-line)] pb-3">
-                  <span className="tw-mono text-[10px] uppercase tracking-[0.16em] text-[#7f8a81]">The town, right now</span>
+                  <span className="tw-mono text-[10px] uppercase tracking-[0.16em] text-[#7f8a81]">A day in the town, replaying</span>
                   <span className="tw-mono text-[12px] text-[#f5d79d]">{clock(minute)}</span>
                 </div>
                 <div className="mt-4 space-y-3">
@@ -729,7 +726,7 @@ export const DemoHome: React.FC = () => {
               <Eyebrow>Places</Eyebrow>
               <h2 className="mt-4 text-[clamp(2rem,3.4vw,2.9rem)]">A town with somewhere to go.</h2>
               <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.72] text-[#d9d2c4]">
-                Four destinations, each with its own routine. Where a resident is shapes what they can do next.
+                Eight places across four quarters, each with its own routine. Four of them are below. Where a resident is shapes what they can do next.
               </p>
             </Reveal>
 
@@ -773,7 +770,7 @@ export const DemoHome: React.FC = () => {
               <Eyebrow>Captured inside the world</Eyebrow>
               <h2 className="mt-4 text-[clamp(2rem,3.4vw,2.9rem)]">Eleven frames from inside the world.</h2>
               <p className="mt-5 max-w-[62ch] text-[16px] leading-[1.72] text-[#d9d2c4]">
-                Everything here is captured from the working build. Nothing is staged and nothing is a render.
+                Every frame in this gallery is captured from the working build. Nothing here is staged.
               </p>
               <p className="tw-mono mt-4 text-[10.5px] uppercase tracking-[0.14em] text-[#7f8a81]">
                 Browse places, resident writing, memories, and conversations one complete frame at a time.
@@ -885,7 +882,7 @@ export const DemoHome: React.FC = () => {
                 <div className="mt-6 rounded-xl border border-[color:var(--tw-line)] bg-[#12201b]/40 p-6">
                   <h4 className="text-[19px]">Which is cheaper?</h4>
                   <p className="mt-3 max-w-[72ch] text-[14.5px] leading-[1.7] text-[#b7b3a8]">
-                    Bringing your own key almost always is, and the estimates below show by how much. The hosted plans exist so you never have to open a provider account, hold an API key, or reconcile a usage bill. Take hosted for one predictable charge, or BYOK for the lowest number.
+                    On efficient and balanced models, bringing your own key costs less than a hosted plan, and the estimates below show by how much. At the top of the table it stops being true: a resident on the most capable models can cost more on your own key than either plan. The hosted plans exist so you never have to open a provider account, hold an API key, or reconcile a usage bill. Take hosted for one predictable charge, or BYOK for the lowest number on all but the largest models.
                   </p>
                 </div>
               </div>
@@ -912,7 +909,7 @@ export const DemoHome: React.FC = () => {
                 <div>
                   <h3 className="text-[clamp(1.35rem,2vw,1.85rem)]">Estimated monthly model cost.</h3>
                   <p className="mt-3 text-[14.5px] leading-relaxed text-[#b7b3a8]">
-                    Current thirdwurld estimates for the models a resident can run on. Verify the live provider rates before scaling, since OpenAI and Anthropic can change prices without notice.
+                    Current thirdwurld estimates for the models a resident can run on, cheapest first. Verify the live provider rates before scaling, since OpenAI and Anthropic can change prices without notice.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
@@ -924,23 +921,23 @@ export const DemoHome: React.FC = () => {
 
                   <div className="tw-scroll mt-4 overflow-x-auto rounded-xl border border-[color:var(--tw-line)]">
                     <table className="w-full min-w-[420px] border-collapse text-left">
-                      <caption className="sr-only">Estimated monthly cost per resident, by model, when bringing your own API key.</caption>
+                      <caption className="sr-only">Estimated monthly cost per resident, by model, ordered from cheapest to most expensive, when bringing your own API key.</caption>
                       <thead>
                         <tr className="border-b border-[color:var(--tw-line)] bg-[#12201b]/60">
-                          {['Model', 'Tier', 'Estimated monthly cost'].map(h => <th key={h} className="tw-mono px-4 py-3 text-[9.5px] uppercase tracking-[0.14em] text-[#7f8a81]">{h}</th>)}
+                          {['Model', 'Provider', 'Estimated monthly cost'].map(h => <th key={h} className="tw-mono px-4 py-3 text-[9.5px] uppercase tracking-[0.14em] text-[#7f8a81]">{h}</th>)}
                         </tr>
                       </thead>
                       <tbody>
                         {models.map(m => <tr key={m.model} className="border-b border-[color:var(--tw-line)] transition-colors duration-200 last:border-b-0 hover:bg-[#12201b]/60">
                             <td className="px-4 py-3.5 text-[14px]">{m.model}</td>
-                            <td className="tw-mono px-4 py-3.5 text-[11.5px] text-[#b7b3a8]">{m.tier}</td>
+                            <td className="tw-mono px-4 py-3.5 text-[11.5px] text-[#b7b3a8]">{m.vendor}</td>
                             <td className="tw-mono px-4 py-3.5 text-[13px] text-[#f5d79d]">{m.cost}</td>
                           </tr>)}
                       </tbody>
                     </table>
                   </div>
                   <p className="mt-4 text-[13.5px] leading-relaxed text-[#7f8a81]">
-                    Older OpenAI and Anthropic models still work if your key has access to them. Nano-class models land around ≈ $0.10–$0.25 per resident per month.
+                    Older OpenAI and Anthropic models still work if your key has access to them. Nano-class models land around ≈ $0.10-$0.25 per resident per month.
                   </p>
                 </div>
               </div>
@@ -971,10 +968,10 @@ export const DemoHome: React.FC = () => {
                       Provider prices and real usage vary. thirdwurld does not see or bill API usage. OpenAI or Anthropic bills the human directly through their own key.
                     </p>
                     <div className="mt-4 flex flex-wrap gap-4">
-                      <a href="https://openai.com/api/pricing/" target="_blank" rel="noreferrer" className="tw-mono text-[10.5px] uppercase tracking-[0.12em] text-[#d8a85f] transition-colors hover:text-[#f1eadb]">
+                      <a href="https://openai.com/api/pricing/" target="_blank" rel="noopener" className="tw-mono text-[10.5px] uppercase tracking-[0.12em] text-[#d8a85f] transition-colors hover:text-[#f1eadb]">
                         Verify OpenAI pricing ↗
                       </a>
-                      <a href="https://www.anthropic.com/pricing#api" target="_blank" rel="noreferrer" className="tw-mono text-[10.5px] uppercase tracking-[0.12em] text-[#d8a85f] transition-colors hover:text-[#f1eadb]">
+                      <a href="https://www.anthropic.com/pricing#api" target="_blank" rel="noopener" className="tw-mono text-[10.5px] uppercase tracking-[0.12em] text-[#d8a85f] transition-colors hover:text-[#f1eadb]">
                         Verify Anthropic pricing ↗
                       </a>
                     </div>
