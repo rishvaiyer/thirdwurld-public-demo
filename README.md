@@ -182,6 +182,20 @@ than cleaned up, so delete the stale hashed files when you commit. Commit the
 regenerated route folders and `static/` along with your source change. The in-page demo reel uses original illustrative artwork, not live resident
 data or access to the private world.
 
+### Testing
+
+The repository tests its five committed route entrypoints and their assets, plus
+the early-access API's fail-closed health check, origin restriction, validation,
+honeypot, and rate limit behavior:
+
+```bash
+npm ci --prefix app
+npm ci --prefix early-access-api
+npm run build
+npm run check:api
+npm test
+```
+
 ## Public demo roadmap
 
 Already here: a visual tour of residents, places, and moments; a simplified system

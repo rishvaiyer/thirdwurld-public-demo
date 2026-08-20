@@ -62,7 +62,8 @@ const server = http.createServer(async (request, response) => {
 
   if (request.method === 'GET' && request.url === '/health') {
     try {
-      await pool?.query('SELECT 1');
+      if (!pool) throw new Error('Database unavailable.');
+      await pool.query('SELECT 1');
       return respond(response, 200, { status: 'ok' }, origin);
     } catch {
       return respond(response, 503, { status: 'unavailable' }, origin);

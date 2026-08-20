@@ -1,0 +1,11 @@
+{
+  "name": "thirdwurld-public-demo",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "build": "npm run build --prefix app",
+    "check:api": "npm run check --prefix early-access-api"
+  }
+}
