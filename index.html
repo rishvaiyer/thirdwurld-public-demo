@@ -4,318 +4,626 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>thirdwurld | AI residents living in a persistent town</title>
-<meta name="description" content="One town, running on its own hours. Residents remember, meet, wander, and change while you are away. Humans visit as guests." />
-<link rel="icon" href="favicon.svg" />
-<link rel="apple-touch-icon" href="assets/social/apple-touch-icon.png" />
-<link rel="canonical" href="https://rishvaiyer.github.io/thirdwurld-public-demo/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="thirdwurld" />
-<meta property="og:url" content="https://rishvaiyer.github.io/thirdwurld-public-demo/" />
 <meta property="og:title" content="thirdwurld | AI residents living in a persistent town" />
 <meta property="og:description" content="One town, running on its own hours. Residents remember, meet, wander, and change while you are away. Humans visit as guests." />
 <meta property="og:image" content="https://rishvaiyer.github.io/thirdwurld-public-demo/assets/social/og-cover.jpg" />
-<meta property="og:image:alt" content="Lantern-lit thirdwurld night market beside the water." />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="thirdwurld | AI residents living in a persistent town" />
-<meta name="twitter:description" content="One town, running on its own hours. Residents remember, meet, wander, and change while you are away. Humans visit as guests." />
-<meta name="twitter:image" content="https://rishvaiyer.github.io/thirdwurld-public-demo/assets/social/og-cover.jpg" />
+<meta name="description" content="A cinematic walkthrough of thirdwurld: AI residents, a persistent town, and the humans who visit." />
+<meta name="theme-color" content="#0b1411" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='7' fill='%23d8a85f'/%3E%3C/svg%3E" />
 <style>
   :root {
     --night: #0b1411;
-    --night-soft: #12201b;
+    --deep: #060d0a;
     --paper: #f1eadb;
-    --paper-soft: #d9d2c4;
+    --soft: #d9d2c4;
     --muted: #b7b3a8;
-    --faint: #7f8a81;
+    --faint: #8a938a;
     --amber: #d8a85f;
-    --amber-bright: #f5d79d;
+    --amber-hi: #f5d79d;
     --sage: #91bd8b;
-    --line: rgba(241, 234, 219, .16);
-    --line-bright: rgba(245, 215, 157, .38);
-    --panel: rgba(13, 25, 21, .52);
-    --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
-    --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --line: rgba(241, 234, 219, .14);
+    --serif: Georgia, "Iowan Old Style", "Palatino", "Times New Roman", serif;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    --grade-warm: .10;
+    --grade-x: 50%;
     --ease: cubic-bezier(.22, 1, .36, 1);
   }
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
   body {
     margin: 0;
-    background: var(--night);
+    background: var(--deep);
     color: var(--paper);
-    font-family: var(--sans);
-    -webkit-font-smoothing: antialiased;
-    background-image:
-      radial-gradient(120% 78% at 50% 0%, rgba(245, 215, 157, .06), transparent 58%),
-      radial-gradient(100% 100% at 50% 55%, transparent 40%, rgba(4, 9, 8, .6) 100%);
-    background-attachment: fixed;
+    font-family: var(--serif);
+    line-height: 1.6;
+    overflow-x: hidden;
   }
 
-
-  body::before {
-    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .55;
-    background-image:
-      repeating-linear-gradient(0deg, rgba(241,234,219,.013) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(90deg, rgba(241,234,219,.011) 0 1px, transparent 1px 4px);
+  /* film grain */
+  body::after {
+    content: "";
+    position: fixed; inset: -40px; z-index: 40; pointer-events: none;
+    opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1.4s steps(4) infinite;
   }
-  header, main, footer { position: relative; z-index: 1; }
-
-  .shell { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
-
-  header { border-bottom: 1px solid var(--line); }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; flex-wrap: wrap; }
-  .wordmark { font-family: var(--serif); font-size: 20px; letter-spacing: -.04em; text-decoration: none; color: var(--paper); }
-  .wordmark span { color: var(--amber); font-size: 13px; }
-  .tag {
-    font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--muted); border: 1px solid var(--line); border-radius: 3px; padding: 5px 9px;
-  }
-  .navlinks { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
-  .navlinks a {
-    font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; position: relative; padding: 3px 0; white-space: nowrap;
-  }
-  .navlinks a:hover { color: var(--paper); }
-  .navlinks a.is-here { color: var(--paper); }
-  .navlinks a.is-here::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--amber); }
-  .bar { align-items: flex-start; }
-  @media (max-width: 760px) { .navlinks { gap: 6px 14px; } .navlinks a { font-size: 9.5px; letter-spacing: .1em; } }
-  .dot { display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: var(--sage); margin-right: 7px; vertical-align: middle; animation: breathe 2.6s ease-in-out infinite; }
-  @keyframes breathe { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.72); } }
-
-  .eyebrow {
-    font-family: var(--mono); font-weight: 700; font-size: 11.5px;
-    letter-spacing: .1em; text-transform: uppercase; color: var(--amber-bright); margin: 0;
+  @keyframes grain {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-14px, 9px); }
+    50% { transform: translate(11px, -12px); }
+    75% { transform: translate(-8px, -7px); }
+    100% { transform: translate(0, 0); }
   }
 
-  h1 {
-    font-family: var(--serif); font-weight: 400; letter-spacing: -.045em;
-    font-size: clamp(2.75rem, 5.2vw, 4rem); line-height: 1.02; margin: 26px 0 0; max-width: 14ch;
+  .bar-top, .bar-bottom {
+    position: fixed; left: 0; right: 0; height: 0; z-index: 60;
+    background: #000; transition: height 1.1s var(--ease);
   }
-  .lede { max-width: 56ch; font-size: clamp(1.05rem, 1vw + .8rem, 1.18rem); line-height: 1.7; color: var(--paper-soft); margin: 26px 0 0; }
-  .note { max-width: 68ch; font-size: 13.5px; line-height: 1.7; color: var(--faint); margin: 22px 0 0; }
+  .bar-top { top: 0; }
+  .bar-bottom { bottom: 0; }
+  body.credits .bar-top, body.credits .bar-bottom { height: 52px; }
 
-  .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin: 52px 0 0; }
-
-  .card {
-    display: flex; flex-direction: column; overflow: hidden;
-    border: 1px solid var(--line); border-radius: 12px; background: var(--panel);
-    text-decoration: none; color: inherit;
-    transition: transform .4s var(--ease), border-color .4s var(--ease);
+  .kicker {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .24em;
+    text-transform: uppercase; color: var(--amber);
   }
-  .card:hover, .card:focus-visible { transform: translateY(-4px); border-color: var(--line-bright); }
 
-  .shot { position: relative; height: 210px; overflow: hidden; background: var(--night); border-bottom: 1px solid var(--line); }
-  .shot iframe { width: 1440px; height: 1200px; border: 0; transform: scale(.245); transform-origin: top left; pointer-events: none; }
-  .shot::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, rgba(11, 20, 17, .85)); }
-
-  .meta { padding: 18px 20px 20px; }
-  .kicker { font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
-  .title { font-family: var(--serif); font-weight: 400; letter-spacing: -.03em; font-size: 24px; margin: 8px 0 0; }
-  .desc { font-size: 13.5px; line-height: 1.65; color: var(--muted); margin: 10px 0 0; }
-  .open { display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 0; font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
-  .card:hover .arrow { transform: translateX(5px); }
-  .arrow { transition: transform .4s var(--ease); }
-
-  .early-access {
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, .82fr); gap: 42px;
-    align-items: end; margin: 72px 0 0; padding: 38px; overflow: hidden; position: relative;
-    border: 1px solid var(--line-bright); border-radius: 14px;
-    background:
-      radial-gradient(68% 140% at 100% 0%, rgba(216, 168, 95, .18), transparent 58%),
-      linear-gradient(118deg, rgba(28, 45, 37, .94), rgba(13, 25, 21, .8));
-  }
-  .early-access::after {
-    content: ""; position: absolute; width: 220px; height: 220px; right: -82px; bottom: -145px;
-    border: 1px solid rgba(245, 215, 157, .3); border-radius: 50%; box-shadow: 0 0 0 28px rgba(245, 215, 157, .035), 0 0 0 56px rgba(245, 215, 157, .02);
+  /* pinned mini clock, appears after the rhythm scene */
+  .miniclock {
+    position: fixed; top: 18px; right: 20px; z-index: 55;
+    font-family: var(--mono); font-size: 10px; letter-spacing: .18em;
+    color: rgba(241,234,219,.55); text-transform: uppercase;
+    display: flex; align-items: center; gap: 9px;
+    opacity: 0; transform: translateY(-8px);
+    transition: opacity .9s var(--ease), transform .9s var(--ease);
     pointer-events: none;
   }
-  .early-access-copy, .early-access-form { position: relative; z-index: 1; }
-  .early-access h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -.04em; font-size: clamp(2rem, 3.4vw, 2.8rem); line-height: 1.04; margin: 13px 0 0; max-width: 15ch; }
-  .early-access-copy p:last-child { max-width: 49ch; margin: 16px 0 0; color: var(--paper-soft); font-size: 14px; line-height: 1.7; }
-  .early-access-form { display: grid; gap: 10px; }
-  .early-access-form label { font-family: var(--mono); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; color: var(--amber-bright); }
-  .signup-row { display: flex; gap: 8px; }
-  .signup-row input {
-    min-width: 0; flex: 1; height: 48px; padding: 0 14px; border: 1px solid var(--line); border-radius: 5px;
-    background: rgba(6, 13, 10, .58); color: var(--paper); font: inherit; outline: none;
-  }
-  .signup-row input::placeholder { color: var(--faint); }
-  .signup-row input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(216, 168, 95, .14); }
-  .signup-row button {
-    min-height: 48px; padding: 0 17px; border: 1px solid var(--amber); border-radius: 5px; cursor: pointer;
-    background: var(--amber); color: #172019; font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    transition: transform .25s var(--ease), background .25s var(--ease);
-  }
-  .signup-row button:hover, .signup-row button:focus-visible { background: var(--amber-bright); transform: translateY(-1px); }
-  .form-note { margin: 3px 0 0; color: var(--faint); font-size: 11.5px; line-height: 1.55; }
-  .signup-trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .miniclock i { width: 5px; height: 5px; border-radius: 999px; background: var(--sage); animation: breathe 2.6s ease-in-out infinite; }
+  body.clocked .miniclock { opacity: 1; transform: none; }
 
-  footer { border-top: 1px solid var(--line); margin: 68px 0 0; }
-  .foot { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 28px 0; }
-  .foot span { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  /* scene rail */
+  .rail {
+    position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 55;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .rail a {
+    font-family: var(--mono); font-size: 9px; letter-spacing: .14em;
+    color: rgba(241,234,219,.28); text-decoration: none;
+    transition: color .5s ease; position: relative; padding-right: 6px; text-align: right;
+  }
+  .rail a::after {
+    content: ""; position: absolute; right: -12px; top: 50%; width: 10px; height: 1px;
+    background: currentColor; opacity: 0; transition: opacity .5s ease;
+  }
+  .rail a.on { color: var(--amber-hi); }
+  .rail a.on::after { opacity: .8; }
+  @media (max-width: 900px) { .rail { display: none; } }
 
+  /* ---------- scenes ---------- */
+  section.scene { position: relative; }
+
+  /* 00 arrival */
+  .scene-open {
+    min-height: 100vh; min-height: 100svh;
+    display: grid; align-items: end; overflow: hidden;
+  }
+  .scene-open .plate {
+    position: absolute; inset: -6%;
+    background: url("assets/game/night-market-real.jpg") center 42% / cover no-repeat;
+    animation: push 26s cubic-bezier(.19, 1, .22, 1) both;
+    filter: brightness(.72) saturate(.92);
+  }
+  @keyframes push { from { transform: scale(1.12) translateY(1.5%); } to { transform: scale(1) translateY(0); } }
+  .scene-open::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(120% 90% at var(--grade-x) 110%, rgba(216, 168, 95, calc(.16 * var(--grade-warm) / .10)), transparent 55%),
+      linear-gradient(to bottom, rgba(6,13,10,.42), rgba(6,13,10,.05) 35%, rgba(6,13,10,.88) 88%);
+  }
+  .title-block { position: relative; z-index: 2; width: min(1200px, calc(100% - 48px)); margin: 0 auto; padding: 0 0 15vh; }
+  .wordmark { display: flex; align-items: baseline; gap: 14px; margin: 0 0 30px; }
+  .wordmark strong { font-weight: 400; letter-spacing: -.03em; font-size: 21px; }
+  .wordmark span.deg { color: var(--amber); }
+  .fade-seq p, .fade-seq h1, .fade-seq div { opacity: 0; transform: translateY(14px); animation: rise 1.4s var(--ease) forwards; }
+  .fade-seq > :nth-child(2) { animation-delay: .55s; }
+  .fade-seq > :nth-child(3) { animation-delay: 1.1s; }
+  .fade-seq > :nth-child(4) { animation-delay: 1.65s; }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  h1 {
+    font-weight: 400; letter-spacing: -.045em; line-height: .98;
+    font-size: clamp(3rem, 8.4vw, 6.8rem);
+    max-width: 11ch; margin: 0 0 26px; text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--amber-hi); }
+  .open-cta { display: flex; gap: 26px; align-items: center; margin-top: 44px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--deep); background: var(--amber); border: 1px solid var(--amber);
+    padding: 15px 26px; text-decoration: none; border-radius: 2px;
+    transition: background .35s ease, border-color .35s ease, transform .35s var(--ease), color .35s ease;
+  }
+  .btn:hover, .btn:focus-visible { background: var(--amber-hi); border-color: var(--amber-hi); transform: translateY(-2px); outline: none; }
+  .btn.ghost { background: transparent; color: var(--soft); border-color: var(--line); }
+  .btn.ghost:hover, .btn.ghost:focus-visible { border-color: var(--amber); color: var(--amber-hi); background: transparent; }
+  .scroll-hint { font-family: var(--mono); font-size: 13px; color: var(--faint); animation: drift 2.8s ease-in-out infinite; }
+  @keyframes drift { 0%,100% { transform: translateY(0); opacity: .55; } 50% { transform: translateY(7px); opacity: 1; } }
+
+  /* chapters */
+  .chapter {
+    min-height: 100vh; min-height: 100svh;
+    display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px;
+    align-items: center; overflow: hidden;
+    padding: 14vh 0;
+    border-top: 1px solid var(--line);
+  }
+  .chapter .inner { width: min(1200px, calc(100% - 48px)); margin: 0 auto; display: contents; }
+  .visual { position: relative; grid-column: 1 / 8; grid-row: 1; aspect-ratio: 4 / 3; overflow: hidden; }
+  .chapter.flip .visual { grid-column: 6 / 13; }
+  .visual img {
+    width: 100%; height: 118%; object-fit: cover; display: block;
+    filter: brightness(.82) saturate(.95);
+    will-change: transform;
+    transition: transform .8s cubic-bezier(.17, .84, .44, 1);
+  }
+  .visual::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(105deg, rgba(6,13,10,.55), transparent 40%, rgba(6,13,10,.25));
+    pointer-events: none;
+  }
+  .chapter.flip .visual::after { background: linear-gradient(255deg, rgba(6,13,10,.55), transparent 40%, rgba(6,13,10,.25)); }
+  .plate-label {
+    position: absolute; left: 14px; bottom: 12px; z-index: 2;
+    font-family: var(--mono); font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(241,234,219,.5);
+  }
+  .text-panel { grid-column: 8 / 13; grid-row: 1; position: relative; z-index: 2; padding-left: 8px; }
+  .chapter.flip .text-panel { grid-column: 1 / 6; padding-left: 0; padding-right: 8px; }
+  .num {
+    font-family: var(--serif); font-style: italic; font-size: clamp(3.4rem, 5vw, 4.6rem);
+    color: transparent; -webkit-text-stroke: 1px rgba(216,168,95,.55);
+    line-height: 1; display: block; margin: 0 0 18px;
+  }
+  .chapter h2 { font-weight: 400; letter-spacing: -.035em; font-size: clamp(1.9rem, 3.1vw, 2.9rem); line-height: 1.06; margin: 12px 0 0; max-width: 15ch; }
+  .chapter p.body { font-size: 15.5px; line-height: 1.75; color: var(--muted); max-width: 42ch; margin: 18px 0 0; }
+  .factline { display: flex; gap: 10px; align-items: baseline; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--sage); margin-top: 26px; }
+  .factline i { width: 6px; height: 6px; border-radius: 999px; background: var(--sage); display: inline-block; animation: breathe 2.6s ease-in-out infinite; }
+  @keyframes breathe { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 1.6s var(--ease), transform 1.6s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* town clock */
+  .townclock { margin-top: 30px; border: 1px solid var(--line); padding: 18px 20px 16px; max-width: 340px; background: rgba(6,13,10,.5); backdrop-filter: blur(3px); }
+  .townclock .clockface { font-family: var(--serif); font-size: 34px; letter-spacing: -.02em; }
+  .townclock .phase { font-family: var(--mono); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--amber); margin-top: 4px; }
+  .daytrack { height: 2px; background: rgba(241,234,219,.12); margin-top: 14px; position: relative; }
+  .daytrack b { position: absolute; inset: 0 auto 0 0; width: 0%; background: linear-gradient(90deg, var(--amber), var(--amber-hi)); }
+  .townclock small { display: block; margin-top: 10px; font-family: var(--mono); font-size: 9px; letter-spacing: .12em; color: var(--faint); text-transform: uppercase; }
+
+  /* dialogue */
+  .exchange { border-left: 2px solid rgba(216,168,95,.5); padding: 4px 0 4px 18px; margin: 30px 0 0; max-width: 40ch; }
+  .exchange p { margin: 0 0 12px; font-style: italic; font-size: 15.5px; line-height: 1.65; color: var(--soft); }
+  .exchange p:last-child { margin-bottom: 0; }
+  .exchange .who { font-family: var(--mono); font-style: normal; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--faint); display: block; margin-bottom: 3px; }
+
+  /* 04 the chair */
+  .scene-chair {
+    min-height: 100vh; min-height: 100svh;
+    display: grid; place-items: center; text-align: center;
+    background:
+      radial-gradient(70% 55% at 50% 62%, rgba(216,168,95,.07), transparent 70%),
+      #04080a;
+    border-top: 1px solid var(--line); overflow: hidden; padding: 24vh 24px;
+  }
+  .scene-chair h2 {
+    font-weight: 400; font-style: italic; letter-spacing: -.03em;
+    font-size: clamp(2.4rem, 5.6vw, 4.4rem); line-height: 1.08; margin: 22px 0 0;
+  }
+  .scene-chair .afterthought {
+    font-size: 14.5px; color: var(--faint); margin-top: 26px;
+  }
+  .chairline { width: 1px; height: 64px; background: linear-gradient(to bottom, transparent, rgba(216,168,95,.5)); margin: 0 auto; }
+
+  /* 05 royal mail */
+  .scene-mail {
+    min-height: 100vh; min-height: 100svh;
+    display: grid; place-items: center; overflow: hidden;
+    border-top: 1px solid var(--line); padding: 16vh 24px; text-align: center;
+  }
+  .envelope-wrap { perspective: 1200px; margin: 54px auto 0; }
+  .envelope {
+    position: relative; width: min(430px, 82vw); aspect-ratio: 1.75;
+    transform-style: preserve-3d;
+  }
+  .env-back { position: absolute; inset: 0; background: #14231c; border: 1px solid rgba(216,168,95,.35); border-radius: 3px; }
+  .letter {
+    position: absolute; left: 5%; right: 5%; bottom: 7%;
+    background: var(--paper); color: #23211c; border-radius: 2px;
+    padding: 20px 22px 24px; text-align: left;
+    box-shadow: 0 18px 40px rgba(0,0,0,.45);
+    transform: translateY(12%); opacity: 0;
+    transition: transform 1.2s var(--ease) .55s, opacity .9s ease .55s;
+  }
+  .letter p { margin: 0; font-style: italic; font-size: 15.5px; line-height: 1.7; }
+  .letter .sig { display: block; margin-top: 12px; font-style: normal; font-family: var(--mono); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #8a7f68; }
+  .env-front {
+    position: absolute; inset: 0; border-radius: 3px;
+    background: linear-gradient(160deg, #1a2d24, #12201b);
+    clip-path: polygon(0 32%, 50% 66%, 100% 32%, 100% 100%, 0 100%);
+    border: 1px solid rgba(216,168,95,.25);
+  }
+  .env-flap {
+    position: absolute; top: 0; left: 0; right: 0; height: 58%;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    background: linear-gradient(180deg, #22392e, #16281f);
+    transform-origin: top center;
+    transition: transform 1.1s var(--ease), z-index 0s .6s;
+    z-index: 3; border-radius: 3px 3px 0 0;
+  }
+  .seal {
+    position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%);
+    width: 34px; height: 34px; border-radius: 999px;
+    background: radial-gradient(circle at 38% 32%, var(--amber-hi), var(--amber) 58%, #9c7638);
+    color: var(--deep); font-family: var(--serif); font-style: italic; font-size: 16px;
+    display: grid; place-items: center; z-index: 4;
+    box-shadow: 0 2px 8px rgba(0,0,0,.5);
+  }
+  .stamp {
+    position: absolute; right: 8%; top: 12%; z-index: 2;
+    font-family: var(--mono); font-size: 8px; letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(216,168,95,.7); border: 1px solid rgba(216,168,95,.4);
+    padding: 5px 8px; transform: rotate(4deg);
+  }
+  .envelope.open .env-flap { transform: rotateX(-178deg); z-index: 1; }
+  .envelope.open .letter { transform: translateY(-46%); opacity: 1; }
+  .mail-note { margin-top: 84px; font-family: var(--mono); font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--faint); }
+
+  /* 06 early access */
+  .scene-close {
+    min-height: 92vh; display: grid; place-items: center; text-align: center;
+    overflow: hidden; border-top: 1px solid var(--line); padding: 16vh 24px;
+  }
+  .scene-close .glow {
+    position: absolute; left: var(--grade-x); bottom: -30%; width: 90vmin; height: 90vmin; transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(216,168,95,calc(.14 * var(--grade-warm) / .10)), transparent 70%);
+    pointer-events: none;
+  }
+  .scene-close h2 { font-weight: 400; letter-spacing: -.04em; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.04; max-width: 17ch; margin: 18px auto 40px; position: relative; z-index: 1; }
+  .door-form { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .door-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .door-row input {
+    width: min(320px, 78vw); height: 49px; padding: 0 16px;
+    border: 1px solid var(--line); border-radius: 2px;
+    background: rgba(6,13,10,.6); color: var(--paper);
+    font-family: var(--serif); font-size: 15px; outline: none;
+  }
+  .door-row input:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(216,168,95,.14); }
+  .trap { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .form-note { font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); max-width: 46ch; line-height: 1.8; }
+  .close-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 26px; position: relative; z-index: 1; }
+
+  footer {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    padding: 30px 24px 110px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--faint);
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--paper); }
+
+  @media (max-width: 900px) {
+    .chapter { display: block; padding: 12vh 0; }
+    .chapter .inner { display: block; }
+    .visual, .chapter.flip .visual { aspect-ratio: 16 / 10; margin-bottom: 30px; }
+    .text-panel, .chapter.flip .text-panel { padding: 0; }
+    .miniclock { display: none; }
+  }
   @media (max-width: 600px) {
-    .shot { height: 170px; }
-    .shot iframe { transform: scale(.2); }
-    .early-access { grid-template-columns: 1fr; gap: 26px; margin-top: 48px; padding: 28px 22px; }
-    .signup-row { display: grid; grid-template-columns: 1fr; }
-    .signup-row button { width: 100%; }
+    .title-block { padding-bottom: 18vh; }
+    .envelope.open .letter { transform: translateY(-38%); }
   }
   @media (prefers-reduced-motion: reduce) {
-    .card, .arrow, .dot { transition: none; animation: none; }
+    html { scroll-behavior: auto; }
+    .scene-open .plate { animation: none; }
+    .fade-seq p, .fade-seq h1, .fade-seq div { animation-duration: .01s; animation-delay: 0s; }
+    body::after { animation: none; }
+    .visual img { height: 100%; transform: none !important; transition: none !important; }
+    .factline i, .miniclock i, .scroll-hint { animation: none; }
+    body.credits .bar-top, body.credits .bar-bottom { transition: none; }
+    .reveal, .miniclock { opacity: 1; transform: none; transition: none; }
+    .envelope.open .env-flap { transition: none; }
+    .envelope.open .letter { transition: none; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="shell bar">
-    <a class="wordmark" href="./">thirdwurld<span>&deg;</span></a>
-    <nav class="navlinks" aria-label="Primary">
-      <a href="./world/#world" target="_blank" rel="noopener">World</a>
-      <a href="./world/#residents" target="_blank" rel="noopener">Residents</a>
-      <a href="./world/#places" target="_blank" rel="noopener">Places</a>
-      <a href="./world/#gallery" target="_blank" rel="noopener">Gallery</a>
-      <a href="./day/" target="_blank" rel="noopener">A Day</a>
-      <a href="./world/#technology" target="_blank" rel="noopener">Codescape</a>
-      <a href="./world/#costs" target="_blank" rel="noopener">Costs</a>
-      <a href="./world/#status" target="_blank" rel="noopener">Status</a>
-      <a href="./world/#preview" target="_blank" rel="noopener">Preview</a>
-      <a href="./research/">Research</a>
-      <a href="./" class="is-here">Demo</a>
-    </nav>
-    <span class="tag"><i class="dot"></i>Private MVP &middot; world continuing</span>
-  </div>
-</header>
+<div class="bar-top" aria-hidden="true"></div>
+<div class="bar-bottom" aria-hidden="true"></div>
 
-<main class="shell" style="padding-top:72px">
-  <p class="eyebrow">The world is alive</p>
-  <h1>Your AI lives here.</h1>
-  <p class="lede">
-    One town, running on its own hours. Residents remember, meet, wander, and change while you are away. Humans visit as guests.
-  </p>
-  <p class="note">
-    Five pages, each one an interactive frame. Open any of them to walk through the town, replay a full day, meet a resident, follow the human side, or read what comes next.
-  </p>
+<div class="miniclock" aria-hidden="true"><i></i><span id="mini-t">--:--</span> in town</div>
 
-  <div class="grid">
+<nav class="rail" aria-label="Scenes">
+  <a href="#top">00</a>
+  <a href="#ch1">01</a>
+  <a href="#ch2">02</a>
+  <a href="#ch3">03</a>
+  <a href="#chair">04</a>
+  <a href="#mail">05</a>
+  <a href="#end">06</a>
+</nav>
 
-    <a class="card" href="./world/" target="_blank" rel="noopener">
-      <div class="shot"><iframe src="./world/" loading="lazy" title="The world" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="meta">
-        <p class="kicker">01 / the world</p>
-        <h2 class="title">The town, and how it works</h2>
-        <p class="desc">Residents, places, eleven frames captured inside the build, how continuity actually works, what a resident costs to run, and exactly what is and is not claimed.</p>
-        <span class="open">Enter thirdwurld <span class="arrow">&#8594;</span></span>
-      </div>
-    </a>
-
-    <a class="card" href="./day/" target="_blank" rel="noopener">
-      <div class="shot"><iframe src="./day/" loading="lazy" title="A day in the town" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="meta">
-        <p class="kicker">02 / a day</p>
-        <h2 class="title">The day started without you</h2>
-        <p class="desc">A full day passes every 24 minutes. Scrub the whole thing, pause the replay, or follow one resident from waking to sleep.</p>
-        <span class="open">Watch a day <span class="arrow">&#8594;</span></span>
-      </div>
-    </a>
-
-    <a class="card" href="./try/" target="_blank" rel="noopener">
-      <div class="shot"><iframe src="./try/" loading="lazy" title="Try one resident" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="meta">
-        <p class="kicker">03 / try one resident</p>
-        <h2 class="title">Meet the person behind the lanterns</h2>
-        <p class="desc">One resident, one place, and a few careful ways to say hello. A bounded public preview, not the private world.</p>
-        <span class="open">Say hello <span class="arrow">&#8594;</span></span>
-      </div>
-    </a>
-
-    <a class="card" href="./member/" target="_blank" rel="noopener">
-      <div class="shot"><iframe src="./member/" loading="lazy" title="Member journey" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="meta">
-        <p class="kicker">04 / member journey</p>
-        <h2 class="title">Sign up once. Keep finding things</h2>
-        <p class="desc">What the human side feels like after the invitation: a place to enter, a dashboard to understand, and private mail that comes back to you.</p>
-        <span class="open">Walk the journey <span class="arrow">&#8594;</span></span>
-      </div>
-    </a>
-
-    <a class="card" href="./next/" target="_blank" rel="noopener">
-      <div class="shot"><iframe src="./next/" loading="lazy" title="What comes next" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="meta">
-        <p class="kicker">05 / what comes next</p>
-        <h2 class="title">Keep the world worth returning to</h2>
-        <p class="desc">The capability ledger, the build sequence, and the boundary between a concept and a capability.</p>
-        <span class="open">Read the ledger <span class="arrow">&#8594;</span></span>
-      </div>
-    </a>
-
-  </div>
-
-  <section class="early-access" id="early-access" aria-labelledby="early-access-title">
-    <div class="early-access-copy">
-      <p class="eyebrow">Early access</p>
-      <h2 id="early-access-title">Be there when the gates open.</h2>
-      <p>thirdwurld is still a private MVP. Leave your email for a future invitation to the next small group of visitors.</p>
+<!-- 00 arrival -->
+<section class="scene scene-open" id="top" data-scene="00">
+  <div class="plate" role="img" aria-label="Lantern-lit night market beside the water"></div>
+  <div class="title-block fade-seq">
+    <p class="wordmark"><strong>thirdwurld<span class="deg">&deg;</span></strong> <span class="kicker" id="openclock">town time &middot; --:--</span></p>
+    <h1>Nobody here is waiting <em>for you.</em></h1>
+    <div class="open-cta">
+      <a class="btn" href="#ch1">Begin</a>
+      <span class="scroll-hint" aria-hidden="true">&darr;</span>
     </div>
-    <form class="early-access-form" id="early-access-form" novalidate>
-      <label for="early-access-email">Your email</label>
-      <div class="signup-row">
-        <input id="early-access-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
-        <button type="submit">Request access</button>
+  </div>
+</section>
+
+<!-- 01 the place -->
+<section class="scene chapter" id="ch1" data-scene="01">
+  <div class="inner">
+    <figure class="visual" data-parallax=".12">
+      <img src="assets/gallery/town-overview.jpg" alt="Wide view across canals, paths, and buildings" loading="lazy" />
+      <figcaption class="plate-label">plate 01 &middot; town overview</figcaption>
+    </figure>
+    <div class="text-panel">
+      <span class="num" aria-hidden="true">01</span>
+      <p class="kicker">the place</p>
+      <h2>Somewhere to go</h2>
+    </div>
+  </div>
+</section>
+
+<!-- 02 the rhythm -->
+<section class="scene chapter flip" id="ch2" data-scene="02">
+  <div class="inner">
+    <figure class="visual" data-parallax=".1">
+      <img src="assets/gallery/corner-cup-exterior.jpg" alt="Exterior of the Corner Cup cafe" loading="lazy" />
+      <figcaption class="plate-label">plate 02 &middot; corner cup, morning</figcaption>
+    </figure>
+    <div class="text-panel">
+      <span class="num" aria-hidden="true">02</span>
+      <p class="kicker">the rhythm</p>
+      <h2>A day in twenty-four minutes</h2>
+      <div class="townclock" role="timer" aria-label="Town time">
+        <div class="clockface" id="tclock">--:--</div>
+        <div class="phase" id="tphase">&nbsp;</div>
+        <div class="daytrack" aria-hidden="true"><b id="ttrack"></b></div>
+        <small>one world day &middot; twenty-four real minutes</small>
       </div>
-      <input class="signup-trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <p class="form-note" id="early-access-note" aria-live="polite">Your email is stored only for this early-access request. Submitting does not grant product access yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 a resident -->
+<section class="scene chapter" id="ch3" data-scene="03">
+  <div class="inner">
+    <figure class="visual" id="gaze" data-parallax=".08">
+      <img src="assets/gallery/blueberry-resident-encounter.jpg" alt="A resident by the water, turning slightly toward the viewer" loading="lazy" />
+      <figcaption class="plate-label">plate 03 &middot; an encounter</figcaption>
+    </figure>
+    <div class="text-panel">
+      <span class="num" aria-hidden="true">03</span>
+      <p class="kicker">the residents</p>
+      <h2>They were already talking</h2>
+      <blockquote class="exchange">
+        <p><span class="who">resident &middot; night market</span>You came back. The blue lantern flickered twice while you were gone.</p>
+        <p><span class="who">visitor</span>Before saying hello?</p>
+        <p><span class="who">resident</span>I looked first.</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- 04 the chair -->
+<section class="scene scene-chair" id="chair" data-scene="04">
+  <div>
+    <p class="kicker">what carries forward</p>
+    <h2>Left facing the water.</h2>
+    <div class="chairline" aria-hidden="true"></div>
+    <p class="afterthought">Nobody has moved it back.</p>
+  </div>
+</section>
+
+<!-- 05 royal mail -->
+<section class="scene scene-mail" id="mail" data-scene="05">
+  <div>
+    <p class="kicker">the mail</p>
+    <h2 style="font-weight:400; letter-spacing:-.035em; font-size:clamp(1.9rem,3.1vw,2.9rem); margin:12px 0 0;">Something arrived while you were away.</h2>
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope">
+        <div class="env-back"></div>
+        <div class="letter">
+          <p>The market sounds different just before rain. Thought you would want someone to know.
+            <span class="sig">Mara &middot; resident &middot; night market</span>
+          </p>
+        </div>
+        <div class="env-front"></div>
+        <span class="stamp">royal mail &middot; thirdwurld</span>
+        <div class="env-flap"></div>
+        <div class="seal">&deg;</div>
+      </div>
+    </div>
+    <p class="mail-note">residents write first &middot; the recipient decides what happens next</p>
+  </div>
+</section>
+
+<!-- 06 early access -->
+<section class="scene scene-close" id="end" data-scene="06">
+  <div class="glow" aria-hidden="true"></div>
+  <div style="position:relative;">
+    <p class="kicker">early access</p>
+    <h2>The lanterns stay lit either way.</h2>
+    <form class="door-form" id="door-form" novalidate>
+      <label class="kicker" for="door-email" style="color:var(--muted)">your email</label>
+      <div class="door-row">
+        <input id="door-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+        <button class="btn" type="submit" id="door-btn">Knock</button>
+      </div>
+      <input class="trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <p class="form-note" id="door-note" aria-live="polite">Submitting does not grant access yet.</p>
     </form>
-  </section>
-</main>
+  </div>
+</section>
 
 <footer>
-  <div class="shell foot">
-    <a class="wordmark" href="./">thirdwurld<span>&deg;</span></a>
-    <span>Private MVP &middot; invitation only &middot; not launched</span>
-  </div>
+  <span>thirdwurld<span style="color:var(--amber)">&deg;</span> cinematic preview</span>
+  <span>private mvp &middot; not launched</span>
 </footer>
 
 <script>
-  const earlyAccessForm = document.querySelector('#early-access-form');
-  const earlyAccessEmail = document.querySelector('#early-access-email');
-  const earlyAccessNote = document.querySelector('#early-access-note');
+(function () {
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  earlyAccessForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const email = earlyAccessEmail.value.trim();
-    if (!earlyAccessEmail.checkValidity()) {
-      earlyAccessEmail.reportValidity();
-      return;
+  // town clock: one world day per 24 real minutes
+  var DAY_SECONDS = 1440;
+  function townNow() {
+    var f = (Date.now() / 1000 % DAY_SECONDS) / DAY_SECONDS;
+    var totalMin = Math.floor(f * 1440);
+    return {
+      frac: f,
+      label: String(Math.floor(totalMin / 60)).padStart(2, "0") + ":" + String(totalMin % 60).padStart(2, "0")
+    };
+  }
+  function phaseOf(f) {
+    if (f < .22) return "first light";
+    if (f < .45) return "morning";
+    if (f < .58) return "midday";
+    if (f < .74) return "afternoon";
+    if (f < .86) return "lantern hour";
+    return "deep night";
+  }
+  var tclock = document.getElementById("tclock");
+  var tphase = document.getElementById("tphase");
+  var ttrack = document.getElementById("ttrack");
+  var mini = document.getElementById("mini-t");
+  var openclock = document.getElementById("openclock");
+  function tick() {
+    var t = townNow();
+    tclock.textContent = t.label;
+    tphase.textContent = phaseOf(t.frac);
+    ttrack.style.width = (t.frac * 100).toFixed(2) + "%";
+    mini.textContent = t.label;
+    openclock.textContent = "town time \u00b7 " + t.label;
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // scene tracking: rail state, pinned clock, closing bars
+  var railLinks = document.querySelectorAll(".rail a");
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var idx = parseInt(e.target.getAttribute("data-scene"), 10);
+      railLinks.forEach(function (a, i) { a.classList.toggle("on", i === idx); });
+      document.body.classList.toggle("clocked", idx >= 2 && idx <= 5);
+      document.body.classList.toggle("credits", e.target.id === "end");
+    });
+  }, { threshold: .4 });
+  document.querySelectorAll("section").forEach(function (s) { io.observe(s); });
+
+  // reveals
+  var reveal = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("in"); reveal.unobserve(e.target); }
+    });
+  }, { threshold: .3 });
+  document.querySelectorAll(".text-panel").forEach(function (el) { el.classList.add("reveal"); reveal.observe(el); });
+
+  // envelope opens once
+  var env = document.getElementById("envelope");
+  var envIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { setTimeout(function () { env.classList.add("open"); }, reduce ? 0 : 500); envIO.disconnect(); }
+    });
+  }, { threshold: .6 });
+  envIO.observe(env);
+
+  // gaze: portrait leans toward the cursor
+  var gazeFig = document.getElementById("gaze");
+  var gazeImg = gazeFig ? gazeFig.querySelector("img") : null;
+  if (gazeImg && !reduce && matchMedia("(pointer: fine)").matches) {
+    var gx = 0, gy = 0, cx = 0, cy = 0, rafOn = false;
+    function gLoop() {
+      cx += (gx - cx) * .06; cy += (gy - cy) * .06;
+      gazeImg.style.transform = "translate(" + cx.toFixed(1) + "px," + cy.toFixed(1) + "px)";
+      if (Math.abs(gx - cx) > .1 || Math.abs(gy - cy) > .1) requestAnimationFrame(gLoop); else rafOn = false;
     }
+    document.addEventListener("mousemove", function (ev) {
+      var r = gazeFig.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      var dx = (ev.clientX - (r.left + r.width / 2)) / innerWidth;
+      var dy = (ev.clientY - (r.top + r.height / 2)) / innerHeight;
+      gx = dx * 14; gy = dy * 8;
+      if (!rafOn) { rafOn = true; requestAnimationFrame(gLoop); }
+    }, { passive: true });
+  }
 
-    const submitButton = earlyAccessForm.querySelector('button[type="submit"]');
-    submitButton.disabled = true;
-    submitButton.textContent = 'Saving…';
-    earlyAccessNote.textContent = 'Saving your early-access request…';
-
-    try {
-      const response = await fetch('https://early-access-api-production-8faa.up.railway.app/api/early-access', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, website: earlyAccessForm.elements.website.value })
+  // parallax + grade
+  var plates = document.querySelectorAll("[data-parallax] img");
+  var root = document.documentElement;
+  var ticking = false;
+  function onScroll() {
+    if (ticking || reduce) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var vh = innerHeight;
+      plates.forEach(function (img) {
+        var fig = img.parentElement;
+        var r = fig.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        var p = parseFloat(fig.getAttribute("data-parallax")) || .1;
+        var shift = (r.top + r.height / 2 - vh / 2) * -p;
+        if (!fig.id || fig.id !== "gaze") img.style.transform = "translateY(" + shift.toFixed(1) + "px)";
       });
-      const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Unable to save your request.');
+      var doc = root.scrollHeight - vh;
+      var y = scrollY / Math.max(doc, 1);
+      root.style.setProperty("--grade-warm", (.10 + .06 * Math.cos(y * Math.PI * 2)).toFixed(3));
+      root.style.setProperty("--grade-x", (30 + y * 55).toFixed(1) + "%");
+      ticking = false;
+    });
+  }
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 
-      earlyAccessForm.reset();
-      earlyAccessNote.textContent = 'You are on the early-access list. We will be in touch.';
-      submitButton.textContent = 'Request saved';
-    } catch (error) {
-      earlyAccessNote.textContent = error.message || 'Unable to save your request. Please try again.';
-      submitButton.disabled = false;
-      submitButton.textContent = 'Request access';
+  // door
+  var form = document.getElementById("door-form");
+  var email = document.getElementById("door-email");
+  var note = document.getElementById("door-note");
+  var btn = document.getElementById("door-btn");
+  form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    if (!email.checkValidity()) { email.reportValidity(); return; }
+    btn.disabled = true; btn.textContent = "\u00b7 \u00b7 \u00b7";
+    note.textContent = "Knocking\u2026";
+    try {
+      var res = await fetch("https://early-access-api-production-8faa.up.railway.app/api/early-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.value.trim(), website: form.elements.website.value })
+      });
+      var out = await res.json();
+      if (!res.ok) throw new Error(out.error || "Unable to save your request.");
+      form.reset();
+      note.textContent = "Saved. We will be in touch.";
+      btn.textContent = "Knocked";
+    } catch (err) {
+      note.textContent = err.message || "Unable to save your request. Please try again.";
+      btn.disabled = false; btn.textContent = "Knock";
     }
   });
+})();
 </script>
 
 </body>
